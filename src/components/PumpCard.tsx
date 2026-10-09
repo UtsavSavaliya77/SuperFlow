@@ -23,7 +23,7 @@ export const PumpCard: React.FC<PumpCardProps> = ({ pump }) => {
   const cardImage = getPumpImage(pump);
 
   return (
-    <div className="bg-white rounded-[28px] border border-slate-200/90 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_45px_rgba(220,38,38,0.12)] hover:border-red-400/80 transition-all duration-300 flex flex-col justify-between overflow-hidden group relative hover:-translate-y-1">
+    <div className="bg-white rounded-[28px] border-2 border-slate-300 hover:border-red-500 shadow-sm hover:shadow-[0_20px_45px_rgba(220,38,38,0.12)] transition-all duration-300 flex flex-col justify-between overflow-hidden group relative hover:-translate-y-1">
       
       {/* Top Floating Badge Bar */}
       <div className="p-4 pb-2.5 flex items-center justify-between gap-2 z-10">
@@ -45,16 +45,16 @@ export const PumpCard: React.FC<PumpCardProps> = ({ pump }) => {
         <img
           src={cardImage}
           alt={pump.model}
-          className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-700 brightness-90"
+          className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-700 brightness-95"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent pointer-events-none" />
 
         {/* Bottom Floating Metadata on Visual */}
         <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-white text-[11px] font-bold">
-          <span className="bg-black/60 backdrop-blur-md px-2.5 py-0.5 rounded-md border border-white/10 text-slate-200">
-            {pump.category} {pump.category === 'Openwell' ? 'Submersible' : 'Borewell'}
+          <span className="bg-sky-950/80 backdrop-blur-md px-2.5 py-0.5 rounded-md border border-sky-400/30 text-sky-200 flex items-center gap-1">
+            <Droplet className="w-3 h-3 text-sky-400" />
+            <span>{pump.category} {pump.category === 'Openwell' ? 'Submersible' : 'Borewell'}</span>
           </span>
-          <span className="bg-black/60 backdrop-blur-md px-2.5 py-0.5 rounded-md border border-white/10 text-red-300 font-mono">
+          <span className="bg-black/70 backdrop-blur-md px-2.5 py-0.5 rounded-md border border-white/10 text-red-300 font-mono">
             {pump.phase}
           </span>
         </div>
@@ -84,7 +84,7 @@ export const PumpCard: React.FC<PumpCardProps> = ({ pump }) => {
         <div className="grid grid-cols-3 gap-2 bg-slate-50 p-2.5 rounded-2xl border border-slate-200/80 text-center">
           {/* Head */}
           <div className="space-y-0.5 border-r border-slate-200 pr-1">
-            <span className="text-[9px] uppercase font-black text-slate-400 tracking-wider block">
+            <span className="text-[9px] uppercase font-black text-sky-600 tracking-wider block">
               Head Range
             </span>
             <span className="font-black text-slate-900 text-xs block truncate font-mono">
@@ -94,7 +94,7 @@ export const PumpCard: React.FC<PumpCardProps> = ({ pump }) => {
 
           {/* Flow */}
           <div className="space-y-0.5 border-r border-slate-200 px-1">
-            <span className="text-[9px] uppercase font-black text-slate-400 tracking-wider block">
+            <span className="text-[9px] uppercase font-black text-sky-600 tracking-wider block">
               Max Flow
             </span>
             <span className="font-black text-slate-900 text-xs block truncate font-mono">
@@ -104,7 +104,7 @@ export const PumpCard: React.FC<PumpCardProps> = ({ pump }) => {
 
           {/* Stages */}
           <div className="space-y-0.5 pl-1">
-            <span className="text-[9px] uppercase font-black text-slate-400 tracking-wider block">
+            <span className="text-[9px] uppercase font-black text-emerald-600 tracking-wider block">
               Stages
             </span>
             <span className="font-black text-slate-900 text-xs block truncate font-mono">
@@ -115,11 +115,11 @@ export const PumpCard: React.FC<PumpCardProps> = ({ pump }) => {
 
         {/* Engineering Badges */}
         <div className="flex items-center gap-2 text-[11px] text-slate-600 font-semibold pt-0.5">
-          <div className="flex items-center gap-1 text-emerald-700 bg-emerald-50 border border-emerald-200/70 px-2 py-0.5 rounded-md text-[10px] font-bold">
+          <div className="flex items-center gap-1 text-emerald-700 bg-emerald-50 border border-emerald-200/80 px-2 py-0.5 rounded-md text-[10px] font-bold">
             <CheckCircle2 className="w-3 h-3 text-emerald-600 shrink-0" />
             <span>99.9% EC Copper</span>
           </div>
-          <div className="flex items-center gap-1 text-sky-700 bg-sky-50 border border-sky-200/70 px-2 py-0.5 rounded-md text-[10px] font-bold">
+          <div className="flex items-center gap-1 text-sky-700 bg-sky-50 border border-sky-200/80 px-2 py-0.5 rounded-md text-[10px] font-bold">
             <Activity className="w-3 h-3 text-sky-600 shrink-0" />
             <span>Balanced Rotor</span>
           </div>

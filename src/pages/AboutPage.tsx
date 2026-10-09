@@ -22,28 +22,26 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { WhatsAppButton } from '../components/WhatsAppButton';
-import BorderGlow from '../components/BorderGlow';
 import RevealOnScroll from '../components/RevealOnScroll';
 
 export const AboutPage: React.FC = () => {
   return (
-    <div className="space-y-12 sm:space-y-16 pb-20">
+    <div className="space-y-16 sm:space-y-20 lg:space-y-24 pb-16 sm:pb-20 lg:pb-24">
       
       {/* Full-Bleed Cinematic Hero Header Section */}
       <section className="relative bg-[#080d16] text-white border-b border-slate-800 overflow-hidden w-full">
-        {/* Background Image with Cinematic Dark Gradient Overlay */}
+        {/* Background Image with Solid Dark Overlay */}
         <img
           src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=2000&q=80"
           alt="Royal Manufacture Submersible Pumps Factory"
           className="absolute inset-0 w-full h-full object-cover object-center opacity-25 pointer-events-none"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#080d16] via-[#080d16]/85 to-transparent pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#080d16] via-transparent to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-[#080d16]/85 pointer-events-none" />
 
-        {/* Glowing Top Accent Line flush with fixed header */}
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-red-600 via-red-500 to-red-600 shadow-[0_0_12px_rgba(220,38,38,0.8)]" />
+        {/* Top Accent Line flush with fixed header */}
+        <div className="absolute top-0 left-0 right-0 h-1 bg-red-600 shadow-[0_0_12px_rgba(220,38,38,0.8)]" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 lg:py-16 relative z-10 space-y-4 max-w-3xl">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 relative z-10 space-y-4 max-w-3xl">
           {/* Breadcrumb Navigation */}
           <nav className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-400">
             <Link to="/" className="hover:text-red-400 transition-colors">Home</Link>
@@ -70,7 +68,7 @@ export const AboutPage: React.FC = () => {
         
         {/* Top Header & Story Block */}
         <RevealOnScroll animation="fade-up">
-          <div className="bg-white rounded-[32px] p-7 sm:p-10 lg:p-12 border border-slate-200 shadow-[0_10px_35px_rgba(0,0,0,0.03)] relative overflow-hidden">
+          <div className="bg-white rounded-[32px] p-6 sm:p-8 lg:p-10 border border-slate-200 shadow-[0_10px_35px_rgba(0,0,0,0.03)] relative overflow-hidden">
             
             {/* Top line accent */}
             <div className="absolute top-0 left-0 right-0 h-1.5 bg-red-600" />
@@ -159,10 +157,7 @@ export const AboutPage: React.FC = () => {
         <div className="space-y-8">
           <RevealOnScroll animation="fade-up">
             <div className="text-center max-w-2xl mx-auto space-y-3">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-red-50 text-red-600 border border-red-200/70 text-[11px] font-black uppercase tracking-wider">
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>Foundational Philosophy</span>
-              </div>
+             
               <h3 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
                 Our Core Principles
               </h3>
@@ -176,17 +171,7 @@ export const AboutPage: React.FC = () => {
             
             {/* Principle 1: Vision */}
             <RevealOnScroll animation="fade-up" delay={0} className="h-full">
-              <BorderGlow
-                edgeSensitivity={30}
-                glowColor="0 85 55"
-                backgroundColor="#ffffff"
-                borderRadius={28}
-                glowRadius={35}
-                glowIntensity={1.2}
-                coneSpread={28}
-                colors={['#ef4444', '#dc2626', '#b91c1c']}
-                className="h-full"
-              >
+              <div className="h-full bg-white rounded-[28px] border-2 border-slate-300 hover:border-red-500 transition-all duration-300 shadow-sm hover:shadow-lg overflow-hidden flex flex-col justify-between">
                 <div className="flex flex-col justify-between h-full p-7 sm:p-8 space-y-6 relative overflow-hidden group">
                   {/* Top Accent Strip */}
                   <div className="absolute top-0 left-0 right-0 h-1.5 bg-red-600" />
@@ -240,22 +225,12 @@ export const AboutPage: React.FC = () => {
                     <span className="text-slate-400 font-medium text-xs">Since 2000</span>
                   </div>
                 </div>
-              </BorderGlow>
+              </div>
             </RevealOnScroll>
 
             {/* Principle 2: Priority */}
             <RevealOnScroll animation="fade-up" delay={100} className="h-full">
-              <BorderGlow
-                edgeSensitivity={30}
-                glowColor="150 85 45"
-                backgroundColor="#ffffff"
-                borderRadius={28}
-                glowRadius={35}
-                glowIntensity={1.2}
-                coneSpread={28}
-                colors={['#10b981', '#059669', '#047857']}
-                className="h-full"
-              >
+              <div className="h-full bg-white rounded-[28px] border-2 border-slate-300 hover:border-red-500 transition-all duration-300 shadow-sm hover:shadow-lg overflow-hidden flex flex-col justify-between">
                 <div className="flex flex-col justify-between h-full p-7 sm:p-8 space-y-6 relative overflow-hidden group">
                   {/* Top Accent Strip */}
                   <div className="absolute top-0 left-0 right-0 h-1.5 bg-emerald-600" />
@@ -309,22 +284,12 @@ export const AboutPage: React.FC = () => {
                     <span className="text-slate-400 font-medium text-xs">ISO & BIS Standards</span>
                   </div>
                 </div>
-              </BorderGlow>
+              </div>
             </RevealOnScroll>
 
             {/* Principle 3: In-House Manufacturing */}
             <RevealOnScroll animation="fade-up" delay={200} className="h-full">
-              <BorderGlow
-                edgeSensitivity={30}
-                glowColor="200 85 50"
-                backgroundColor="#ffffff"
-                borderRadius={28}
-                glowRadius={35}
-                glowIntensity={1.2}
-                coneSpread={28}
-                colors={['#0ea5e9', '#0284c7', '#0369a1']}
-                className="h-full"
-              >
+              <div className="h-full bg-white rounded-[28px] border-2 border-slate-300 hover:border-red-500 transition-all duration-300 shadow-sm hover:shadow-lg overflow-hidden flex flex-col justify-between">
                 <div className="flex flex-col justify-between h-full p-7 sm:p-8 space-y-6 relative overflow-hidden group">
                   {/* Top Accent Strip */}
                   <div className="absolute top-0 left-0 right-0 h-1.5 bg-sky-600" />
@@ -378,7 +343,7 @@ export const AboutPage: React.FC = () => {
                     <span className="text-slate-400 font-medium text-xs">Rajkot, Gujarat</span>
                   </div>
                 </div>
-              </BorderGlow>
+              </div>
             </RevealOnScroll>
 
           </div>
@@ -519,190 +484,183 @@ export const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Certifications Overview Redesigned with Non-White Background */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-[#080d16] text-white rounded-[32px] p-8 px-4 md:px-8 border border-slate-800 shadow-2xl relative overflow-hidden space-y-8">
-          <RevealOnScroll animation="fade-up">
-            <div className="relative z-10 text-center max-w-3xl mx-auto space-y-3">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-500/15 text-red-300 border border-red-500/30 text-[11px] font-black uppercase tracking-wider backdrop-blur-sm">
-                <Award className="w-3.5 h-3.5 text-red-400" />
-                <span>Official Accreditations</span>
+      {/* Certifications Overview */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        <RevealOnScroll animation="fade-up">
+          <div className="text-center max-w-3xl mx-auto space-y-3">
+            <h2 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
+              Certified Standards & Approvals
+            </h2>
+            <p className="text-slate-600 text-xs sm:text-sm font-normal">
+              Rigorous national and international benchmark compliances guaranteeing electrical safety, hydraulic efficiency, and long lifespan.
+            </p>
+          </div>
+        </RevealOnScroll>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          {/* Card 1: ISO 9001 */}
+          <RevealOnScroll animation="zoom-in" delay={0}>
+            <div className="bg-[#080d16] text-white rounded-[28px] p-6 sm:p-7 border border-slate-800/90 hover:border-red-500/60 shadow-xl transition-all duration-300 flex flex-col justify-between space-y-5 relative overflow-hidden group h-full">
+              <div className="absolute top-0 left-0 right-0 h-1 bg-red-600 opacity-0 group-hover:opacity-100 transition-opacity" />
+              
+              <div className="space-y-4">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="w-12 h-12 rounded-2xl bg-red-950/40 border border-red-900/50 flex items-center justify-center text-red-400 group-hover:scale-105 transition-transform">
+                    <ShieldCheck className="w-6 h-6" />
+                  </div>
+                  <span className="px-2.5 py-1 rounded-full text-[10px] font-black bg-red-950/50 text-red-300 border border-red-900/60">
+                    Certified Quality
+                  </span>
+                </div>
+
+                <div className="space-y-1">
+                  <h3 className="text-lg font-black text-white group-hover:text-red-400 transition-colors">
+                    ISO 9001:2008
+                  </h3>
+                  <p className="text-xs font-bold text-slate-300">
+                    Quality Management Certification
+                  </p>
+                  <p className="text-[11px] font-medium text-slate-400">
+                    International Organization for Standardization
+                  </p>
+                </div>
               </div>
-              <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
-                Certified Standards & Approvals
-              </h2>
-              <p className="text-slate-300 text-xs sm:text-sm font-normal">
-                Rigorous national and international benchmark compliances guaranteeing electrical safety, hydraulic efficiency, and long lifespan.
-              </p>
+
+              <div className="pt-3 border-t border-slate-800/80 flex items-center gap-1.5 text-[11px] font-bold text-slate-400">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                <span>Standard Audited & Verified</span>
+              </div>
             </div>
           </RevealOnScroll>
 
-          <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            
-            {/* Card 1: ISO 9001 */}
-            <RevealOnScroll animation="zoom-in" delay={0}>
-              <div className="bg-[#080d16] text-white rounded-[28px] p-6 sm:p-7 border border-slate-800/90 hover:border-red-500/60 shadow-xl transition-all duration-300 flex flex-col justify-between space-y-5 relative overflow-hidden group h-full">
-                <div className="absolute top-0 left-0 right-0 h-1 bg-red-600 opacity-0 group-hover:opacity-100 transition-opacity" />
-                
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between gap-2">
-                    <div className="w-12 h-12 rounded-2xl bg-red-950/40 border border-red-900/50 flex items-center justify-center text-red-400 group-hover:scale-105 transition-transform">
-                      <ShieldCheck className="w-6 h-6" />
-                    </div>
-                    <span className="px-2.5 py-1 rounded-full text-[10px] font-black bg-red-950/50 text-red-300 border border-red-900/60">
-                      Certified Quality
-                    </span>
+          {/* Card 2: IS: 8034 (Borewell) */}
+          <RevealOnScroll animation="zoom-in" delay={80}>
+            <div className="bg-[#080d16] text-white rounded-[28px] p-6 sm:p-7 border border-slate-800/90 hover:border-sky-500/60 shadow-xl transition-all duration-300 flex flex-col justify-between space-y-5 relative overflow-hidden group h-full">
+              <div className="absolute top-0 left-0 right-0 h-1 bg-sky-600 opacity-0 group-hover:opacity-100 transition-opacity" />
+              
+              <div className="space-y-4">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="w-12 h-12 rounded-2xl bg-sky-950/40 border border-sky-900/50 flex items-center justify-center text-sky-400 group-hover:scale-105 transition-transform">
+                    <Award className="w-6 h-6" />
                   </div>
+                  <span className="px-2.5 py-1 rounded-full text-[10px] font-black bg-sky-950/50 text-sky-300 border border-sky-900/60">
+                    ISI Mark
+                  </span>
+                </div>
 
-                  <div className="space-y-1">
-                    <h3 className="text-lg font-black text-white group-hover:text-red-400 transition-colors">
-                      ISO 9001:2008
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <h3 className="text-lg font-black text-white group-hover:text-sky-400 transition-colors">
+                      IS: 8034
                     </h3>
-                    <p className="text-xs font-bold text-slate-300">
-                      Quality Management Certification
-                    </p>
-                    <p className="text-[11px] font-medium text-slate-400">
-                      International Organization for Standardization
-                    </p>
-                  </div>
-                </div>
-
-                <div className="pt-3 border-t border-slate-800/80 flex items-center gap-1.5 text-[11px] font-bold text-slate-400">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                  <span>Standard Audited & Verified</span>
-                </div>
-              </div>
-            </RevealOnScroll>
-
-            {/* Card 2: IS: 8034 (Borewell) */}
-            <RevealOnScroll animation="zoom-in" delay={80}>
-              <div className="bg-[#080d16] text-white rounded-[28px] p-6 sm:p-7 border border-slate-800/90 hover:border-sky-500/60 shadow-xl transition-all duration-300 flex flex-col justify-between space-y-5 relative overflow-hidden group h-full">
-                <div className="absolute top-0 left-0 right-0 h-1 bg-sky-600 opacity-0 group-hover:opacity-100 transition-opacity" />
-                
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between gap-2">
-                    <div className="w-12 h-12 rounded-2xl bg-sky-950/40 border border-sky-900/50 flex items-center justify-center text-sky-400 group-hover:scale-105 transition-transform">
-                      <Award className="w-6 h-6" />
-                    </div>
-                    <span className="px-2.5 py-1 rounded-full text-[10px] font-black bg-sky-950/50 text-sky-300 border border-sky-900/60">
-                      ISI Mark
+                    <span className="font-mono text-[10px] font-bold px-2 py-0.5 rounded bg-white/10 text-sky-300 border border-white/15">
+                      CM/L 7637668
                     </span>
                   </div>
-
-                  <div className="space-y-1">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <h3 className="text-lg font-black text-white group-hover:text-sky-400 transition-colors">
-                        IS: 8034
-                      </h3>
-                      <span className="font-mono text-[10px] font-bold px-2 py-0.5 rounded bg-white/10 text-sky-300 border border-white/15">
-                        CM/L 7637668
-                      </span>
-                    </div>
-                    <p className="text-xs font-bold text-slate-300">
-                      Borewell Submersible Pump Sets
-                    </p>
-                    <p className="text-[11px] font-medium text-slate-400">
-                      Bureau of Indian Standards (BIS)
-                    </p>
-                  </div>
-                </div>
-
-                <div className="pt-3 border-t border-slate-800/80 flex items-center gap-1.5 text-[11px] font-bold text-slate-400">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                  <span>Govt. of India BIS Licensed</span>
+                  <p className="text-xs font-bold text-slate-300">
+                    Borewell Submersible Pump Sets
+                  </p>
+                  <p className="text-[11px] font-medium text-slate-400">
+                    Bureau of Indian Standards (BIS)
+                  </p>
                 </div>
               </div>
-            </RevealOnScroll>
 
-            {/* Card 3: IS: 14220 (Openwell) */}
-            <RevealOnScroll animation="zoom-in" delay={160}>
-              <div className="bg-[#080d16] text-white rounded-[28px] p-6 sm:p-7 border border-slate-800/90 hover:border-emerald-500/60 shadow-xl transition-all duration-300 flex flex-col justify-between space-y-5 relative overflow-hidden group h-full">
-                <div className="absolute top-0 left-0 right-0 h-1 bg-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity" />
-                
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between gap-2">
-                    <div className="w-12 h-12 rounded-2xl bg-emerald-950/40 border border-emerald-900/50 flex items-center justify-center text-emerald-400 group-hover:scale-105 transition-transform">
-                      <Droplet className="w-6 h-6" />
-                    </div>
-                    <span className="px-2.5 py-1 rounded-full text-[10px] font-black bg-emerald-950/50 text-emerald-300 border border-emerald-900/60">
-                      ISI Mark
-                    </span>
-                  </div>
-
-                  <div className="space-y-1">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <h3 className="text-lg font-black text-white group-hover:text-emerald-400 transition-colors">
-                        IS: 14220
-                      </h3>
-                      <span className="font-mono text-[10px] font-bold px-2 py-0.5 rounded bg-white/10 text-emerald-300 border border-white/15">
-                        CM/L 7600101706
-                      </span>
-                    </div>
-                    <p className="text-xs font-bold text-slate-300">
-                      Openwell Submersible Pump Sets
-                    </p>
-                    <p className="text-[11px] font-medium text-slate-400">
-                      Bureau of Indian Standards (BIS)
-                    </p>
-                  </div>
-
-                </div>
-
-                <div className="pt-3 border-t border-slate-800/80 flex items-center gap-1.5 text-[11px] font-bold text-slate-400">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                  <span>Govt. of India BIS Licensed</span>
-                </div>
+              <div className="pt-3 border-t border-slate-800/80 flex items-center gap-1.5 text-[11px] font-bold text-slate-400">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                <span>Govt. of India BIS Licensed</span>
               </div>
-            </RevealOnScroll>
-
-            {/* Card 4: CE Compliance */}
-            <RevealOnScroll animation="zoom-in" delay={240}>
-              <div className="bg-[#080d16] text-white rounded-[28px] p-6 sm:p-7 border border-slate-800/90 hover:border-amber-500/60 shadow-xl transition-all duration-300 flex flex-col justify-between space-y-5 relative overflow-hidden group h-full">
-                <div className="absolute top-0 left-0 right-0 h-1 bg-amber-500 opacity-0 group-hover:opacity-100 transition-opacity" />
-                
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between gap-2">
-                    <div className="w-12 h-12 rounded-2xl bg-amber-950/40 border border-amber-900/50 flex items-center justify-center text-amber-400 group-hover:scale-105 transition-transform">
-                      <Sparkles className="w-6 h-6" />
-                    </div>
-                    <span className="px-2.5 py-1 rounded-full text-[10px] font-black bg-amber-950/50 text-amber-300 border border-amber-900/60">
-                      CE Certified
-                    </span>
-                  </div>
-
-                  <div className="space-y-1">
-                    <h3 className="text-lg font-black text-white group-hover:text-amber-400 transition-colors">
-                      CE Compliance
-                    </h3>
-                    <p className="text-xs font-bold text-slate-300">
-                      European Conformity Standards
-                    </p>
-                    <p className="text-[11px] font-medium text-slate-400">
-                      CE European Directives
-                    </p>
-                  </div>
-                </div>
-
-                <div className="pt-3 border-t border-slate-800/80 flex items-center gap-1.5 text-[11px] font-bold text-slate-400">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                  <span>International Safety Compliant</span>
-                </div>
-              </div>
-            </RevealOnScroll>
-
-          </div>
-
-          {/* Accreditation Trust Summary Strip */}
-          <div className="relative z-10 bg-white/5 border border-white/10 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-bold text-slate-300">
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-              <span>100% Quality Assurance Tested on Computerized Load Test Benches in Rajkot, Gujarat</span>
             </div>
-            <span className="text-[11px] font-black text-red-300 bg-red-500/15 border border-red-500/30 px-3 py-1 rounded-full uppercase tracking-wider shrink-0">
-              Royal Manufacture Certified
-            </span>
-          </div>
+          </RevealOnScroll>
 
+          {/* Card 3: IS: 14220 (Openwell) */}
+          <RevealOnScroll animation="zoom-in" delay={160}>
+            <div className="bg-[#080d16] text-white rounded-[28px] p-6 sm:p-7 border border-slate-800/90 hover:border-emerald-500/60 shadow-xl transition-all duration-300 flex flex-col justify-between space-y-5 relative overflow-hidden group h-full">
+              <div className="absolute top-0 left-0 right-0 h-1 bg-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity" />
+              
+              <div className="space-y-4">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="w-12 h-12 rounded-2xl bg-emerald-950/40 border border-emerald-900/50 flex items-center justify-center text-emerald-400 group-hover:scale-105 transition-transform">
+                    <Droplet className="w-6 h-6" />
+                  </div>
+                  <span className="px-2.5 py-1 rounded-full text-[10px] font-black bg-emerald-950/50 text-emerald-300 border border-emerald-900/60">
+                    ISI Mark
+                  </span>
+                </div>
+
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <h3 className="text-lg font-black text-white group-hover:text-emerald-400 transition-colors">
+                      IS: 14220
+                    </h3>
+                    <span className="font-mono text-[10px] font-bold px-2 py-0.5 rounded bg-white/10 text-emerald-300 border border-white/15">
+                      CM/L 7600101706
+                    </span>
+                  </div>
+                  <p className="text-xs font-bold text-slate-300">
+                    Openwell Submersible Pump Sets
+                  </p>
+                  <p className="text-[11px] font-medium text-slate-400">
+                    Bureau of Indian Standards (BIS)
+                  </p>
+                </div>
+
+              </div>
+
+              <div className="pt-3 border-t border-slate-800/80 flex items-center gap-1.5 text-[11px] font-bold text-slate-400">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                <span>Govt. of India BIS Licensed</span>
+              </div>
+            </div>
+          </RevealOnScroll>
+
+          {/* Card 4: CE Compliance */}
+          <RevealOnScroll animation="zoom-in" delay={240}>
+            <div className="bg-[#080d16] text-white rounded-[28px] p-6 sm:p-7 border border-slate-800/90 hover:border-amber-500/60 shadow-xl transition-all duration-300 flex flex-col justify-between space-y-5 relative overflow-hidden group h-full">
+              <div className="absolute top-0 left-0 right-0 h-1 bg-amber-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+              
+              <div className="space-y-4">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="w-12 h-12 rounded-2xl bg-amber-950/40 border border-amber-900/50 flex items-center justify-center text-amber-400 group-hover:scale-105 transition-transform">
+                    <Sparkles className="w-6 h-6" />
+                  </div>
+                  <span className="px-2.5 py-1 rounded-full text-[10px] font-black bg-amber-950/50 text-amber-300 border border-amber-900/60">
+                    CE Certified
+                  </span>
+                </div>
+
+                <div className="space-y-1">
+                  <h3 className="text-lg font-black text-white group-hover:text-amber-400 transition-colors">
+                    CE Compliance
+                  </h3>
+                  <p className="text-xs font-bold text-slate-300">
+                    European Conformity Standards
+                  </p>
+                  <p className="text-[11px] font-medium text-slate-400">
+                    CE European Directives
+                  </p>
+                </div>
+              </div>
+
+              <div className="pt-3 border-t border-slate-800/80 flex items-center gap-1.5 text-[11px] font-bold text-slate-400">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                <span>International Safety Compliant</span>
+              </div>
+            </div>
+          </RevealOnScroll>
+
+        </div>
+
+        {/* Accreditation Trust Summary Strip */}
+        <div className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/90 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-bold text-slate-700">
+          <div className="flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+            <span>100% Quality Assurance Tested on Computerized Load Test Benches in Rajkot, Gujarat</span>
+          </div>
+          <span className="text-[11px] font-black text-red-600 bg-red-50 border border-red-200/80 px-3 py-1 rounded-full uppercase tracking-wider shrink-0">
+            Royal Manufacture Certified
+          </span>
         </div>
       </section>
     </div>

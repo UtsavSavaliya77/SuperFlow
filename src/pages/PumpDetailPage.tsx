@@ -78,7 +78,7 @@ export const PumpDetailPage: React.FC = () => {
   ).slice(0, 3);
 
   return (
-    <div className="py-8 sm:py-12 space-y-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="space-y-16 sm:space-y-20 lg:space-y-24 pb-16 sm:pb-20 lg:pb-24 pt-6 sm:pt-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       {/* Breadcrumb Navigation & Back Button */}
       <div className="flex flex-wrap items-center justify-between gap-4">
@@ -106,8 +106,8 @@ export const PumpDetailPage: React.FC = () => {
       {/* Main Hero Showcase Banner */}
       <RevealOnScroll animation="fade-up">
         <div className="bg-[#080d16] rounded-[36px] p-6 sm:p-10 lg:p-12 text-white border border-slate-800 shadow-2xl relative overflow-hidden">
-          {/* Glowing Top Accent Line */}
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-red-600 via-red-500 to-red-600 shadow-[0_0_12px_rgba(220,38,38,0.8)]" />
+          {/* Top Accent Line */}
+          <div className="absolute top-0 left-0 right-0 h-1 bg-red-600 shadow-[0_0_12px_rgba(220,38,38,0.8)]" />
           
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             
@@ -120,7 +120,6 @@ export const PumpDetailPage: React.FC = () => {
                     alt={pump.model}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent pointer-events-none" />
                 </div>
 
                 <div className="space-y-2">
@@ -150,7 +149,7 @@ export const PumpDetailPage: React.FC = () => {
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
                 <div className="bg-white/10 backdrop-blur-md rounded-2xl p-3.5 border border-white/10 text-center">
                   <span className="text-[10px] uppercase font-bold text-slate-400 block tracking-wider">Rated Power</span>
-                  <span className="text-base sm:text-lg font-black text-white mt-0.5 block">{pump.hp} HP ({pump.kw} kW)</span>
+                  <span className="text-base sm:text-lg font-black text-amber-400 mt-0.5 block">{pump.hp} HP ({pump.kw} kW)</span>
                 </div>
 
                 <div className="bg-white/10 backdrop-blur-md rounded-2xl p-3.5 border border-white/10 text-center">
@@ -159,12 +158,12 @@ export const PumpDetailPage: React.FC = () => {
                 </div>
 
                 <div className="bg-white/10 backdrop-blur-md rounded-2xl p-3.5 border border-white/10 text-center">
-                  <span className="text-[10px] uppercase font-bold text-slate-400 block tracking-wider">Operating Head</span>
-                  <span className="text-base sm:text-lg font-black text-red-400 mt-0.5 block">{pump.headRange || 'Standard'}</span>
+                  <span className="text-[10px] uppercase font-bold text-sky-300 block tracking-wider">Operating Head</span>
+                  <span className="text-base sm:text-lg font-black text-sky-400 mt-0.5 block">{pump.headRange || 'Standard'}</span>
                 </div>
 
                 <div className="bg-white/10 backdrop-blur-md rounded-2xl p-3.5 border border-white/10 text-center">
-                  <span className="text-[10px] uppercase font-bold text-slate-400 block tracking-wider">Discharge Flow</span>
+                  <span className="text-[10px] uppercase font-bold text-emerald-300 block tracking-wider">Discharge Flow</span>
                   <span className="text-base sm:text-lg font-black text-emerald-400 mt-0.5 block">{pump.dischargeRange || 'High Flow'}</span>
                 </div>
               </div>

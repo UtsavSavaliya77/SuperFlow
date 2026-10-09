@@ -36,23 +36,22 @@ export const ContactPage: React.FC = () => {
   };
 
   return (
-    <div className="space-y-12 sm:space-y-16 pb-20">
+    <div className="space-y-16 sm:space-y-20 lg:space-y-24 pb-16 sm:pb-20 lg:pb-24">
       
       {/* Full-Bleed Cinematic Hero Header Section */}
       <section className="relative bg-[#080d16] text-white border-b border-slate-800 overflow-hidden w-full">
-        {/* Background Image with Cinematic Dark Gradient Overlay */}
+        {/* Background Image with Solid Dark Overlay */}
         <img
           src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2000&q=80"
           alt="Royal Manufacture SuperFlow Corporate Headquarters & Plant"
           className="absolute inset-0 w-full h-full object-cover object-center opacity-25 pointer-events-none"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#080d16] via-[#080d16]/85 to-transparent pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#080d16] via-transparent to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-[#080d16]/85 pointer-events-none" />
 
-        {/* Glowing Top Accent Line flush with fixed header */}
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-red-600 via-red-500 to-red-600 shadow-[0_0_12px_rgba(220,38,38,0.8)]" />
+        {/* Top Accent Line flush with fixed header */}
+        <div className="absolute top-0 left-0 right-0 h-1 bg-red-600 shadow-[0_0_12px_rgba(220,38,38,0.8)]" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 lg:py-16 relative z-10 space-y-4 max-w-3xl">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 relative z-10 space-y-4 max-w-3xl">
           {/* Breadcrumb Navigation */}
           <nav className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-400">
             <Link to="/" className="hover:text-red-400 transition-colors">Home</Link>
@@ -76,11 +75,11 @@ export const ContactPage: React.FC = () => {
 
       {/* Main Content Area */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-stretch">
           {/* Contact Info & Factory Location */}
           <div className="lg:col-span-5 h-full">
             <RevealOnScroll animation="fade-right" className="h-full">
-              <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6 h-full flex flex-col justify-between">
+              <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-7 lg:p-9 border border-slate-200 shadow-sm space-y-6 h-full flex flex-col justify-between">
                 <div>
                   <h3 className="text-xl font-black text-slate-900 mb-6">
                     Factory & Headquarters
@@ -161,7 +160,7 @@ export const ContactPage: React.FC = () => {
           {/* Inquiry Form */}
           <div className="lg:col-span-7 h-full">
             <RevealOnScroll animation="fade-left" className="h-full">
-              <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6 h-full">
+              <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-7 lg:p-9 border border-slate-200 shadow-sm space-y-6 h-full">
                 <div>
                   <span className="text-red-600 font-black text-xs uppercase tracking-widest block mb-1">
                     Direct Submission

@@ -143,8 +143,8 @@ const SECTOR_DRAWERS: SectorDrawer[] = [
     subtitle: 'Factory Cooling Towers, Heavy Mine Dewatering & Construction Basements',
     badge: 'SS304 Investment Casting Bowls',
     icon: Factory,
-    iconColor: 'text-violet-600',
-    iconBg: 'bg-violet-50',
+    iconColor: 'text-red-600',
+    iconBg: 'bg-red-50',
     image: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1000&q=80',
     desc: 'Heavy-duty stainless steel and cast iron pump sets engineered to handle severe mechanical stress, abrasive particles, and massive continuous discharge volumes under high dynamic pressures up to 434 meters.',
     headRange: '12m – 434m (40 - 1424 Ft)',
@@ -170,8 +170,8 @@ const SECTOR_DRAWERS: SectorDrawer[] = [
     subtitle: 'Municipal Parks, Decorative Water Fountains & Community Sumps',
     badge: '100% Self-Priming Submerged',
     icon: Trees,
-    iconColor: 'text-teal-600',
-    iconBg: 'bg-teal-50',
+    iconColor: 'text-sky-600',
+    iconBg: 'bg-sky-50',
     image: 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=1000&q=80',
     desc: 'Submerged openwell and vertical pump systems that operate completely underwater, eliminating external priming hassles, suction piping air locks, and above-ground mechanical motor noise in public recreation spaces.',
     headRange: '10m – 54m (30 - 180 Ft)',
@@ -225,23 +225,22 @@ export const ApplicationsPage: React.FC = () => {
   };
 
   return (
-    <div className="space-y-12 sm:space-y-16 pb-24">
+    <div className="space-y-16 sm:space-y-20 lg:space-y-24 pb-16 sm:pb-20 lg:pb-24">
       
       {/* Full-Bleed Cinematic Hero Header Section */}
       <section className="relative bg-[#080d16] text-white border-b border-slate-800 overflow-hidden w-full">
-        {/* Background Image with Cinematic Dark Gradient Overlay */}
+        {/* Background Image with Solid Dark Overlay */}
         <img
           src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=2000&q=80"
           alt="SuperFlow Submersible Pumps Agricultural & Industrial Applications"
           className="absolute inset-0 w-full h-full object-cover object-center opacity-25 pointer-events-none"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#080d16] via-[#080d16]/85 to-transparent pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#080d16] via-transparent to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-[#080d16]/85 pointer-events-none" />
 
-        {/* Glowing Top Accent Line flush with fixed header */}
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-red-600 via-red-500 to-red-600 shadow-[0_0_12px_rgba(220,38,38,0.8)]" />
+        {/* Top Accent Line flush with fixed header */}
+        <div className="absolute top-0 left-0 right-0 h-1 bg-red-600 shadow-[0_0_12px_rgba(220,38,38,0.8)]" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 lg:py-16 relative z-10 space-y-4 max-w-3xl">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 relative z-10 space-y-4 max-w-3xl">
           {/* Breadcrumb Navigation */}
           <nav className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-400">
             <Link to="/" className="hover:text-red-400 transition-colors">Home</Link>
@@ -264,20 +263,42 @@ export const ApplicationsPage: React.FC = () => {
       </section>
 
       {/* Main Expandable Accordion Workplace */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         
         {/* Accordion Controls Bar */}
         <RevealOnScroll animation="fade-up">
-          <div className="flex items-center justify-between flex-wrap gap-4 bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <div className="flex items-center justify-between flex-wrap gap-4 bg-white p-4 sm:p-5 rounded-[24px] border border-slate-200 shadow-sm">
             <div className="flex items-center gap-2">
               <span className="text-xs font-black uppercase tracking-wider text-slate-900 flex items-center gap-1.5 pl-1">
                 <Droplet className="w-4 h-4 text-red-600" />
                 5 Industry Sectors
               </span>
-              
+              <span className="text-xs text-slate-400 hidden sm:inline">|</span>
+              <span className="text-xs text-slate-600 font-medium hidden sm:inline">
+                Select any sector to inspect full hydraulic specs & pump compatibility
+              </span>
             </div>
 
-           
+            {/* Quick Sector Select Pills */}
+            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
+              {SECTOR_DRAWERS.map((s) => {
+                const isSelected = activeDrawerId === s.id;
+                return (
+                  <button
+                    key={s.id}
+                    type="button"
+                    onClick={() => handlePillClick(s.id)}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                      isSelected
+                        ? 'bg-red-600 text-white shadow-sm'
+                        : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+                    }`}
+                  >
+                    {s.num}. {s.title.split('&')[0].trim()}
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </RevealOnScroll>
 
@@ -512,11 +533,7 @@ export const ApplicationsPage: React.FC = () => {
               
               {/* Left Narrative & 4 Technical Feature Pills (7 cols) */}
               <div className="lg:col-span-7 space-y-5">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-red-500/10 text-red-400 border border-red-500/25 text-[11px] font-black uppercase tracking-wider">
-                  <Sparkles className="w-3.5 h-3.5 text-red-500" />
-                  <span>Free Factory Hydraulic Consultation</span>
-                </div>
-
+              
                 <div className="space-y-2">
                   <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight">
                     Need Exact Hydraulic Sizing for Your Site?

@@ -144,7 +144,7 @@ export const Navbar: React.FC = () => {
           </div>
 
           {/* Main Navigation Links List - Compact & Non-Scrollable */}
-          <div className="px-4 py-2 flex-1 flex flex-col justify-center space-y-1 overflow-hidden">
+          <div className="px-4 py-2 flex-1 flex flex-col space-y-1 overflow-hidden">
             <div className="text-[10px] font-black uppercase tracking-widest text-slate-400 px-3 pb-0.5">
               Navigation Menu
             </div>

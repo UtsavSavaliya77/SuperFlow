@@ -23,7 +23,7 @@ export const Footer: React.FC = () => {
   return (
     <footer className="bg-slate-100 text-slate-600 relative overflow-hidden border-t border-slate-200 shadow-[0_-10px_40px_rgba(0,0,0,0.03)]">
       {/* Main Footer Grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
           
           {/* Col 1: Brand & Factory Details (4 cols) */}

@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { WhatsAppButton } from '../components/WhatsAppButton';
-import BorderGlow from '../components/BorderGlow';
 import RevealOnScroll from '../components/RevealOnScroll';
 import { 
   ShieldCheck, 
@@ -180,6 +179,18 @@ const QUALITY_STANDARDS_LIST: QualityStandardItem[] = [
 export const QualityPage: React.FC = () => {
   const [selectedCert, setSelectedCert] = useState<QualityStandardItem | null>(null);
 
+  // Lock body scroll on mobile/desktop when certificate lightbox is open
+  useEffect(() => {
+    if (selectedCert) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [selectedCert]);
+
   const testingSteps = [
     {
       step: '01',
@@ -248,23 +259,22 @@ export const QualityPage: React.FC = () => {
   ];
 
   return (
-    <div className="space-y-12 sm:space-y-16 pb-24">
+    <div className="space-y-16 sm:space-y-20 lg:space-y-24 pb-16 sm:pb-20 lg:pb-24">
       
       {/* Full-Bleed Cinematic Hero Header Section */}
       <section className="relative bg-[#080d16] text-white border-b border-slate-800 overflow-hidden w-full">
-        {/* Background Image with Cinematic Dark Gradient Overlay */}
+        {/* Background Image with Solid Dark Overlay */}
         <img
           src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=2000&q=80"
           alt="SuperFlow Quality Testing and ISO Certification Facility"
           className="absolute inset-0 w-full h-full object-cover object-center opacity-25 pointer-events-none"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#080d16] via-[#080d16]/85 to-transparent pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#080d16] via-transparent to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-[#080d16]/85 pointer-events-none" />
 
-        {/* Glowing Top Accent Line flush with fixed header */}
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-red-600 via-red-500 to-red-600 shadow-[0_0_12px_rgba(220,38,38,0.8)]" />
+        {/* Top Accent Line flush with fixed header */}
+        <div className="absolute top-0 left-0 right-0 h-1 bg-red-600 shadow-[0_0_12px_rgba(220,38,38,0.8)]" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 lg:py-16 relative z-10 space-y-4 max-w-3xl">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 relative z-10 space-y-4 max-w-3xl">
           {/* Breadcrumb Navigation */}
           <nav className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-400">
             <Link to="/" className="hover:text-red-400 transition-colors">Home</Link>
@@ -298,10 +308,7 @@ export const QualityPage: React.FC = () => {
           <RevealOnScroll animation="fade-up">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
               <div className="space-y-2">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 text-red-600 border border-red-200 text-[11px] font-black uppercase tracking-wider">
-                  <BadgeCheck className="w-3.5 h-3.5 text-red-600" />
-                  <span>Verified Accreditations & BIS Certifications</span>
-                </div>
+                
                 <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight">
                   Recognized Quality Standards
                 </h2>
@@ -328,17 +335,7 @@ export const QualityPage: React.FC = () => {
 
               return (
                 <RevealOnScroll key={item.id} animation="zoom-in" delay={idx * 80} className="h-full">
-                  <BorderGlow
-                    edgeSensitivity={30}
-                    glowColor={item.glowColor}
-                    backgroundColor="#ffffff"
-                    borderRadius={24}
-                    glowRadius={32}
-                    glowIntensity={1.2}
-                    coneSpread={28}
-                    colors={item.colors}
-                    className="h-full"
-                  >
+                  <div className="h-full bg-white rounded-[24px] border-2 border-slate-300 hover:border-red-500 transition-all duration-300 shadow-sm hover:shadow-lg overflow-hidden flex flex-col justify-between">
                     <div 
                       onClick={() => setSelectedCert(item)}
                       className="flex flex-col justify-between h-full p-5 space-y-4 relative overflow-hidden group cursor-pointer"
@@ -411,7 +408,7 @@ export const QualityPage: React.FC = () => {
                       </div>
 
                     </div>
-                  </BorderGlow>
+                  </div>
                 </RevealOnScroll>
               );
             })}
@@ -428,10 +425,7 @@ export const QualityPage: React.FC = () => {
           <RevealOnScroll animation="fade-up">
             <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
               <div className="max-w-2xl space-y-3">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-red-50 text-red-600 border border-red-200 text-[11px] font-black uppercase tracking-wider">
-                  <Sparkles className="w-3.5 h-3.5 text-red-600" />
-                  <span>Zero Defect Manufacturing Protocol</span>
-                </div>
+                
                 <h2 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
                   Our 4-Stage Submerged Quality Audit
                 </h2>
@@ -466,17 +460,7 @@ export const QualityPage: React.FC = () => {
 
               return (
                 <RevealOnScroll key={idx} animation="fade-up" delay={idx * 90} className="h-full">
-                  <BorderGlow
-                    edgeSensitivity={30}
-                    glowColor={step.glowColor}
-                    backgroundColor="#ffffff"
-                    borderRadius={28}
-                    glowRadius={32}
-                    glowIntensity={1.2}
-                    coneSpread={28}
-                    colors={step.colors}
-                    className="h-full"
-                  >
+                  <div className="h-full bg-white rounded-[28px] border-2 border-slate-300 hover:border-red-500 transition-all duration-300 shadow-sm hover:shadow-lg overflow-hidden flex flex-col justify-between">
                     <div className="flex flex-col justify-between h-full p-6 sm:p-7 space-y-6 relative overflow-hidden group">
                       {/* Top Accent Strip */}
                       <div className={`absolute top-0 left-0 right-0 h-1.5 ${step.accentStrip}`} />
@@ -533,7 +517,7 @@ export const QualityPage: React.FC = () => {
                       </div>
 
                     </div>
-                  </BorderGlow>
+                  </div>
                 </RevealOnScroll>
               );
             })}
@@ -553,11 +537,7 @@ export const QualityPage: React.FC = () => {
               
               {/* Left Narrative & 4 Technical Feature Pills (7 cols) */}
               <div className="lg:col-span-7 space-y-5">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-red-500/10 text-red-400 border border-red-500/25 text-[11px] font-black uppercase tracking-wider">
-                  <Sparkles className="w-3.5 h-3.5 text-red-500" />
-                  <span>Free Factory Hydraulic Consultation</span>
-                </div>
-
+                
                 <div className="space-y-2">
                   <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight">
                     Need Exact Hydraulic Sizing for Your Site?
@@ -607,32 +587,32 @@ export const QualityPage: React.FC = () => {
         </RevealOnScroll>
       </div>
 
-      {/* Interactive Certificate Lightbox Modal */}
+      {/* Interactive Certificate Lightbox Modal Optimized for Small & Large Screens */}
       {selectedCert && (
         <div 
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-950/80 backdrop-blur-md animate-fade-in"
+          className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 md:p-6 bg-slate-950/85 backdrop-blur-md animate-fade-in"
           onClick={() => setSelectedCert(null)}
         >
           <div 
-            className="bg-white rounded-3xl max-w-4xl w-full max-h-[92vh] overflow-hidden shadow-2xl border border-slate-200 flex flex-col relative"
+            className="bg-white rounded-2xl sm:rounded-3xl max-w-4xl w-full max-h-[96vh] sm:max-h-[90vh] overflow-hidden shadow-2xl border border-slate-200 flex flex-col relative"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header Bar */}
-            <div className="bg-[#080d16] text-white px-6 py-4 flex items-center justify-between border-b border-slate-800 shrink-0">
-              <div className="flex items-center gap-3">
-                <div className={`w-9 h-9 rounded-xl ${selectedCert.iconBg} ${selectedCert.iconColor} flex items-center justify-center font-bold`}>
-                  {React.createElement(selectedCert.icon, { className: "w-5 h-5" })}
+            <div className="bg-[#080d16] text-white px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between border-b border-slate-800 shrink-0 gap-3">
+              <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
+                <div className={`w-8 h-8 sm:w-9 sm:h-9 rounded-xl ${selectedCert.iconBg} ${selectedCert.iconColor} flex items-center justify-center font-bold shrink-0`}>
+                  {React.createElement(selectedCert.icon, { className: "w-4 h-4 sm:w-5 sm:h-5" })}
                 </div>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs font-black uppercase text-red-400">
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-1.5 sm:gap-2">
+                    <span className="text-[11px] sm:text-xs font-black uppercase text-red-400 font-mono">
                       {selectedCert.code}
                     </span>
-                    <span className="text-[10px] bg-red-950/80 border border-red-800 text-red-300 px-2 py-0.5 rounded-full font-bold">
+                    <span className="text-[9px] sm:text-[10px] bg-red-950/80 border border-red-800 text-red-300 px-2 py-0.5 rounded-full font-bold truncate">
                       {selectedCert.badge}
                     </span>
                   </div>
-                  <h3 className="text-sm sm:text-base font-bold text-white truncate max-w-md">
+                  <h3 className="text-xs sm:text-base font-bold text-white truncate">
                     {selectedCert.fullName}
                   </h3>
                 </div>
@@ -641,54 +621,54 @@ export const QualityPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setSelectedCert(null)}
-                className="w-9 h-9 rounded-full bg-slate-800 hover:bg-red-600 text-slate-300 hover:text-white flex items-center justify-center transition-colors cursor-pointer shrink-0"
+                className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-slate-800 hover:bg-red-600 text-slate-300 hover:text-white flex items-center justify-center transition-colors cursor-pointer shrink-0"
                 aria-label="Close certificate preview"
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
             </div>
 
             {/* Modal Scrollable Body */}
-            <div className="p-6 sm:p-8 overflow-y-auto space-y-6 flex-1 bg-slate-50">
+            <div className="p-3.5 sm:p-6 md:p-8 overflow-y-auto space-y-4 sm:space-y-6 flex-1 bg-slate-50">
               
               {/* High-Resolution Certificate Document Display */}
-              <div className="bg-slate-950 rounded-2xl p-2 sm:p-4 shadow-xl border border-slate-300 max-w-3xl mx-auto flex items-center justify-center">
+              <div className="bg-slate-950 rounded-xl sm:rounded-2xl p-1.5 sm:p-4 shadow-md border border-slate-300 max-w-3xl mx-auto flex items-center justify-center">
                 <img 
                   src={selectedCert.image} 
                   alt={`${selectedCert.fullName} Official Certificate Document`}
-                  className="w-full h-auto max-h-[58vh] object-contain rounded-lg"
+                  className="w-full h-auto max-h-[38vh] sm:max-h-[52vh] object-contain rounded-lg"
                 />
               </div>
 
               {/* Verification & License Details Table */}
-              <div className="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200 shadow-xs space-y-4">
-                <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-slate-400">
-                  <BadgeCheck className="w-4 h-4 text-emerald-600" />
+              <div className="bg-white rounded-xl sm:rounded-2xl p-3.5 sm:p-5 border border-slate-200 shadow-xs space-y-3 sm:space-y-4">
+                <div className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs font-black uppercase tracking-wider text-slate-400">
+                  <BadgeCheck className="w-4 h-4 text-emerald-600 shrink-0" />
                   <span>Accreditation Verification & Metadata</span>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-xs">
-                  <div className="bg-slate-50 p-3 rounded-xl border border-slate-100 space-y-0.5">
-                    <span className="text-[10px] uppercase font-bold text-slate-400 block">Licence / Reg No.</span>
-                    <span className="font-mono font-bold text-slate-900 text-xs block">{selectedCert.licenseNo}</span>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 text-xs">
+                  <div className="bg-slate-50 p-2.5 sm:p-3 rounded-xl border border-slate-100 space-y-0.5">
+                    <span className="text-[9px] sm:text-[10px] uppercase font-bold text-slate-400 block truncate">Licence / Reg No.</span>
+                    <span className="font-mono font-bold text-slate-900 text-[11px] sm:text-xs block truncate">{selectedCert.licenseNo}</span>
                   </div>
 
-                  <div className="bg-slate-50 p-3 rounded-xl border border-slate-100 space-y-0.5">
-                    <span className="text-[10px] uppercase font-bold text-slate-400 block">Issuing Authority</span>
-                    <span className="font-bold text-slate-900 text-xs block truncate">{selectedCert.issuer}</span>
+                  <div className="bg-slate-50 p-2.5 sm:p-3 rounded-xl border border-slate-100 space-y-0.5">
+                    <span className="text-[9px] sm:text-[10px] uppercase font-bold text-slate-400 block truncate">Issuing Authority</span>
+                    <span className="font-bold text-slate-900 text-[11px] sm:text-xs block truncate">{selectedCert.issuer}</span>
                   </div>
 
-                  <div className="bg-slate-50 p-3 rounded-xl border border-slate-100 space-y-0.5">
-                    <span className="text-[10px] uppercase font-bold text-slate-400 block">Standard Status</span>
-                    <span className="font-bold text-emerald-600 text-xs block flex items-center gap-1">
-                      <CheckCircle2 className="w-3 h-3" />
-                      {selectedCert.validity}
+                  <div className="bg-slate-50 p-2.5 sm:p-3 rounded-xl border border-slate-100 space-y-0.5">
+                    <span className="text-[9px] sm:text-[10px] uppercase font-bold text-slate-400 block truncate">Standard Status</span>
+                    <span className="font-bold text-emerald-600 text-[11px] sm:text-xs block flex items-center gap-1 truncate">
+                      <CheckCircle2 className="w-3 h-3 shrink-0" />
+                      <span className="truncate">{selectedCert.validity}</span>
                     </span>
                   </div>
 
-                  <div className="bg-slate-50 p-3 rounded-xl border border-slate-100 space-y-0.5">
-                    <span className="text-[10px] uppercase font-bold text-slate-400 block">Audited Plant</span>
-                    <span className="font-bold text-slate-900 text-xs block">Padvala, Rajkot</span>
+                  <div className="bg-slate-50 p-2.5 sm:p-3 rounded-xl border border-slate-100 space-y-0.5">
+                    <span className="text-[9px] sm:text-[10px] uppercase font-bold text-slate-400 block truncate">Audited Plant</span>
+                    <span className="font-bold text-slate-900 text-[11px] sm:text-xs block truncate">Padvala, Rajkot</span>
                   </div>
                 </div>
               </div>
@@ -696,30 +676,30 @@ export const QualityPage: React.FC = () => {
             </div>
 
             {/* Modal Footer Controls */}
-            <div className="bg-white px-6 py-4 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
+            <div className="bg-white px-4 sm:px-6 py-3 sm:py-4 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-2.5 sm:gap-3 shrink-0">
               <a 
                 href={selectedCert.image} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-xs font-bold text-slate-600 hover:text-red-600 flex items-center gap-1.5 transition-colors"
+                className="text-[11px] sm:text-xs font-bold text-slate-600 hover:text-red-600 flex items-center gap-1.5 transition-colors"
               >
-                <ExternalLink className="w-4 h-4" />
-                <span>Open Original Document in New Tab</span>
+                <ExternalLink className="w-3.5 h-3.5 shrink-0" />
+                <span>Open Original Document</span>
               </a>
 
-              <div className="flex items-center gap-3 w-full sm:w-auto">
+              <div className="grid grid-cols-2 sm:flex sm:items-center gap-2 sm:gap-3 w-full sm:w-auto">
                 <button
                   type="button"
                   onClick={() => setSelectedCert(null)}
-                  className="px-5 py-2.5 rounded-xl border border-slate-300 hover:bg-slate-100 text-slate-700 font-bold text-xs transition-colors cursor-pointer w-full sm:w-auto text-center"
+                  className="px-4 py-2 rounded-xl border border-slate-300 hover:bg-slate-100 text-slate-700 font-bold text-xs transition-colors cursor-pointer text-center"
                 >
                   Close
                 </button>
 
                 <WhatsAppButton
-                  text="Inquire for Tender Copy"
+                  text="Tender Copy"
                   message={`Hello SuperFlow Quality Team, I am viewing the certificate for ${selectedCert.code} (${selectedCert.licenseNo}) and require an official stamped copy for project tender compliance.`}
-                  className="text-xs py-2.5 px-4 shadow-sm w-full sm:w-auto justify-center"
+                  className="text-xs py-2 px-3 shadow-sm justify-center truncate"
                 />
               </div>
             </div>
