@@ -3,19 +3,19 @@ import { Link } from 'react-router-dom';
 import { 
   MapPin, 
   Phone, 
-  Mail, 
+  Envelope as Mail, 
   Globe, 
   ShieldCheck, 
-  Award, 
-  ChevronRight,
-  Droplet,
-  Leaf,
+  Medal as Award, 
+  CaretRight as ChevronRight,
+  Drop as Droplet,
+  Plant as Leaf,
   Clock,
-  Send,
-  Zap,
-  CheckCircle2,
+  PaperPlaneTilt as Send,
+  Lightning as Zap,
+  CheckCircle as CheckCircle2,
   ArrowUpRight
-} from 'lucide-react';
+} from '@phosphor-icons/react';
 import { COMPANY_INFO, CATEGORIES } from '../data/pumpsData';
 import { WhatsAppButton } from './WhatsAppButton';
 

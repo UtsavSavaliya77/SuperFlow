@@ -3,7 +3,7 @@
   --ag-overlay: #080d16;
   --ag-text: #ffffff;
   --ag-gap: 14px;
-  --ag-radius: 28px;
+  --ag-radius: 3px;
   --ag-media-size: 520px;
 
   display: flex;
@@ -26,7 +26,7 @@
   min-width: 0;
   min-height: 0;
   overflow: hidden;
-  border-radius: var(--ag-radius);
+  border-radius: 3px !important;
   cursor: pointer;
   display: block;
   text-decoration: none;
@@ -35,10 +35,10 @@
   transform-origin: center center;
   background: #080d16;
   border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.8);
+  box-shadow: none !important;
   will-change: flex-grow, transform;
   -webkit-tap-highlight-color: transparent;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: border-color 0.3s ease;
 }
 
 .ag-panel:hover {
@@ -47,13 +47,12 @@
 
 .ag-panel--active {
   border-color: rgba(220, 38, 38, 0.8);
-  box-shadow: 0 16px 45px -15px rgba(220, 38, 38, 0.25), 0 0 0 1px rgba(220, 38, 38, 0.4);
+  box-shadow: none !important;
 }
 
 .ag-panel:focus-visible {
-  box-shadow:
-    0 0 0 2px var(--ag-accent),
-    0 10px 30px -18px rgba(0, 0, 0, 0.8);
+  outline: 2px solid var(--ag-accent);
+  box-shadow: none !important;
 }
 
 .ag-panel__frame {
@@ -142,9 +141,7 @@
 .ag-panel__bar {
   width: 32px;
   height: 4px;
-  border-radius: 4px;
   background: var(--ag-accent);
-  box-shadow: 0 0 14px rgba(220, 38, 38, 0.8);
 }
 
 @media (max-width: 900px) {

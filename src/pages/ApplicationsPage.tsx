@@ -4,21 +4,21 @@ import { WhatsAppButton } from '../components/WhatsAppButton';
 import RevealOnScroll from '../components/RevealOnScroll';
 import { 
   ArrowRight, 
-  ChevronRight, 
-  Wheat, 
-  Building2, 
-  SunMedium, 
+  CaretRight as ChevronRight, 
+  Plant as Wheat, 
+  Buildings as Building2, 
+  Sun as SunMedium, 
   Factory, 
-  Droplet, 
-  CheckCircle2, 
+  Drop as Droplet, 
+  CheckCircle as CheckCircle2, 
   Phone, 
   Gauge, 
-  Activity, 
+  Pulse as Activity, 
   ShieldCheck, 
-  Zap, 
+  Lightning as Zap, 
   ArrowUpRight,
   SlidersHorizontal
-} from 'lucide-react';
+} from '@phosphor-icons/react';
 
 interface SectorItem {
   id: string;

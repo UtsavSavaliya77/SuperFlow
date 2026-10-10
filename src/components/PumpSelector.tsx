@@ -3,18 +3,18 @@ import { Link } from 'react-router-dom';
 import { ALL_PUMPS } from '../data/pumpsData';
 import { PumpModel } from '../types/pump';
 import { 
-  Search, 
+  MagnifyingGlass as Search, 
   Sliders, 
-  Zap, 
-  Droplet, 
+  Lightning as Zap, 
+  Drop as Droplet, 
   ArrowRight, 
-  CheckCircle2, 
-  Layers, 
-  Filter, 
+  CheckCircle as CheckCircle2, 
+  Stack as Layers, 
+  Funnel as Filter, 
   Gauge,
   Phone,
-  RotateCcw
-} from 'lucide-react';
+  ArrowCounterClockwise as RotateCcw
+} from '@phosphor-icons/react';
 import { WhatsAppButton } from './WhatsAppButton';
 
 interface PumpSelectorProps {

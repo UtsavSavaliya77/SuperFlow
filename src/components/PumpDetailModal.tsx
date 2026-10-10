@@ -2,15 +2,15 @@ import React from 'react';
 import { PumpModel } from '../types/pump';
 import { 
   X, 
-  CheckCircle2, 
-  Activity, 
-  Droplet,
+  CheckCircle as CheckCircle2, 
+  Pulse as Activity, 
+  Drop as Droplet,
   Wrench,
   Gauge,
-  Layers,
-  Zap,
-  ArrowUpCircle
-} from 'lucide-react';
+  Stack as Layers,
+  Lightning as Zap,
+  ArrowCircleUp as ArrowUpCircle
+} from '@phosphor-icons/react';
 import { WhatsAppButton } from './WhatsAppButton';
 import { getPumpImage } from '../data/pumpsData';
 

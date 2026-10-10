@@ -2,14 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { PumpModel } from '../types/pump';
 import { 
-  Zap, 
+  Lightning as Zap, 
   ArrowUpRight, 
-  Layers, 
-  Droplet, 
-  CheckCircle2, 
+  Stack as Layers, 
+  Drop as Droplet, 
+  CheckCircle as CheckCircle2, 
   FileText,
-  Activity
-} from 'lucide-react';
+  Pulse as Activity
+} from '@phosphor-icons/react';
 import { WhatsAppButton } from './WhatsAppButton';
 import { getPumpImage } from '../data/pumpsData';
 

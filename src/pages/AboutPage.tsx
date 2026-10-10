@@ -4,13 +4,13 @@ import {
   Target, 
   ShieldCheck, 
   Cpu,
-  CheckCircle2,
-  Droplet,
-  ChevronRight,
+  CheckCircle as CheckCircle2,
+  Drop as Droplet,
+  CaretRight as ChevronRight,
   Factory,
-  Zap,
-  Activity
-} from 'lucide-react';
+  Lightning as Zap,
+  Pulse as Activity
+} from '@phosphor-icons/react';
 import { Link } from 'react-router-dom';
 import { WhatsAppButton } from '../components/WhatsAppButton';
 import RevealOnScroll from '../components/RevealOnScroll';

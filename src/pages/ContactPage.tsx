@@ -4,18 +4,18 @@ import { COMPANY_INFO, CATEGORIES } from '../data/pumpsData';
 import { 
   MapPin, 
   Phone, 
-  Mail, 
-  Send, 
-  CheckCircle2, 
-  Building2,
-  ChevronRight,
+  Envelope as Mail, 
+  PaperPlaneTilt as Send, 
+  CheckCircle as CheckCircle2, 
+  Buildings as Building2,
+  CaretRight as ChevronRight,
   ShieldCheck,
-  Award,
+  Medal as Award,
   Factory,
   Check,
   Clock,
-  ExternalLink
-} from 'lucide-react';
+  ArrowSquareOut as ExternalLink
+} from '@phosphor-icons/react';
 import { WhatsAppButton } from '../components/WhatsAppButton';
 import RevealOnScroll from '../components/RevealOnScroll';
 

@@ -15,30 +15,44 @@ import AccordionGallery from '../components/AccordionGallery';
 import RevealOnScroll from '../components/RevealOnScroll';
 import { 
   ShieldCheck, 
-  Award, 
+  Medal as Award, 
   Cpu, 
-  Zap, 
+  Lightning as Zap, 
   ArrowRight, 
-  Layers, 
-  CheckCircle2, 
+  Stack as Layers, 
+  CheckCircle as CheckCircle2, 
   Gauge, 
   Factory,
-  PackageCheck,
-  Send,
-  Leaf,
-  Droplet,
-  ChevronRight,
+  Package as PackageCheck,
+  PaperPlaneTilt as Send,
+  Plant as Leaf,
+  Drop as Droplet,
+  CaretRight as ChevronRight,
   Phone,
   Check,
   SlidersHorizontal,
-  Flame,
+  Fire as Flame,
   Globe,
-  Settings,
+  Gear as Settings,
   ArrowUpRight
-} from 'lucide-react';
+} from '@phosphor-icons/react';
 
 export const HomePage: React.FC = () => {
   const [selectedPump, setSelectedPump] = useState<PumpModel | null>(null);
+  const [heroScrollProgress, setHeroScrollProgress] = useState(0);
+
+  // Scroll listener for smooth Hero fade out / fade in
+  React.useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const progress = Math.min(1, Math.max(0, scrollY / 420));
+      setHeroScrollProgress(progress);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const divisionData: Record<string, {
     id: string;
@@ -340,15 +354,15 @@ export const HomePage: React.FC = () => {
   return (
     <div className="space-y-16 sm:space-y-20 lg:space-y-24 pb-16 sm:pb-24 overflow-x-hidden w-full max-w-full">
       
-      {/* 1. Cinematic Hero Command Center */}
-      <section className="relative overflow-hidden w-full min-h-145 sm:min-h-160 flex items-center justify-center text-white border-b-2 border-red-600 bg-[#080d16]">
+      {/* 1. Fullscreen Cinematic Hero Command Center */}
+      <section className="relative overflow-hidden w-full min-h-screen h-screen flex items-center justify-start text-white border-b-2 border-red-600 bg-[#080d16]">
         {/* Background Video Layer */}
         <video
           autoPlay
           loop
           muted
           playsInline
-          className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none filter brightness-65"
+          className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none filter brightness-70 scale-105"
         >
           <source
             src="/videos/Seasonal_Layering_clean.mp4"
@@ -356,89 +370,196 @@ export const HomePage: React.FC = () => {
           />
         </video>
 
-        {/* Clean Neutral Dark Backdrop Overlay */}
-        <div className="absolute inset-0 bg-[#080d16]/75 z-10" />
+        {/* Clean Neutral Dark Backdrop & Left Vignette Overlay (Enhanced on small screen, unchanged on desktop) */}
+        <div className="absolute inset-0 bg-black/60 md:bg-black/10 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#080d16]/5 via-[#080d16]/5 to-[#080d16]/5 md:bg-gradient-to-r md:from-[#080d16]/55 md:via-[#080d16]/45 md:to-transparent z-10" />
 
-        {/* Main Hero Content */}
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 text-center py-16 sm:py-20 space-y-6">
-          
-          {/* Main Hero Heading */}
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight leading-tight max-w-4xl mx-auto drop-shadow-sm font-sans">
-            Engineered For Maximum Flow, <br className="hidden sm:inline" />
-            <span className="text-red-500">
-              Built For Extreme Duty
-            </span>
-          </h1>
+        {/* Main Hero Content - Aligned to Left with Scroll Fade Out / Fade In */}
+        <div 
+          style={{
+            opacity: Math.max(0, 1 - heroScrollProgress * 1.25),
+            transform: `translate3d(0, -${heroScrollProgress * 50}px, 0)`,
+            willChange: 'opacity, transform'
+          }}
+          className="mx-auto px-4 sm:px-6 lg:px-8 relative z-20 w-full pt-28 sm:pt-32 pb-16 text-left flex flex-col justify-center transition-all duration-75"
+        >
+          <div className="max-w-3xl space-y-6">
 
-          <p className="text-slate-300 text-sm sm:text-base md:text-lg max-w-2xl mx-auto font-normal leading-relaxed">
-            High-discharge submersible borewell pumps and openwell pump sets engineered with 100% EC pure copper, CNC dynamic balancing, and 160V low-voltage endurance.
-          </p>
+            {/* Main Hero Heading with Staggered Text Reveal */}
+            <h1 className="animate-text-reveal animation-delay-100 text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.08] text-white font-sans text-left">
+              Engineered For Maximum Flow, <br />
+              <span className="text-red-500">
+                Built For Extreme Duty
+              </span>
+            </h1>
 
+            {/* Subtitle Description with Staggered Text Reveal */}
+            <p className="animate-text-reveal animation-delay-200 text-slate-200 text-sm sm:text-base md:text-lg max-w-2xl font-normal leading-relaxed text-left">
+              High-discharge submersible borewell pumps and openwell pump sets engineered in Rajkot with 100% EC grade pure copper, precision CNC dynamic balancing, and 160V low-voltage endurance.
+            </p>
 
-          {/* Action CTAs */}
-          <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
-            <Link
-              to="/products"
-              className="inline-flex items-center gap-2 px-7 py-3.5 bg-red-600 hover:bg-red-700 text-white font-black text-sm rounded-2xl shadow-xl shadow-red-600/30 transition-all hover:scale-105 cursor-pointer"
-            >
-              <PackageCheck className="w-4 h-4" />
-              <span>Explore 150+ Model Catalog</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
+            {/* Action CTAs with Staggered Text Reveal */}
+            <div className="animate-text-reveal animation-delay-350 pt-2 flex flex-wrap items-center justify-start gap-4">
+              <Link
+                to="/products"
+                className="inline-flex items-center gap-2 px-7 py-4 bg-red-600 hover:bg-red-700 text-white font-black text-sm transition-all hover:scale-105 cursor-pointer"
+              >
+                <PackageCheck className="w-4 h-4" />
+                <span>Explore 150+ Model Catalog</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
 
-            <WhatsAppButton 
-              text="Instant Factory Quote" 
-              className="py-3.5 px-6 text-sm rounded-2xl" 
-            />
+              <WhatsAppButton 
+                text="Instant Factory Quote" 
+                className="py-4 px-6 text-sm" 
+              />
+            </div>
+
+            {/* Bottom Left Quick Feature Strip with Staggered Text Reveal */}
+            <div className="animate-text-reveal animation-delay-500 pt-4 flex flex-wrap items-center gap-3 text-xs font-bold text-slate-300">
+              <span className="flex items-center gap-1.5 bg-black/60 px-3 py-1.5 border border-white/15">
+                <Zap className="w-3.5 h-3.5 text-amber-400" />
+                <span>160V Wide Voltage Tolerance</span>
+              </span>
+              <span className="flex items-center gap-1.5 bg-black/60 px-3 py-1.5 border border-white/15">
+                <Droplet className="w-3.5 h-3.5 text-sky-400" />
+                <span>1,625 Peak LPM Flow</span>
+              </span>
+              <span className="flex items-center gap-1.5 bg-black/60 px-3 py-1.5 border border-white/15">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                <span>100% Hydro Submerged Tested</span>
+              </span>
+            </div>
+
           </div>
         </div>
       </section>
 
-      {/* 2. 4-Stat Metric Strip */}
+      {/* 2. 4-Stat Metric Cards (With Bidirectional Scroll Fade-In & Fade-Out Animation) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10 sm:-mt-14 relative z-30">
-        <RevealOnScroll animation="fade-up">
-          <div className="bg-white rounded-3xl border-2 border-slate-300 shadow-2xl p-6 sm:p-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 divide-y sm:divide-y-0 sm:divide-x divide-slate-200">
-            <div className="flex items-center gap-4 pt-2 sm:pt-0">
-              <div className="w-12 h-12 rounded-2xl bg-red-50 text-red-600 border-2 border-red-200 flex items-center justify-center shrink-0">
-                <PackageCheck className="w-6 h-6" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          
+          {/* Card 01 */}
+          <RevealOnScroll animation="fade-up" delay={0} once={false} duration={700} className="h-full">
+            <div className="h-full bg-white rounded-[3px] hover:bg-gradient-to-br hover:from-red-50/50 hover:to-white p-6 sm:p-7 border-2 border-slate-300 hover:border-red-600 transition-all duration-300 flex flex-col justify-between space-y-6 group relative overflow-hidden">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-mono font-bold text-slate-400 group-hover:text-red-600 transition-colors">
+                  /01
+                </span>
+                <div className="w-10 h-10 rounded-[3px] bg-slate-100 text-slate-700 group-hover:bg-red-600 group-hover:text-white flex items-center justify-center border border-slate-200 group-hover:border-red-500 transition-transform group-hover:scale-105 shrink-0">
+                  <PackageCheck className="w-5 h-5" />
+                </div>
               </div>
-              <div>
-                <span className="text-2xl sm:text-3xl font-black text-slate-900 block font-mono">150+</span>
-                <span className="text-xs text-slate-500 font-bold block uppercase tracking-wider">Pump Models</span>
-              </div>
-            </div>
 
-            <div className="flex items-center gap-4 pt-4 sm:pt-0">
-              <div className="w-12 h-12 rounded-2xl bg-sky-50 text-sky-600 border-2 border-sky-200 flex items-center justify-center shrink-0">
-                <Droplet className="w-6 h-6" />
+              <div className="space-y-1">
+                <div className="flex items-baseline gap-1">
+                  <span className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight font-sans">
+                    150
+                  </span>
+                  <span className="text-red-600 text-2xl sm:text-3xl font-black font-mono">
+                    +
+                  </span>
+                </div>
+                <p className="text-xs sm:text-sm font-bold text-slate-600">
+                  Pump models in catalog
+                </p>
               </div>
-              <div>
-                <span className="text-2xl sm:text-3xl font-black text-slate-900 block font-mono">1,625 LPM</span>
-                <span className="text-xs text-slate-500 font-bold block uppercase tracking-wider">Peak Water Flow</span>
-              </div>
-            </div>
 
-            <div className="flex items-center gap-4 pt-4 sm:pt-0">
-              <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 border-2 border-emerald-200 flex items-center justify-center shrink-0">
-                <ShieldCheck className="w-6 h-6" />
-              </div>
-              <div>
-                <span className="text-2xl sm:text-3xl font-black text-slate-900 block font-mono">100% Tested</span>
-                <span className="text-xs text-slate-500 font-bold block uppercase tracking-wider">Hydro Submerged</span>
-              </div>
+              <div className="absolute bottom-0 left-0 right-0 h-1 bg-transparent group-hover:bg-red-600 transition-all" />
             </div>
+          </RevealOnScroll>
 
-            <div className="flex items-center gap-4 pt-4 sm:pt-0">
-              <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 border-2 border-amber-200 flex items-center justify-center shrink-0">
-                <Award className="w-6 h-6" />
+          {/* Card 02 */}
+          <RevealOnScroll animation="fade-up" delay={80} once={false} duration={700} className="h-full">
+            <div className="h-full bg-white rounded-[3px] hover:bg-gradient-to-br hover:from-sky-50/50 hover:to-white p-6 sm:p-7 border-2 border-slate-300 hover:border-sky-600 transition-all duration-300 flex flex-col justify-between space-y-6 group relative overflow-hidden">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-mono font-bold text-slate-400 group-hover:text-sky-600 transition-colors">
+                  /02
+                </span>
+                <div className="w-10 h-10 rounded-[3px] bg-slate-100 text-slate-700 group-hover:bg-sky-600 group-hover:text-white flex items-center justify-center border border-slate-200 group-hover:border-sky-500 transition-all group-hover:scale-105 shrink-0">
+                  <Droplet className="w-5 h-5" />
+                </div>
               </div>
-              <div>
-                <span className="text-2xl sm:text-3xl font-black text-slate-900 block font-mono">25+ Years</span>
-                <span className="text-xs text-slate-500 font-bold block uppercase tracking-wider">Rajkot Foundry Hub</span>
+
+              <div className="space-y-1">
+                <div className="flex items-baseline gap-1.5">
+                  <span className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight font-sans">
+                    1,625
+                  </span>
+                  <span className="text-sky-600 text-xs sm:text-sm font-mono font-black uppercase">
+                    LPM
+                  </span>
+                </div>
+                <p className="text-xs sm:text-sm font-bold text-slate-600">
+                  Peak discharge water flow
+                </p>
               </div>
+
+              <div className="absolute bottom-0 left-0 right-0 h-1 bg-transparent group-hover:bg-sky-600 transition-all" />
             </div>
-          </div>
-        </RevealOnScroll>
+          </RevealOnScroll>
+
+          {/* Card 03 */}
+          <RevealOnScroll animation="fade-up" delay={160} once={false} duration={700} className="h-full">
+            <div className="h-full bg-white rounded-[3px] hover:bg-gradient-to-br hover:from-emerald-50/50 hover:to-white p-6 sm:p-7 border-2 border-slate-300 hover:border-emerald-600 transition-all duration-300 flex flex-col justify-between space-y-6 group relative overflow-hidden">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-mono font-bold text-slate-400 group-hover:text-emerald-600 transition-colors">
+                  /03
+                </span>
+                <div className="w-10 h-10 rounded-[3px] bg-slate-100 text-slate-700 group-hover:bg-emerald-600 group-hover:text-white flex items-center justify-center border border-slate-200 group-hover:border-emerald-500 transition-all group-hover:scale-105 shrink-0">
+                  <ShieldCheck className="w-5 h-5" />
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <div className="flex items-baseline gap-1.5">
+                  <span className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight font-sans">
+                    100
+                  </span>
+                  <span className="text-emerald-600 text-xs sm:text-sm font-mono font-black uppercase">
+                    %
+                  </span>
+                </div>
+                <p className="text-xs sm:text-sm font-bold text-slate-600">
+                  Hydro submerged bench tested
+                </p>
+              </div>
+
+              <div className="absolute bottom-0 left-0 right-0 h-1 bg-transparent group-hover:bg-emerald-600 transition-all" />
+            </div>
+          </RevealOnScroll>
+
+          {/* Card 04 */}
+          <RevealOnScroll animation="fade-up" delay={240} once={false} duration={700} className="h-full">
+            <div className="h-full bg-white rounded-[3px] hover:bg-gradient-to-br hover:from-amber-50/50 hover:to-white p-6 sm:p-7 border-2 border-slate-300 hover:border-amber-600 transition-all duration-300 flex flex-col justify-between space-y-6 group relative overflow-hidden">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-mono font-bold text-slate-400 group-hover:text-amber-600 transition-colors">
+                  /04
+                </span>
+                <div className="w-10 h-10 rounded-[3px] bg-slate-100 text-slate-700 group-hover:bg-amber-600 group-hover:text-white flex items-center justify-center border border-slate-200 group-hover:border-amber-500 transition-all group-hover:scale-105 shrink-0">
+                  <Award className="w-5 h-5" />
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <div className="flex items-baseline gap-1.5">
+                  <span className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight font-sans">
+                    25
+                  </span>
+                  <span className="text-amber-600 text-xs sm:text-sm font-mono font-black uppercase">
+                    YRS
+                  </span>
+                </div>
+                <p className="text-xs sm:text-sm font-bold text-slate-600">
+                  Engineering & foundry heritage
+                </p>
+              </div>
+
+              <div className="absolute bottom-0 left-0 right-0 h-1 bg-transparent group-hover:bg-amber-600 transition-all" />
+            </div>
+          </RevealOnScroll>
+
+        </div>
       </section>
 
       {/* 3. Interactive Technical Pump Selector */}

@@ -6,24 +6,24 @@ import { PumpSelector } from '../components/PumpSelector';
 import RevealOnScroll from '../components/RevealOnScroll';
 import { WhatsAppButton } from '../components/WhatsAppButton';
 import { 
-  Search, 
-  RotateCcw, 
-  ListFilter,
-  PackageCheck,
-  ChevronRight,
-  ChevronDown,
-  Filter,
+  MagnifyingGlass as Search, 
+  ArrowCounterClockwise as RotateCcw, 
+  Funnel as ListFilter,
+  Package as PackageCheck,
+  CaretRight as ChevronRight,
+  CaretDown as ChevronDown,
+  Funnel as Filter,
   X,
-  LayoutGrid,
+  SquaresFour as LayoutGrid,
   List,
   SlidersHorizontal,
-  Layers,
-  Zap,
-  Droplet,
-  CheckCircle2,
+  Stack as Layers,
+  Lightning as Zap,
+  Drop as Droplet,
+  CheckCircle as CheckCircle2,
   FileText,
   ArrowUpRight
-} from 'lucide-react';
+} from '@phosphor-icons/react';
 
 export const ProductsPage: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();

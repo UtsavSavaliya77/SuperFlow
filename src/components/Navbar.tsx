@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
-  Menu, 
+  List as Menu, 
   X, 
-  ChevronRight,
-  PackageCheck,
-  Send,
+  CaretRight as ChevronRight,
+  Package as PackageCheck,
+  PaperPlaneTilt as Send,
   Phone,
   ShieldCheck
-} from 'lucide-react';
+} from '@phosphor-icons/react';
 import { COMPANY_INFO } from '../data/pumpsData';
 
 export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+
+  const isHome = location.pathname === '/';
+  const isTransparent = isHome && !isScrolled;
 
   const navLinks = [
     { name: 'Home', path: '/', label: 'Overview' },
@@ -28,6 +32,16 @@ export const Navbar: React.FC = () => {
     if (path === '/' && location.pathname !== '/') return false;
     return location.pathname.startsWith(path);
   };
+
+  // Scroll listener for transparent header
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 30);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Close menu on route change
   useEffect(() => {
@@ -48,12 +62,24 @@ export const Navbar: React.FC = () => {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs transition-all w-full">
-        {/* Top Industry Utility Bar (Inspired by Silver Pumps & Texmo) */}
-        <div className="hidden md:flex items-center justify-between py-1.5 px-4 sm:px-6 lg:px-8 bg-[#080d16] text-white text-[11px] font-bold border-b border-slate-800">
+      <header 
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 w-full ${
+          isTransparent 
+            ? 'bg-gradient-to-b md:from-black/50 md:via-black/50 md:to-transparent text-white' 
+            : 'bg-white/95 backdrop-blur-md border-b border-slate-200 text-slate-900'
+        }`}
+      >
+        {/* Top Industry Utility Bar */}
+        <div 
+          className={`hidden md:flex items-center justify-between py-1.5 px-4 sm:px-6 lg:px-8 text-[11px] font-bold border-b transition-colors ${
+            isTransparent 
+              ? 'bg-black/50 backdrop-blur-sm text-white border-white/10' 
+              : 'bg-[#080d16] text-white border-slate-800'
+          }`}
+        >
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1.5 text-slate-300">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+              <span className="w-1.5 h-1.5 bg-emerald-400" />
               <span>Plant: Padvala, Rajkot (Gujarat)</span>
             </span>
             <span className="text-slate-600">|</span>
@@ -83,7 +109,7 @@ export const Navbar: React.FC = () => {
                 <img 
                   src="/images/superflow-logo.png" 
                   alt="SuperFlow Submersible Pump Logo" 
-                  className="h-10 sm:h-14 w-auto object-contain drop-shadow-xs"
+                  className={`h-10 sm:h-14 w-auto object-contain transition-all ${isTransparent ? 'brightness-110 drop-shadow-md' : ''}`}
                 />
               </div>
             </Link>
@@ -94,10 +120,14 @@ export const Navbar: React.FC = () => {
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`px-3.5 py-2 text-sm font-bold rounded-xl transition-all ${
-                    isActive(link.path)
-                      ? 'text-red-600 bg-red-50/80 shadow-xs'
-                      : 'text-slate-700 hover:text-red-600 hover:bg-slate-100/60'
+                  className={`px-3.5 py-2 text-sm font-bold transition-all ${
+                    isTransparent
+                      ? isActive(link.path)
+                        ? 'text-white bg-red-600 font-black'
+                        : 'text-white/90 hover:text-white hover:bg-white/15'
+                      : isActive(link.path)
+                        ? 'text-red-600 bg-red-50 font-black'
+                        : 'text-slate-700 hover:text-red-600 hover:bg-slate-100'
                   }`}
                 >
                   {link.name}
@@ -107,10 +137,9 @@ export const Navbar: React.FC = () => {
 
             {/* CTA Action Button */}
             <div className="hidden lg:flex items-center gap-3">
-             
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-black text-white bg-red-600 hover:bg-red-700 rounded-xl shadow-md shadow-red-600/20 transition-all hover:scale-105"
+                className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-black text-white bg-red-600 hover:bg-red-700 transition-all hover:scale-105"
               >
                 <Send className="w-3.5 h-3.5" />
                 Dealer Inquiry
@@ -121,7 +150,11 @@ export const Navbar: React.FC = () => {
             <div className="flex items-center lg:hidden">
               <button
                 onClick={() => setIsOpen(true)}
-                className="p-2.5 rounded-2xl text-slate-800 hover:text-red-600 hover:bg-red-50 focus:outline-none transition-colors border border-slate-200 shadow-2xs cursor-pointer"
+                className={`p-2.5 text-xs font-bold focus:outline-none transition-colors border cursor-pointer ${
+                  isTransparent
+                    ? 'text-white bg-black/50 border-white/20 hover:bg-white/15'
+                    : 'text-slate-800 hover:text-red-600 hover:bg-red-50 border-slate-200'
+                }`}
                 aria-label="Open Navigation Menu"
               >
                 <Menu className="w-6 h-6" />
@@ -131,9 +164,9 @@ export const Navbar: React.FC = () => {
         </div>
       </header>
 
-      {/* Full-Screen Mobile Navigation Overlay - Non-scrollable viewport fitting */}
+      {/* Full-Screen Mobile Navigation Overlay */}
       <div
-        className={`fixed inset-0 z-50 lg:hidden bg-slate-950/40 backdrop-blur-md transition-opacity duration-300 ${
+        className={`fixed inset-0 z-50 lg:hidden bg-slate-950/50 backdrop-blur-md transition-opacity duration-300 ${
           isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
         onClick={() => setIsOpen(false)}
@@ -156,14 +189,14 @@ export const Navbar: React.FC = () => {
 
             <button
               onClick={() => setIsOpen(false)}
-              className="p-2 rounded-xl bg-slate-100 hover:bg-red-50 hover:text-red-600 text-slate-700 transition-colors cursor-pointer border border-slate-200/80 shadow-2xs"
+              className="p-2 bg-slate-100 hover:bg-red-50 hover:text-red-600 text-slate-700 transition-colors cursor-pointer border border-slate-200"
               aria-label="Close Menu"
             >
               <X className="w-5 h-5" />
             </button>
           </div>
 
-          {/* Main Navigation Links List - Compact & Non-Scrollable */}
+          {/* Main Navigation Links List */}
           <div className="px-4 py-2 flex-1 flex flex-col space-y-1 overflow-hidden">
             <div className="text-[10px] font-black uppercase tracking-widest text-slate-400 px-3 pb-0.5">
               Navigation Menu
@@ -176,15 +209,15 @@ export const Navbar: React.FC = () => {
                   key={link.path}
                   to={link.path}
                   onClick={() => setIsOpen(false)}
-                  className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl transition-all ${
+                  className={`flex items-center justify-between px-3.5 py-2.5 transition-all ${
                     active
-                      ? 'bg-red-50 text-red-600 border border-red-200/80 shadow-2xs'
+                      ? 'bg-red-50 text-red-600 border border-red-200'
                       : 'text-slate-800 hover:bg-slate-50 border border-transparent'
                   }`}
                 >
                   <div className="flex items-center gap-2.5">
                     <span
-                      className={`w-1.5 h-1.5 rounded-full transition-colors ${
+                      className={`w-1.5 h-1.5 transition-colors ${
                         active ? 'bg-red-600 animate-pulse' : 'bg-slate-300'
                       }`}
                     />
@@ -198,7 +231,7 @@ export const Navbar: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className={`w-6 h-6 rounded-lg flex items-center justify-center transition-colors ${
+                  <div className={`w-6 h-6 flex items-center justify-center transition-colors ${
                     active ? 'bg-red-600 text-white' : 'bg-slate-100 text-slate-400'
                   }`}>
                     <ChevronRight className="w-3.5 h-3.5" />
@@ -209,12 +242,12 @@ export const Navbar: React.FC = () => {
           </div>
 
           {/* Bottom Action Area & Factory Info */}
-          <div className="p-4 border-t border-slate-100 bg-slate-50/90 space-y-2 shrink-0">
+          <div className="p-4 border-t border-slate-100 bg-slate-50 space-y-2 shrink-0">
             <div className="grid grid-cols-2 gap-2">
               <Link
                 to="/products"
                 onClick={() => setIsOpen(false)}
-                className="flex items-center justify-center gap-1.5 w-full py-2.5 px-3 rounded-xl bg-sky-50 text-sky-800 font-bold text-xs border border-sky-200/80 shadow-2xs active:scale-[0.98] transition-transform text-center"
+                className="flex items-center justify-center gap-1.5 w-full py-2.5 px-3 bg-sky-50 text-sky-800 font-bold text-xs border border-sky-200 active:scale-[0.98] transition-transform text-center"
               >
                 <PackageCheck className="w-3.5 h-3.5 text-sky-600 shrink-0" />
                 <span className="truncate">Products</span>
@@ -223,7 +256,7 @@ export const Navbar: React.FC = () => {
               <Link
                 to="/contact"
                 onClick={() => setIsOpen(false)}
-                className="flex items-center justify-center gap-1.5 w-full py-2.5 px-3 rounded-xl bg-red-600 hover:bg-red-700 text-white font-black text-xs shadow-md shadow-red-600/20 active:scale-[0.98] transition-transform text-center"
+                className="flex items-center justify-center gap-1.5 w-full py-2.5 px-3 bg-red-600 hover:bg-red-700 text-white font-black text-xs active:scale-[0.98] transition-transform text-center"
               >
                 <Send className="w-3.5 h-3.5 shrink-0" />
                 <span className="truncate">Get Quote</span>

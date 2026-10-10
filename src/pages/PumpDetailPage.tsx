@@ -7,21 +7,21 @@ import RevealOnScroll from '../components/RevealOnScroll';
 import { 
   ArrowLeft, 
   ShieldCheck, 
-  Zap, 
-  Layers, 
+  Lightning as Zap, 
+  Stack as Layers, 
   Gauge, 
-  Activity, 
+  Pulse as Activity, 
   Wrench, 
-  Droplet, 
-  CheckCircle2, 
+  Drop as Droplet, 
+  CheckCircle as CheckCircle2, 
   Phone, 
-  ChevronRight, 
-  Award,
+  CaretRight as ChevronRight, 
+  Medal as Award,
   Factory,
-  PackageCheck,
+  Package as PackageCheck,
   FileText,
-  Download
-} from 'lucide-react';
+  DownloadSimple as Download
+} from '@phosphor-icons/react';
 
 export const PumpDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();

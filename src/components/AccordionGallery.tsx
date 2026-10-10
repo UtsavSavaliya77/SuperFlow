@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState, useCallback, ReactNode } from 'react';
 import { gsap } from 'gsap';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight } from '@phosphor-icons/react';
 import './AccordionGallery.css';
 
 export interface AccordionGalleryItemData {

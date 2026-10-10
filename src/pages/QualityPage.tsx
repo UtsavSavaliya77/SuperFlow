@@ -4,29 +4,13 @@ import { WhatsAppButton } from '../components/WhatsAppButton';
 import RevealOnScroll from '../components/RevealOnScroll';
 import { 
   ShieldCheck, 
-  Award,
-  CheckCircle2,
-  Droplet,
-  ChevronRight,
-  Zap,
-  Activity,
-  Layers,
-  Phone,
-  Cpu,
-  BadgeCheck,
-  FileCheck,
-  FileText,
-  ArrowRight,
-  Building2,
-  Check,
-  ArrowUpRight,
-  Eye,
-  Maximize2,
+  Medal as Award,
+  CheckCircle as CheckCircle2,
+  Drop as Droplet,
+  CaretRight as ChevronRight,
+  CornersOut as Maximize2,
   X,
-  ExternalLink,
-  Shield,
-  Factory
-} from 'lucide-react';
+} from '@phosphor-icons/react';
 
 interface QualityStandardItem {
   id: string;

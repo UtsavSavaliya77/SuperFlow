@@ -3,12 +3,12 @@
   --cursor-angle: 45deg;
   --edge-sensitivity: 30;
   --color-sensitivity: calc(var(--edge-sensitivity) + 20);
-  --border-radius: 28px;
+  --border-radius: 3px;
   --glow-padding: 40px;
   --cone-spread: 25;
 
   position: relative;
-  border-radius: var(--border-radius);
+  border-radius: 3px !important;
   isolation: isolate;
   transform: translate3d(0, 0, 0.01px);
   display: grid;
@@ -17,11 +17,7 @@
   overflow: visible;
   max-width: 100%;
   box-sizing: border-box;
-  box-shadow:
-    rgba(0, 0, 0, 0.06) 0px 1px 2px,
-    rgba(0, 0, 0, 0.06) 0px 2px 4px,
-    rgba(0, 0, 0, 0.06) 0px 4px 8px,
-    rgba(0, 0, 0, 0.06) 0px 8px 16px;
+  box-shadow: none !important;
 }
 
 @media (max-width: 640px) {
@@ -32,9 +28,7 @@
 
 .border-glow-card--light {
   border-color: rgb(24 24 27 / 12%);
-  box-shadow:
-    rgb(24 24 27 / 4%) 0 1px 2px,
-    rgb(24 24 27 / 5%) 0 8px 24px;
+  box-shadow: none !important;
 }
 
 .border-glow-card--light::after,

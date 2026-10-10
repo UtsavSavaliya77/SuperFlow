@@ -1,11 +1,44 @@
 @import "tailwindcss";
 
+/* ==========================================================================
+   GLOBAL FIXED 3PX BORDER-RADIUS & ZERO-BOX-SHADOW ENFORCEMENT
+   Clean Engineered Precision Aesthetic Across the Entire SuperFlow Platform
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  border-radius: 3px !important;
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  text-shadow: none !important;
+}
+
 @layer base {
   html {
-    scroll-behavior: smooth;
     overflow-x: hidden;
     width: 100%;
     max-width: 100%;
+    border-radius: 0px !important;
+  }
+
+  html.lenis, html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  .lenis.lenis-scrolling iframe {
+    pointer-events: none;
   }
 
   body {
@@ -13,10 +46,11 @@
     width: 100%;
     max-width: 100%;
     position: relative;
+    border-radius: 0px !important;
   }
 }
 
-/* Custom scrollbars matching brand colors */
+/* Custom scrollbars with fixed 3px radius */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -26,7 +60,7 @@
 }
 ::-webkit-scrollbar-thumb {
   background: #cbd5e1;
-  border-radius: 4px;
+  border-radius: 3px !important;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
@@ -71,12 +105,55 @@
   animation: beamSlide 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
+/* ==========================================================================
+   TEXT REVEAL & FADE IN / FADE OUT ANIMATIONS
+   ========================================================================== */
+@keyframes textRevealUp {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 36px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-text-reveal {
+  animation: textRevealUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animation-delay-100 {
+  animation-delay: 100ms;
+}
+
+.animation-delay-200 {
+  animation-delay: 200ms;
+}
+
+.animation-delay-350 {
+  animation-delay: 350ms;
+}
+
+.animation-delay-500 {
+  animation-delay: 500ms;
+}
+
+.animation-delay-650 {
+  animation-delay: 650ms;
+}
+
 /* Accessibility: Respect Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   .reveal-wrapper {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
+  }
+  .animate-text-reveal {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
 

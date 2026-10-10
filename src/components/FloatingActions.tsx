@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowUp } from 'lucide-react';
+import { ArrowUp } from '@phosphor-icons/react';
 import { WhatsAppIcon } from './WhatsAppIcon';
 import { COMPANY_INFO } from '../data/pumpsData';
+
+import { getLenis } from '../App';
 
 export const FloatingActions: React.FC = () => {
   const [showBackToTop, setShowBackToTop] = useState(false);
@@ -25,10 +27,15 @@ export const FloatingActions: React.FC = () => {
   }, []);
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
+    const lenis = getLenis();
+    if (lenis) {
+      lenis.scrollTo(0, { duration: 1.2 });
+    } else {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
   };
 
   const whatsappMessage = encodeURIComponent(
