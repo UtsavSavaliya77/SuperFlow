@@ -217,8 +217,8 @@ export const Navbar: React.FC = () => {
                 >
                   <div className="flex items-center gap-2.5">
                     <span
-                      className={`w-1.5 h-1.5 transition-colors ${
-                        active ? 'bg-red-600 animate-pulse' : 'bg-slate-300'
+                      className={`w-1.5 h-1.5 rounded-[3px] transition-colors ${
+                        active ? 'bg-red-600' : 'bg-slate-300'
                       }`}
                     />
                     <div>

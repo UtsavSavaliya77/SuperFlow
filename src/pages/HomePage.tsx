@@ -1,17 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 
-  CATEGORIES, 
   ALL_PUMPS, 
-  COMPANY_INFO, 
-  APPLICATIONS_DATA 
+  COMPANY_INFO 
 } from '../data/pumpsData';
 import { PumpModel } from '../types/pump';
-import { PumpCard } from '../components/PumpCard';
 import { PumpDetailModal } from '../components/PumpDetailModal';
 import { WhatsAppButton } from '../components/WhatsAppButton';
 import { PumpSelector } from '../components/PumpSelector';
-import AccordionGallery from '../components/AccordionGallery';
 import RevealOnScroll from '../components/RevealOnScroll';
 import { 
   ShieldCheck, 
@@ -19,27 +15,19 @@ import {
   Cpu, 
   Lightning as Zap, 
   ArrowRight, 
-  Stack as Layers, 
   CheckCircle as CheckCircle2, 
-  Gauge, 
   Factory,
   Package as PackageCheck,
-  PaperPlaneTilt as Send,
   Plant as Leaf,
   Drop as Droplet,
   CaretRight as ChevronRight,
-  Phone,
-  Check,
-  SlidersHorizontal,
-  Fire as Flame,
-  Globe,
-  Gear as Settings,
-  ArrowUpRight
+  Phone
 } from '@phosphor-icons/react';
 
 export const HomePage: React.FC = () => {
   const [selectedPump, setSelectedPump] = useState<PumpModel | null>(null);
   const [heroScrollProgress, setHeroScrollProgress] = useState(0);
+  const [activeSectorIndex, setActiveSectorIndex] = useState(0);
 
   // Scroll listener for smooth Hero fade out / fade in
   React.useEffect(() => {
@@ -136,16 +124,6 @@ export const HomePage: React.FC = () => {
     }
   };
 
-  // Top running models for the curated showcase
-  const topRunningPumps = [
-    ALL_PUMPS.find((p) => p.model === 'RM3-20510') || ALL_PUMPS[0],
-    ALL_PUMPS.find((p) => p.category === 'V-4' && p.hp === 3) || ALL_PUMPS[4],
-    ALL_PUMPS.find((p) => p.category === 'V-6' && p.hp >= 7.5) || ALL_PUMPS[8],
-    ALL_PUMPS.find((p) => p.model === 'RM3-207515') || ALL_PUMPS[1],
-    ALL_PUMPS.find((p) => p.category === 'V-4' && p.hp === 5) || ALL_PUMPS[6],
-    ALL_PUMPS.find((p) => p.category === 'Openwell') || ALL_PUMPS[3],
-  ].filter(Boolean) as PumpModel[];
-
   const sectorsData = [
     {
       id: 'agri',
@@ -155,10 +133,6 @@ export const HomePage: React.FC = () => {
       icon: Leaf,
       image: '/images/Unleashing the Power of Water Pumps_ How They Work and Their Applications.jpg',
       tag: '160V Low Voltage Duty',
-      accentColor: 'text-emerald-400',
-      accentBg: 'bg-emerald-500/10',
-      accentBorder: 'border-emerald-500/30',
-      activeBtnStyle: 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/20 border-emerald-500',
       desc: 'Engineered to withstand rural voltage drops down to 160V. Delivers massive flow discharge for cotton, groundnut, sugarcane, and multi-acre farm networks without motor burnout.',
       stats: [
         { label: 'Max Head Range', value: '434 Meters' },
@@ -172,14 +146,10 @@ export const HomePage: React.FC = () => {
       id: 'domestic',
       title: 'Domestic & Multi-Story Buildings',
       shortLabel: 'High-Rise & Residential',
-      tagline: 'High head pressure delivery for apartments and sumps',
+      tagline: 'High head pressure delivery for apartments, societies and sumps',
       icon: Droplet,
       image: '/images/Booster Pump Stations in High-Rise Buildings_ Why Proper Design Matters.jpg',
       tag: 'High Head Pressure',
-      accentColor: 'text-sky-400',
-      accentBg: 'bg-sky-500/10',
-      accentBorder: 'border-sky-500/30',
-      activeBtnStyle: 'bg-sky-600 text-white shadow-lg shadow-sky-600/20 border-sky-500',
       desc: 'Slim 3" and 4" borewell pumps designed for silent operation in residential colonies, high-rise apartment overhead tanks, and underground sump pressure boosting.',
       stats: [
         { label: 'Booster Pressure', value: '25+ Bar' },
@@ -197,10 +167,6 @@ export const HomePage: React.FC = () => {
       icon: Zap,
       image: '/images/SOLAR WATER PUMP.jpg',
       tag: 'Zero Grid Power',
-      accentColor: 'text-amber-400',
-      accentBg: 'bg-amber-500/10',
-      accentBorder: 'border-amber-500/30',
-      activeBtnStyle: 'bg-amber-600 text-white shadow-lg shadow-amber-600/20 border-amber-500',
       desc: 'High electrical efficiency motors optimized for solar variable frequency drives (VFD). Operates smoothly from early morning low-radiation until evening twilight.',
       stats: [
         { label: 'Drive Type', value: '100% VFD Ready' },
@@ -218,10 +184,6 @@ export const HomePage: React.FC = () => {
       icon: Factory,
       image: '/images/Mining dewatering pumps _ Power Rental - Book Now.jpg',
       tag: 'Heavy Duty 24/7',
-      accentColor: 'text-red-400',
-      accentBg: 'bg-red-500/10',
-      accentBorder: 'border-red-500/30',
-      activeBtnStyle: 'bg-red-600 text-white shadow-lg shadow-red-600/20 border-red-500',
       desc: 'Built with SS304 investment castings, CED coated cast iron, and silicon carbide bearings to handle sand, abrasive solids, factory cooling water, and construction site sumps.',
       stats: [
         { label: 'Power Range', value: 'Up to 25 HP' },
@@ -239,123 +201,46 @@ export const HomePage: React.FC = () => {
       icon: Zap,
       tabLabel: '160V Wide Voltage',
       tag: 'Wide Voltage Tech',
-      accentColor: 'text-red-600',
-      accentBg: 'bg-red-50',
-      accentBorder: 'border-red-200',
-      activeTabStyle: 'bg-red-600 text-white shadow-md shadow-red-600/20',
       title: 'Continuous High-Discharge Pumping at 160V Low Voltage',
       description: 'Engineered with 99.9% pure electrolytic dual-coated copper wire and specialized CRGO low-loss electrical steel laminations. Eliminates motor burnout during heavy agricultural voltage dips.',
-      badges: ['99.9% Pure EC Copper', '160V – 240V Operating Band', 'Class "F" / "H" Insulation', 'Zero Overheating'],
-      liveStatus: 'Voltage Defense: 160V Stable Operation'
+      badges: ['99.9% Pure EC Copper', '160V – 240V Operating Band', 'Class "F" / "H" Insulation', 'Zero Overheating']
     },
     {
       id: 'cnc',
       icon: Cpu,
       tabLabel: 'CNC Precision',
       tag: 'Micron Precision',
-      accentColor: 'text-sky-600',
-      accentBg: 'bg-sky-50',
-      accentBorder: 'border-sky-200',
-      activeTabStyle: 'bg-sky-600 text-white shadow-md shadow-sky-600/20',
       title: 'Precision-Turned Stainless Steel Shafts & Balanced Rotors',
       description: 'Every rotor and SS-410 shaft undergoes multi-axis CNC lathe turning and computerized dynamic balancing, eliminating radial vibration for whisper-silent 50,000+ hour operational lifespan.',
-      badges: ['< 0.02mm Runout Tolerance', '50,000+ Hrs Operational Life', 'SS 410 / 304 Grade', 'Vibration-Free Running'],
-      liveStatus: 'Dynamic Balancing: Zero Radial Vibration'
+      badges: ['< 0.02mm Runout Tolerance', '50,000+ Hrs Operational Life', 'SS 410 / 304 Grade', 'Vibration-Free Running']
     },
     {
       id: 'ced',
       icon: ShieldCheck,
       tabLabel: 'Anti-Rust CED Shield',
       tag: 'Corrosion Defense',
-      accentColor: 'text-emerald-600',
-      accentBg: 'bg-emerald-50',
-      accentBorder: 'border-emerald-200',
-      activeTabStyle: 'bg-emerald-600 text-white shadow-md shadow-emerald-600/20',
       title: 'Cathodic Electrodeposition & Sand-Resistant Bushings',
       description: 'Uniform electrodeposition coating coats all cast iron surfaces inside and outside, shielding against abrasive sand wear, aggressive borewell salinity, and heavy scale formation.',
-      badges: ['Multi-Layer CED Coating', 'Sand-Resistant NBR Bushings', 'Saline & Acid Resistant', 'Anti-Scale Surface'],
-      liveStatus: 'Corrosion Protection: 100% Rust & Sand Proof'
+      badges: ['Multi-Layer CED Coating', 'Sand-Resistant NBR Bushings', 'Saline & Acid Resistant', 'Anti-Scale Surface']
     },
     {
       id: 'testing',
       icon: Factory,
       tabLabel: '100% Hydro Testing',
       tag: 'Zero-Defect Quality',
-      accentColor: 'text-amber-600',
-      accentBg: 'bg-amber-50',
-      accentBorder: 'border-amber-200',
-      activeTabStyle: 'bg-amber-600 text-white shadow-md shadow-amber-600/20',
       title: 'Every Single Pump Set 100% Submerged & Computer Tested',
       description: 'Before dispatch from our Padvala, Rajkot plant, every single pump set is submerged in automated testing tanks to verify real-time LPM discharge, total head height, and dielectric insulation.',
-      badges: ['IS 8034 / IS 14220 BIS ISI', 'ISO 9001:2008 Certified', 'Computerized Flow & Head Bench', 'Zero Dispatch Defects'],
-      liveStatus: 'Hydrostatic Bench: 100% Submerged Performance Pass'
+      badges: ['IS 8034 / IS 14220 BIS ISI', 'ISO 9001:2008 Certified', 'Computerized Flow & Head Bench', 'Zero Dispatch Defects']
     }
   ];
 
-  // Featured pump range card items with 4 distinct series
-  const featuredRangeCards = [
-    {
-      id: 'V-4',
-      title: '4" V-4 Submersible Pumps',
-      categoryTag: '4" Borewell Flagship',
-      specs: '0.5 HP – 7.5 HP • Head up to 350m',
-      desc: 'High-velocity flow engineered for farm borewells, sprinkler & drip networks with 160V low-voltage winding.',
-      tagStyle: 'text-emerald-700 bg-emerald-50 border border-emerald-200/80',
-      image: '/images/2.jpg',
-      link: '/products?category=V-4',
-      modelCount: '120+ Configurations'
-    },
-    {
-      id: 'V-6',
-      title: '6" V-6 Heavy Duty Pumps',
-      categoryTag: '6" High Discharge',
-      specs: '3.0 HP – 25.0 HP • Flow up to 1,625 LPM',
-      desc: 'Heavy-duty radial & mix flow impellers for deep irrigation, high-volume community water and industrial supply.',
-      tagStyle: 'text-red-700 bg-red-50 border border-red-200/80',
-      image: '/images/1.jpg',
-      link: '/products?category=V-6',
-      modelCount: '80+ Configurations'
-    },
-    {
-      id: 'V-3',
-      title: '3" V-3 Slim Borewell Series',
-      categoryTag: '3" Slim Domestic',
-      specs: '0.5 HP – 2.0 HP • High Head Staging',
-      desc: 'Ultra-compact design engineered for 3" narrow borewells, multi-story apartments and silent overhead delivery.',
-      tagStyle: 'text-sky-700 bg-sky-50 border border-sky-200/80',
-      image: '/images/1.jpg',
-      link: '/products?category=V-3',
-      modelCount: '16+ Configurations'
-    },
-    {
-      id: 'Openwell',
-      title: 'Openwell Submersible Sets',
-      categoryTag: 'Sump & Canal Series',
-      specs: '0.5 HP – 10.0 HP • 100% Submerged',
-      desc: 'No priming required, water-lubricated motor for agricultural open wells, canal extraction and underground tanks.',
-      tagStyle: 'text-amber-700 bg-amber-50 border border-amber-200/80',
-      image: '/images/3.jpg',
-      link: '/products?category=Openwell',
-      modelCount: '30+ Configurations'
-    },
-  ];
-
-  // Curated featured pumps across multiple series for marquee ticker
-  const marqueePumps = [
-    ALL_PUMPS.find((p) => p.model === 'RM3-20510') || ALL_PUMPS[0],
-    ALL_PUMPS.find((p) => p.model === 'RM3-207515') || ALL_PUMPS[1],
-    ALL_PUMPS.find((p) => p.model === 'RM3-2120') || ALL_PUMPS[2],
-    ALL_PUMPS.find((p) => p.category === 'V-4' && p.hp === 3) || ALL_PUMPS[5],
-    ALL_PUMPS.find((p) => p.category === 'V-4' && p.hp === 5) || ALL_PUMPS[7],
-    ALL_PUMPS.find((p) => p.category === 'V-6' && p.hp >= 7.5) || ALL_PUMPS[10],
-    ALL_PUMPS.find((p) => p.category === 'Openwell') || ALL_PUMPS[4],
-  ].filter(Boolean) as PumpModel[];
+  const currentSector = sectorsData[activeSectorIndex];
 
   return (
     <div className="space-y-16 sm:space-y-20 lg:space-y-24 pb-16 sm:pb-24 overflow-x-hidden w-full max-w-full">
       
-      {/* 1. Fullscreen Cinematic Hero Command Center */}
-      <section className="relative overflow-hidden w-full min-h-screen h-screen flex items-center justify-start text-white border-b-2 border-red-600 bg-[#080d16]">
+      {/* 1. Fullscreen Cinematic Hero Section */}
+      <section className="relative overflow-hidden w-full min-h-[100dvh] flex flex-col justify-center text-white border-b border-red-600 bg-[#080d16]">
         {/* Background Video Layer */}
         <video
           autoPlay
@@ -370,63 +255,63 @@ export const HomePage: React.FC = () => {
           />
         </video>
 
-        {/* Clean Neutral Dark Backdrop & Left Vignette Overlay (Enhanced on small screen, unchanged on desktop) */}
-        <div className="absolute inset-0 bg-black/60 md:bg-black/10 z-10" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#080d16]/5 via-[#080d16]/5 to-[#080d16]/5 md:bg-gradient-to-r md:from-[#080d16]/55 md:via-[#080d16]/45 md:to-transparent z-10" />
+        {/* Clean Neutral Dark Backdrop & Left Vignette Overlay */}
+        <div className="absolute inset-0 bg-black/60 md:bg-black/15 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-[#080d16]/75 to-[#080d16]/90 md:bg-gradient-to-r md:from-[#080d16]/65 md:via-[#080d16]/50 md:to-transparent z-10" />
 
-        {/* Main Hero Content - Aligned to Left with Scroll Fade Out / Fade In */}
+        {/* Main Hero Content - Left Aligned with Guaranteed Safe Header Padding & Scroll Fade */}
         <div 
           style={{
             opacity: Math.max(0, 1 - heroScrollProgress * 1.25),
-            transform: `translate3d(0, -${heroScrollProgress * 50}px, 0)`,
+            transform: `translate3d(0, -${heroScrollProgress * 30}px, 0)`,
             willChange: 'opacity, transform'
           }}
-          className="mx-auto px-4 sm:px-6 lg:px-8 relative z-20 w-full pt-28 sm:pt-32 pb-16 text-left flex flex-col justify-center transition-all duration-75"
+          className="mx-auto px-4 sm:px-6 lg:px-8 relative z-20 w-full pt-32 sm:pt-36 md:pt-40 lg:pt-44 xl:pt-48 pb-20 sm:pb-24 lg:pb-28 text-left flex flex-col justify-center transition-all duration-75"
         >
-          <div className="max-w-3xl space-y-6">
+          <div className="max-w-3xl space-y-5 sm:space-y-6">
 
             {/* Main Hero Heading with Staggered Text Reveal */}
-            <h1 className="animate-text-reveal animation-delay-100 text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.08] text-white font-sans text-left">
-              Engineered For Maximum Flow, <br />
-              <span className="text-red-500">
+            <h1 className="animate-text-reveal animation-delay-100 text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tight leading-[1.12] sm:leading-[1.08] text-white font-sans text-left">
+              Engineered For Maximum Flow, <br className="hidden sm:inline" />
+              <span className="text-red-500 block sm:inline">
                 Built For Extreme Duty
               </span>
             </h1>
 
-            {/* Subtitle Description with Staggered Text Reveal */}
+            {/* Subtitle Description */}
             <p className="animate-text-reveal animation-delay-200 text-slate-200 text-sm sm:text-base md:text-lg max-w-2xl font-normal leading-relaxed text-left">
               High-discharge submersible borewell pumps and openwell pump sets engineered in Rajkot with 100% EC grade pure copper, precision CNC dynamic balancing, and 160V low-voltage endurance.
             </p>
 
-            {/* Action CTAs with Staggered Text Reveal */}
-            <div className="animate-text-reveal animation-delay-350 pt-2 flex flex-wrap items-center justify-start gap-4">
+            {/* Action CTAs */}
+            <div className="animate-text-reveal animation-delay-350 pt-2 flex flex-col sm:flex-row sm:items-center justify-start gap-3 sm:gap-4">
               <Link
                 to="/products"
-                className="inline-flex items-center gap-2 px-7 py-4 bg-red-600 hover:bg-red-700 text-white font-black text-sm transition-all hover:scale-105 cursor-pointer"
+                className="inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3.5 bg-red-600 hover:bg-red-700 text-white font-bold text-xs sm:text-sm rounded-[3px] transition-colors cursor-pointer text-center"
               >
-                <PackageCheck className="w-4 h-4" />
+                <PackageCheck className="w-4 h-4 shrink-0" />
                 <span>Explore 150+ Model Catalog</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 shrink-0" />
               </Link>
 
               <WhatsAppButton 
                 text="Instant Factory Quote" 
-                className="py-4 px-6 text-sm" 
+                className="py-3.5 px-6 text-xs sm:text-sm rounded-[3px] justify-center" 
               />
             </div>
 
-            {/* Bottom Left Quick Feature Strip with Staggered Text Reveal */}
-            <div className="animate-text-reveal animation-delay-500 pt-4 flex flex-wrap items-center gap-3 text-xs font-bold text-slate-300">
-              <span className="flex items-center gap-1.5 bg-black/60 px-3 py-1.5 border border-white/15">
-                <Zap className="w-3.5 h-3.5 text-amber-400" />
+            {/* Bottom Quick Feature Strip */}
+            <div className="animate-text-reveal animation-delay-500 pt-2 sm:pt-4 flex flex-wrap items-center gap-2 sm:gap-3 text-[11px] sm:text-xs font-semibold text-slate-300">
+              <span className="flex items-center gap-1.5 bg-black/60 px-3 py-1.5 rounded-[3px] border border-white/15">
+                <Zap className="w-3.5 h-3.5 text-amber-400 shrink-0" />
                 <span>160V Wide Voltage Tolerance</span>
               </span>
-              <span className="flex items-center gap-1.5 bg-black/60 px-3 py-1.5 border border-white/15">
-                <Droplet className="w-3.5 h-3.5 text-sky-400" />
+              <span className="flex items-center gap-1.5 bg-black/60 px-3 py-1.5 rounded-[3px] border border-white/15">
+                <Droplet className="w-3.5 h-3.5 text-sky-400 shrink-0" />
                 <span>1,625 Peak LPM Flow</span>
               </span>
-              <span className="flex items-center gap-1.5 bg-black/60 px-3 py-1.5 border border-white/15">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+              <span className="flex items-center gap-1.5 bg-black/60 px-3 py-1.5 rounded-[3px] border border-white/15">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
                 <span>100% Hydro Submerged Tested</span>
               </span>
             </div>
@@ -435,127 +320,119 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* 2. 4-Stat Metric Cards (With Bidirectional Scroll Fade-In & Fade-Out Animation) */}
+      {/* 2. 4-Stat Metric Cards */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10 sm:-mt-14 relative z-30">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           
           {/* Card 01 */}
           <RevealOnScroll animation="fade-up" delay={0} once={false} duration={700} className="h-full">
-            <div className="h-full bg-white rounded-[3px] hover:bg-gradient-to-br hover:from-red-50/50 hover:to-white p-6 sm:p-7 border-2 border-slate-300 hover:border-red-600 transition-all duration-300 flex flex-col justify-between space-y-6 group relative overflow-hidden">
+            <div className="h-full bg-white rounded-[3px] p-6 border border-slate-300 hover:border-slate-400 transition-colors flex flex-col justify-between space-y-6 group">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-mono font-bold text-slate-400 group-hover:text-red-600 transition-colors">
+                <span className="text-xs font-mono font-bold text-slate-400">
                   /01
                 </span>
-                <div className="w-10 h-10 rounded-[3px] bg-slate-100 text-slate-700 group-hover:bg-red-600 group-hover:text-white flex items-center justify-center border border-slate-200 group-hover:border-red-500 transition-transform group-hover:scale-105 shrink-0">
-                  <PackageCheck className="w-5 h-5" />
+                <div className="w-10 h-10 rounded-[3px] bg-slate-100 text-slate-700 flex items-center justify-center border border-slate-200 shrink-0">
+                  <PackageCheck className="w-5 h-5 text-red-600" />
                 </div>
               </div>
 
               <div className="space-y-1">
                 <div className="flex items-baseline gap-1">
-                  <span className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight font-sans">
+                  <span className="text-4xl sm:text-5xl font-bold text-slate-900 tracking-tight font-sans">
                     150
                   </span>
-                  <span className="text-red-600 text-2xl sm:text-3xl font-black font-mono">
+                  <span className="text-red-600 text-2xl sm:text-3xl font-bold font-mono">
                     +
                   </span>
                 </div>
-                <p className="text-xs sm:text-sm font-bold text-slate-600">
+                <p className="text-xs sm:text-sm font-semibold text-slate-600">
                   Pump models in catalog
                 </p>
               </div>
-
-              <div className="absolute bottom-0 left-0 right-0 h-1 bg-transparent group-hover:bg-red-600 transition-all" />
             </div>
           </RevealOnScroll>
 
           {/* Card 02 */}
           <RevealOnScroll animation="fade-up" delay={80} once={false} duration={700} className="h-full">
-            <div className="h-full bg-white rounded-[3px] hover:bg-gradient-to-br hover:from-sky-50/50 hover:to-white p-6 sm:p-7 border-2 border-slate-300 hover:border-sky-600 transition-all duration-300 flex flex-col justify-between space-y-6 group relative overflow-hidden">
+            <div className="h-full bg-white rounded-[3px] p-6 border border-slate-300 hover:border-slate-400 transition-colors flex flex-col justify-between space-y-6 group">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-mono font-bold text-slate-400 group-hover:text-sky-600 transition-colors">
+                <span className="text-xs font-mono font-bold text-slate-400">
                   /02
                 </span>
-                <div className="w-10 h-10 rounded-[3px] bg-slate-100 text-slate-700 group-hover:bg-sky-600 group-hover:text-white flex items-center justify-center border border-slate-200 group-hover:border-sky-500 transition-all group-hover:scale-105 shrink-0">
-                  <Droplet className="w-5 h-5" />
+                <div className="w-10 h-10 rounded-[3px] bg-slate-100 text-slate-700 flex items-center justify-center border border-slate-200 shrink-0">
+                  <Droplet className="w-5 h-5 text-sky-600" />
                 </div>
               </div>
 
               <div className="space-y-1">
                 <div className="flex items-baseline gap-1.5">
-                  <span className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight font-sans">
+                  <span className="text-4xl sm:text-5xl font-bold text-slate-900 tracking-tight font-sans">
                     1,625
                   </span>
-                  <span className="text-sky-600 text-xs sm:text-sm font-mono font-black uppercase">
+                  <span className="text-sky-600 text-xs sm:text-sm font-mono font-bold uppercase">
                     LPM
                   </span>
                 </div>
-                <p className="text-xs sm:text-sm font-bold text-slate-600">
+                <p className="text-xs sm:text-sm font-semibold text-slate-600">
                   Peak discharge water flow
                 </p>
               </div>
-
-              <div className="absolute bottom-0 left-0 right-0 h-1 bg-transparent group-hover:bg-sky-600 transition-all" />
             </div>
           </RevealOnScroll>
 
           {/* Card 03 */}
           <RevealOnScroll animation="fade-up" delay={160} once={false} duration={700} className="h-full">
-            <div className="h-full bg-white rounded-[3px] hover:bg-gradient-to-br hover:from-emerald-50/50 hover:to-white p-6 sm:p-7 border-2 border-slate-300 hover:border-emerald-600 transition-all duration-300 flex flex-col justify-between space-y-6 group relative overflow-hidden">
+            <div className="h-full bg-white rounded-[3px] p-6 border border-slate-300 hover:border-slate-400 transition-colors flex flex-col justify-between space-y-6 group">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-mono font-bold text-slate-400 group-hover:text-emerald-600 transition-colors">
+                <span className="text-xs font-mono font-bold text-slate-400">
                   /03
                 </span>
-                <div className="w-10 h-10 rounded-[3px] bg-slate-100 text-slate-700 group-hover:bg-emerald-600 group-hover:text-white flex items-center justify-center border border-slate-200 group-hover:border-emerald-500 transition-all group-hover:scale-105 shrink-0">
-                  <ShieldCheck className="w-5 h-5" />
+                <div className="w-10 h-10 rounded-[3px] bg-slate-100 text-slate-700 flex items-center justify-center border border-slate-200 shrink-0">
+                  <ShieldCheck className="w-5 h-5 text-emerald-600" />
                 </div>
               </div>
 
               <div className="space-y-1">
                 <div className="flex items-baseline gap-1.5">
-                  <span className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight font-sans">
+                  <span className="text-4xl sm:text-5xl font-bold text-slate-900 tracking-tight font-sans">
                     100
                   </span>
-                  <span className="text-emerald-600 text-xs sm:text-sm font-mono font-black uppercase">
+                  <span className="text-emerald-600 text-xs sm:text-sm font-mono font-bold uppercase">
                     %
                   </span>
                 </div>
-                <p className="text-xs sm:text-sm font-bold text-slate-600">
+                <p className="text-xs sm:text-sm font-semibold text-slate-600">
                   Hydro submerged bench tested
                 </p>
               </div>
-
-              <div className="absolute bottom-0 left-0 right-0 h-1 bg-transparent group-hover:bg-emerald-600 transition-all" />
             </div>
           </RevealOnScroll>
 
           {/* Card 04 */}
           <RevealOnScroll animation="fade-up" delay={240} once={false} duration={700} className="h-full">
-            <div className="h-full bg-white rounded-[3px] hover:bg-gradient-to-br hover:from-amber-50/50 hover:to-white p-6 sm:p-7 border-2 border-slate-300 hover:border-amber-600 transition-all duration-300 flex flex-col justify-between space-y-6 group relative overflow-hidden">
+            <div className="h-full bg-white rounded-[3px] p-6 border border-slate-300 hover:border-slate-400 transition-colors flex flex-col justify-between space-y-6 group">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-mono font-bold text-slate-400 group-hover:text-amber-600 transition-colors">
+                <span className="text-xs font-mono font-bold text-slate-400">
                   /04
                 </span>
-                <div className="w-10 h-10 rounded-[3px] bg-slate-100 text-slate-700 group-hover:bg-amber-600 group-hover:text-white flex items-center justify-center border border-slate-200 group-hover:border-amber-500 transition-all group-hover:scale-105 shrink-0">
-                  <Award className="w-5 h-5" />
+                <div className="w-10 h-10 rounded-[3px] bg-slate-100 text-slate-700 flex items-center justify-center border border-slate-200 shrink-0">
+                  <Award className="w-5 h-5 text-amber-600" />
                 </div>
               </div>
 
               <div className="space-y-1">
                 <div className="flex items-baseline gap-1.5">
-                  <span className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight font-sans">
+                  <span className="text-4xl sm:text-5xl font-bold text-slate-900 tracking-tight font-sans">
                     25
                   </span>
-                  <span className="text-amber-600 text-xs sm:text-sm font-mono font-black uppercase">
+                  <span className="text-amber-600 text-xs sm:text-sm font-mono font-bold uppercase">
                     YRS
                   </span>
                 </div>
-                <p className="text-xs sm:text-sm font-bold text-slate-600">
+                <p className="text-xs sm:text-sm font-semibold text-slate-600">
                   Engineering & foundry heritage
                 </p>
               </div>
-
-              <div className="absolute bottom-0 left-0 right-0 h-1 bg-transparent group-hover:bg-amber-600 transition-all" />
             </div>
           </RevealOnScroll>
 
@@ -575,12 +452,12 @@ export const HomePage: React.FC = () => {
       {/* 4. Product Divisions & Borewell Categories Grid */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-8">
         <RevealOnScroll animation="fade-up">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b-2 border-slate-200 pb-4">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-slate-200 pb-4">
             <div>
-              <span className="text-xs font-black uppercase tracking-widest text-red-600 block mb-1">
+              <span className="text-xs font-bold uppercase tracking-widest text-red-600 block mb-1">
                 Product Spectrum
               </span>
-              <h2 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
+              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
                 Product Divisions & Categories
               </h2>
               <p className="text-xs sm:text-sm text-slate-600 font-normal mt-1">
@@ -597,56 +474,56 @@ export const HomePage: React.FC = () => {
           </div>
         </RevealOnScroll>
 
-        {/* 2x2 Spacious Industrial Bento Showcase Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+        {/* 2x2 Industrial Bento Showcase Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {Object.values(divisionData).map((div, idx) => (
-            <RevealOnScroll key={div.id} animation="fade-up" delay={idx * 100}>
-              <div className="bg-white rounded-3xl border-2 border-slate-300 hover:border-red-600 shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group flex flex-col justify-between h-full">
+            <RevealOnScroll key={div.id} animation="fade-up" delay={idx * 80}>
+              <div className="bg-white rounded-[3px] border border-slate-300 hover:border-slate-400 transition-colors overflow-hidden group flex flex-col justify-between h-full">
                 
                 <div className="grid grid-cols-1 sm:grid-cols-12 items-stretch h-full">
-                  {/* Left Column: Clean Product Pedestal Frame */}
-                  <div className="sm:col-span-5 bg-slate-100 border-b-2 sm:border-b-0 sm:border-r-2 border-slate-200 p-5 sm:p-6 flex flex-col justify-between items-center relative">
+                  {/* Left Column: Product Pedestal Frame */}
+                  <div className="sm:col-span-5 bg-slate-50 border-b sm:border-b-0 sm:border-r border-slate-200 p-5 flex flex-col justify-between items-center relative">
                     <div className="w-full flex items-center justify-between gap-2 z-10">
-                      <span className="text-[10px] font-black uppercase tracking-wider bg-slate-900 text-white px-2.5 py-1 rounded-lg">
+                      <span className="text-[10px] font-bold uppercase tracking-wider bg-slate-900 text-white px-2 py-0.5 rounded-[3px]">
                         {div.boreSize.split(' ')[0]} {div.boreSize.split(' ')[1] || ''}
                       </span>
-                      <span className="text-[10px] font-bold text-red-600 bg-red-50 border border-red-200 px-2 py-0.5 rounded-full font-mono">
+                      <span className="text-[10px] font-bold text-red-600 bg-red-50 border border-red-200 px-2 py-0.5 rounded-[3px] font-mono">
                         {div.modelCount}
                       </span>
                     </div>
 
-                    <div className="my-4 relative flex items-center justify-center min-h-47.5 w-full">
+                    <div className="my-4 relative flex items-center justify-center min-h-[160px] w-full">
                       <img
                         src={div.image}
                         alt={div.title}
-                        className="max-h-48 w-auto object-contain transition-transform duration-500 group-hover:scale-105"
+                        className="max-h-40 w-auto object-contain transition-transform duration-500 group-hover:scale-105"
                       />
                     </div>
 
                     {/* Bottom Fact Strip */}
-                    <div className="w-full bg-white rounded-xl p-2.5 border border-slate-200 shadow-sm flex items-center justify-around text-center">
+                    <div className="w-full bg-white rounded-[3px] p-2 border border-slate-200 flex items-center justify-around text-center">
                       <div>
                         <span className="text-[9px] uppercase font-bold text-slate-400 block">Max Head</span>
-                        <span className="text-xs font-black text-slate-900 font-mono block">{div.headMax.split(' ')[2]}m</span>
+                        <span className="text-xs font-bold text-slate-900 font-mono block">{div.headMax.split(' ')[2]}m</span>
                       </div>
-                      <div className="h-5 w-px bg-slate-200" />
+                      <div className="h-4 w-px bg-slate-200" />
                       <div>
                         <span className="text-[9px] uppercase font-bold text-slate-400 block">Peak Flow</span>
-                        <span className="text-xs font-black text-emerald-600 font-mono block">{div.flowMax.split(' ')[2]} LPM</span>
+                        <span className="text-xs font-bold text-emerald-600 font-mono block">{div.flowMax.split(' ')[2]} LPM</span>
                       </div>
                     </div>
                   </div>
 
                   {/* Right Column: Specification & Action Deck */}
-                  <div className="sm:col-span-7 p-6 sm:p-7 flex flex-col justify-between space-y-4">
+                  <div className="sm:col-span-7 p-5 sm:p-6 flex flex-col justify-between space-y-4">
                     <div className="space-y-3">
-                      <div className="flex items-center justify-between gap-2">
-                        <span className="text-[10px] font-black uppercase tracking-wider text-red-600 bg-red-50 border border-red-200 px-2.5 py-0.5 rounded-full">
+                      <div>
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-red-600 bg-red-50 border border-red-200 px-2 py-0.5 rounded-[3px]">
                           {div.badge}
                         </span>
                       </div>
 
-                      <h3 className="text-lg sm:text-xl font-black text-slate-900 group-hover:text-red-600 transition-colors tracking-tight">
+                      <h3 className="text-lg font-bold text-slate-900 group-hover:text-red-600 transition-colors tracking-tight">
                         {div.title}
                       </h3>
 
@@ -654,17 +531,17 @@ export const HomePage: React.FC = () => {
                         {div.subtitle}
                       </p>
 
-                      {/* 4 Micro-Metric Capsules */}
+                      {/* Micro-Metric Box */}
                       <div className="grid grid-cols-2 gap-2 pt-1">
-                        <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                        <div className="p-2.5 rounded-[3px] bg-slate-50 border border-slate-200">
                           <span className="text-[9px] uppercase font-bold text-slate-400 block">Power Range</span>
-                          <span className="text-xs font-black text-slate-900 font-mono block mt-0.5">
+                          <span className="text-xs font-bold text-slate-900 font-mono block mt-0.5">
                             {div.powerRange.split(' ')[0]} – {div.powerRange.split(' ')[3]} HP
                           </span>
                         </div>
-                        <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                        <div className="p-2.5 rounded-[3px] bg-slate-50 border border-slate-200">
                           <span className="text-[9px] uppercase font-bold text-sky-600 block">Supply Phase</span>
-                          <span className="text-xs font-black text-sky-700 font-mono block mt-0.5">
+                          <span className="text-xs font-bold text-sky-700 font-mono block mt-0.5">
                             1-Ph / 3-Ph
                           </span>
                         </div>
@@ -679,7 +556,7 @@ export const HomePage: React.FC = () => {
                           {div.seriesList.map((ser, sIdx) => (
                             <span
                               key={sIdx}
-                              className="px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 font-bold text-[10px] border border-slate-200"
+                              className="px-2 py-0.5 rounded-[3px] bg-slate-100 text-slate-700 font-semibold text-[10px] border border-slate-200"
                             >
                               {ser}
                             </span>
@@ -689,20 +566,19 @@ export const HomePage: React.FC = () => {
                     </div>
 
                     {/* Action Buttons */}
-                    <div className="pt-3 border-t border-slate-100 flex items-center gap-2">
+                    <div className="pt-3 border-t border-slate-100 grid grid-cols-2 gap-2">
                       <Link
                         to={div.link}
-                        className="flex-1 py-3 px-4 bg-red-600 hover:bg-red-700 text-white font-black text-xs sm:text-sm rounded-xl shadow-md shadow-red-600/20 text-center transition-all hover:scale-[1.02] inline-flex items-center justify-center gap-1.5"
+                        className="py-2.5 px-3 bg-red-600 hover:bg-red-700 text-white font-bold text-xs rounded-[3px] text-center transition-colors flex items-center justify-center gap-1.5"
                       >
-                        <PackageCheck className="w-4 h-4" />
-                        <span>Explore Catalog</span>
+                        <span>Explore Series</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </Link>
 
                       <WhatsAppButton
                         text="Price Quote"
                         message={`Hello SuperFlow, I am interested in getting quotation and specifications for ${div.title}. Please send series catalog and price list.`}
-                        className="py-3 px-4 text-xs sm:text-sm rounded-xl"
+                        className="py-2.5 px-3 text-xs rounded-[3px] justify-center"
                       />
                     </div>
 
@@ -715,15 +591,15 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* 6. Precision Quality & Engineering Benchmarks - 4-Pillar Industrial Matrix */}
+      {/* 5. Precision Quality & Engineering Benchmarks - 4-Pillar Industrial Matrix */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         <RevealOnScroll animation="fade-up">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b-2 border-slate-200 pb-4">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-200 pb-4">
             <div>
-              <span className="text-xs font-black uppercase tracking-widest text-red-600 block mb-1">
+              <span className="text-xs font-bold uppercase tracking-widest text-red-600 block mb-1">
                 Engineering Integrity
               </span>
-              <h2 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
+              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
                 Manufacturing & Testing Standards
               </h2>
               <p className="text-xs sm:text-sm text-slate-600 font-normal mt-1">
@@ -731,11 +607,11 @@ export const HomePage: React.FC = () => {
               </p>
             </div>
 
-            <div className="flex flex-wrap items-center gap-2.5">
-              <span className="px-3.5 py-1.5 rounded-xl bg-white border-2 border-slate-200 text-slate-700 text-xs font-bold flex items-center gap-1.5 shadow-2xs">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="px-3 py-1 bg-white border border-slate-200 text-slate-700 text-xs font-bold flex items-center gap-1.5 rounded-[3px]">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600" /> ISO 9001:2008
               </span>
-              <span className="px-3.5 py-1.5 rounded-xl bg-white border-2 border-slate-200 text-slate-700 text-xs font-bold flex items-center gap-1.5 shadow-2xs">
+              <span className="px-3 py-1 bg-white border border-slate-200 text-slate-700 text-xs font-bold flex items-center gap-1.5 rounded-[3px]">
                 <CheckCircle2 className="w-4 h-4 text-sky-600" /> BIS IS:8034 / IS:14220
               </span>
             </div>
@@ -743,29 +619,29 @@ export const HomePage: React.FC = () => {
         </RevealOnScroll>
 
         {/* 4-Card Industrial Engineering Matrix */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {techFeatures.map((feat, idx) => {
             const Icon = feat.icon;
             return (
               <RevealOnScroll key={feat.id} animation="fade-up" delay={idx * 80} className="h-full">
-                <div className="h-full bg-white rounded-3xl border-2 border-slate-300 hover:border-red-600 p-6 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between space-y-5 group">
-                  <div className="space-y-4">
+                <div className="h-full bg-white rounded-[3px] border border-slate-300 hover:border-slate-400 p-5 transition-colors flex flex-col justify-between space-y-4 group">
+                  <div className="space-y-3">
                     {/* Header Row with Icon and Watermark Index */}
                     <div className="flex items-center justify-between">
-                      <div className={`w-12 h-12 rounded-2xl ${feat.accentBg} border-2 ${feat.accentBorder} flex items-center justify-center ${feat.accentColor} group-hover:bg-slate-900 group-hover:text-white transition-colors`}>
-                        <Icon className="w-6 h-6" />
+                      <div className="w-10 h-10 rounded-[3px] bg-slate-100 flex items-center justify-center text-slate-800 border border-slate-200">
+                        <Icon className="w-5 h-5 text-red-600" />
                       </div>
-                      <span className="text-3xl font-black text-slate-200 font-mono">
+                      <span className="text-2xl font-bold text-slate-300 font-mono">
                         0{idx + 1}
                       </span>
                     </div>
 
                     {/* Titles */}
                     <div>
-                      <span className={`text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md ${feat.accentBg} ${feat.accentColor} border ${feat.accentBorder}`}>
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-red-600 bg-red-50 px-2 py-0.5 rounded-[3px] border border-red-200">
                         {feat.tag}
                       </span>
-                      <h3 className="text-lg font-black text-slate-900 tracking-tight mt-2 group-hover:text-red-600 transition-colors">
+                      <h3 className="text-base font-bold text-slate-900 tracking-tight mt-2">
                         {feat.tabLabel}
                       </h3>
                     </div>
@@ -778,7 +654,7 @@ export const HomePage: React.FC = () => {
                     {/* Bullet Checkmarks */}
                     <div className="space-y-1.5 pt-2 border-t border-slate-100">
                       {feat.badges.slice(0, 3).map((b, bIdx) => (
-                        <div key={bIdx} className="flex items-center gap-2 text-[11px] font-bold text-slate-700">
+                        <div key={bIdx} className="flex items-center gap-1.5 text-[11px] font-medium text-slate-700">
                           <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                           <span className="truncate">{b}</span>
                         </div>
@@ -786,10 +662,10 @@ export const HomePage: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Card Footer Live Protocol Indicator */}
-                  <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-mono font-bold text-slate-500">
+                  {/* Card Footer */}
+                  <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-mono font-semibold text-slate-500">
                     <span className="flex items-center gap-1.5 text-emerald-700">
-                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                       Verified Standard
                     </span>
                     <Link to="/quality" className="text-red-600 hover:text-red-700 text-xs font-bold">
@@ -804,9 +680,9 @@ export const HomePage: React.FC = () => {
 
         {/* Bottom QA Strip */}
         <RevealOnScroll animation="fade-up">
-          <div className="bg-slate-900 rounded-2xl p-4 sm:p-5 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-2 border-slate-800">
+          <div className="bg-[#080d16] rounded-[3px] p-5 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-4 border border-slate-800">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-red-600/20 border border-red-500/30 flex items-center justify-center text-red-400 shrink-0">
+              <div className="w-9 h-9 rounded-[3px] bg-red-600/20 border border-red-500/30 flex items-center justify-center text-red-400 shrink-0">
                 <ShieldCheck className="w-5 h-5" />
               </div>
               <p className="text-xs sm:text-sm font-medium text-slate-300">
@@ -816,7 +692,7 @@ export const HomePage: React.FC = () => {
 
             <Link
               to="/quality"
-              className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold transition-colors shrink-0"
+              className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-[3px] bg-red-600 hover:bg-red-700 text-white text-xs font-bold transition-colors shrink-0"
             >
               <span>Explore Testing Lab</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -825,22 +701,22 @@ export const HomePage: React.FC = () => {
         </RevealOnScroll>
       </section>
 
-      {/* 7. Sector Applications Showcase */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      {/* 6. Sector Applications Interactive Showcase (Replaced sloppy accordion with clean industrial tabs matrix) */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-8">
         <RevealOnScroll animation="fade-up">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b-2 border-slate-200 pb-4">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-slate-200 pb-4">
             <div>
-              <span className="text-xs font-black uppercase tracking-widest text-red-600 block mb-1">
+              <span className="text-xs font-bold uppercase tracking-widest text-red-600 block mb-1">
                 Applications
               </span>
-              <h2 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
+              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
                 Pumping Solutions by Industry & Sector
               </h2>
             </div>
 
             <Link
               to="/applications"
-              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-red-600 hover:text-red-700 bg-red-50 hover:bg-red-100 px-4 py-2 rounded-xl transition-colors border border-red-200 shrink-0 self-start sm:self-auto"
+              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-red-600 hover:text-red-700 transition-colors shrink-0"
             >
               <span>View All Applications</span>
               <ArrowRight className="w-4 h-4" />
@@ -848,122 +724,142 @@ export const HomePage: React.FC = () => {
           </div>
         </RevealOnScroll>
 
-        {/* Desktop View: Accordion Gallery */}
-        <div className="hidden lg:block w-full">
-          <RevealOnScroll animation="fade-up" delay={100}>
-            <AccordionGallery
-              items={sectorsData.map((sec) => ({
-                image: sec.image,
-                label: sec.title,
-                shortLabel: sec.shortLabel,
-                tag: sec.tag,
-                tagline: sec.tagline,
-                desc: sec.desc,
-                stats: sec.stats,
-                recommendedSeries: sec.recommendedSeries,
-                link: sec.link,
-                icon: sec.icon,
-                alt: sec.title
-              }))}
-              defaultIndex={0}
-              height={530}
-              gap={14}
-              radius={28}
-              expandRatio={0.60}
-              accentColor="#dc2626"
-              overlayColor="#080d16"
-              textColor="#ffffff"
-              trigger="hover"
-              parallax={0.4}
-              tilt={5}
-              grayscale={false}
-              autoplay={true}
-              autoplayInterval={4000}
-            />
-          </RevealOnScroll>
+        {/* Sector Tabs Navigation */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+          {sectorsData.map((sec, idx) => {
+            const Icon = sec.icon;
+            const isActive = idx === activeSectorIndex;
+            return (
+              <button
+                key={sec.id}
+                type="button"
+                onClick={() => setActiveSectorIndex(idx)}
+                className={`p-3.5 rounded-[3px] border text-left transition-colors flex items-center gap-3 cursor-pointer ${
+                  isActive 
+                    ? 'bg-[#0c192c] text-white border-[#0c192c]' 
+                    : 'bg-white text-slate-700 border-slate-300 hover:border-slate-400 hover:bg-slate-50'
+                }`}
+              >
+                <div className={`w-8 h-8 rounded-[3px] flex items-center justify-center shrink-0 ${
+                  isActive ? 'bg-red-600 text-white' : 'bg-slate-100 text-slate-700'
+                }`}>
+                  <Icon className="w-4 h-4" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <span className={`text-[10px] font-mono block ${isActive ? 'text-slate-300' : 'text-slate-400'}`}>
+                    0{idx + 1}
+                  </span>
+                  <span className="text-xs font-bold truncate block">
+                    {sec.shortLabel}
+                  </span>
+                </div>
+              </button>
+            );
+          })}
         </div>
 
-        {/* Mobile & Tablet View: Standalone Sector Cards */}
-        <div className="block lg:hidden">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {sectorsData.map((sec, idx) => {
-              const IconComponent = sec.icon;
-              return (
-                <RevealOnScroll key={sec.id} animation="fade-up" delay={idx * 80}>
-                  <div className="bg-[#080d16] rounded-3xl overflow-hidden border-2 border-slate-800 shadow-xl relative min-h-115 flex flex-col justify-between p-6 text-white group">
-                    <img
-                      src={sec.image}
-                      alt={sec.title}
-                      className="absolute inset-0 w-full h-full object-cover z-0 brightness-75 group-hover:scale-105 transition-transform duration-700"
-                    />
-                    <div className="absolute inset-0 bg-[#080d16]/85 z-10" />
+        {/* Active Sector Showcase Card */}
+        <div className="bg-white rounded-[3px] border border-slate-300 overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch">
+            
+            {/* Left Image & Overlay Specs */}
+            <div className="lg:col-span-6 relative min-h-[280px] lg:min-h-[420px] bg-slate-950 overflow-hidden group">
+              <img
+                src={currentSector.image}
+                alt={currentSector.title}
+                className="w-full h-full object-cover brightness-90 group-hover:scale-102 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
+              
+              <div className="absolute top-4 left-4">
+                <span className="px-2.5 py-1 rounded-[3px] bg-[#0c192c]/90 text-white font-bold text-xs uppercase tracking-wider border border-white/10">
+                  {currentSector.tag}
+                </span>
+              </div>
 
-                    <div className="relative z-20 flex items-center justify-between gap-2">
-                      <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900 border border-white/20">
-                        <IconComponent className="w-3.5 h-3.5 text-red-400" />
-                        <span className="text-[10px] font-black uppercase tracking-wider text-white">
-                          {sec.tag}
-                        </span>
-                      </div>
-                      <span className="text-[10px] font-bold text-slate-300 bg-black/60 px-2.5 py-1 rounded-full border border-white/10">
-                        Sector 0{idx + 1}
+              {/* Bottom Metrics on Image */}
+              <div className="absolute bottom-4 left-4 right-4 bg-slate-900/90 backdrop-blur-md rounded-[3px] p-3 border border-white/10 text-white">
+                <div className="grid grid-cols-3 divide-x divide-white/15 text-center">
+                  {currentSector.stats.map((st, sIdx) => (
+                    <div key={sIdx} className="px-2">
+                      <span className="text-[9px] uppercase font-bold text-slate-400 block tracking-wider truncate">
+                        {st.label}
+                      </span>
+                      <span className="text-xs sm:text-sm font-bold text-white mt-0.5 block truncate">
+                        {st.value}
                       </span>
                     </div>
+                  ))}
+                </div>
+              </div>
+            </div>
 
-                    <div className="relative z-20 space-y-4 pt-10">
-                      <div className="space-y-1">
-                        <h3 className="text-xl font-black text-white tracking-tight leading-snug">
-                          {sec.title}
-                        </h3>
-                        <p className="text-xs text-slate-300 font-medium">
-                          {sec.tagline}
-                        </p>
-                      </div>
+            {/* Right Information Deck */}
+            <div className="lg:col-span-6 p-6 sm:p-8 flex flex-col justify-between space-y-6">
+              <div className="space-y-4">
+                <div className="space-y-1">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-red-600 block">
+                    Sector Specification 0{activeSectorIndex + 1}
+                  </span>
+                  <h3 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
+                    {currentSector.title}
+                  </h3>
+                  <p className="text-xs sm:text-sm font-semibold text-slate-600">
+                    {currentSector.tagline}
+                  </p>
+                </div>
 
-                      <p className="text-xs text-slate-300 leading-relaxed font-normal">
-                        {sec.desc}
-                      </p>
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+                  {currentSector.desc}
+                </p>
 
-                      <div className="grid grid-cols-3 gap-2 pt-1">
-                        {sec.stats.map((st, sIdx) => (
-                          <div
-                            key={sIdx}
-                            className="bg-slate-950/80 rounded-xl p-2.5 border border-white/10 text-center"
-                          >
-                            <span className="text-[9px] uppercase font-bold text-slate-400 block tracking-wider truncate">
-                              {st.label}
-                            </span>
-                            <span className="text-xs font-black text-white mt-0.5 block truncate">
-                              {st.value}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-
-                      <div className="pt-2 flex items-center justify-between border-t border-white/10">
-                        <Link
-                          to={sec.link}
-                          className="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-xs inline-flex items-center justify-center gap-1.5 shadow-md transition-colors w-full"
-                        >
-                          <span>Explore Sector Pumps</span>
-                          <ArrowRight className="w-3.5 h-3.5" />
-                        </Link>
-                      </div>
-                    </div>
+                {/* Recommended Series */}
+                <div className="space-y-2 pt-2 border-t border-slate-100">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
+                    Recommended Series For This Sector:
+                  </span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {currentSector.recommendedSeries.map((s, idx) => (
+                      <span
+                        key={idx}
+                        className="px-2.5 py-1 rounded-[3px] bg-slate-100 text-slate-800 text-xs font-semibold border border-slate-200"
+                      >
+                        {s}
+                      </span>
+                    ))}
                   </div>
-                </RevealOnScroll>
-              );
-            })}
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center gap-3">
+                <Link
+                  to={currentSector.link}
+                  className="w-full sm:w-auto px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white font-bold text-xs rounded-[3px] transition-colors flex items-center justify-center gap-1.5"
+                >
+                  <span>Explore Matching Pumps</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+
+                <WhatsAppButton
+                  text="Inquire for Sector"
+                  message={`Hello SuperFlow, I would like to inquire about submersible pump solutions for ${currentSector.title}.`}
+                  className="w-full sm:w-auto !py-2.5 !px-5 text-xs rounded-[3px] justify-center"
+                />
+              </div>
+
+            </div>
+
           </div>
         </div>
       </section>
 
-      {/* 8. Dealership & Factory Direct Acquisition Desk */}
+      {/* 7. Dealership & Factory Direct Acquisition Desk */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-        <RevealOnScroll animation="scale-up">
-          <div className="bg-[#080d16] rounded-3xl p-8 sm:p-12 lg:p-14 text-white shadow-2xl relative overflow-hidden border-2 border-red-600 flex flex-col lg:flex-row items-center justify-between gap-8">
-            <div className="space-y-5 max-w-2xl relative z-10">
-              <h3 className="text-2xl sm:text-4xl font-black text-white tracking-tight leading-tight">
+        <RevealOnScroll animation="fade-up">
+          <div className="bg-[#080d16] rounded-[3px] p-6 sm:p-10 lg:p-12 text-white border border-slate-800 flex flex-col lg:flex-row items-center justify-between gap-8">
+            <div className="space-y-4 max-w-2xl">
+              <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight leading-tight">
                 Partner with Royal Manufacture: India's Rapidly Growing Pump Network
               </h3>
 
@@ -971,29 +867,29 @@ export const HomePage: React.FC = () => {
                 Direct factory pricing from Padvala, Rajkot with 100% in-house CNC turning, pure copper windings, and certified BIS ISI benchmarks.
               </p>
 
-              <div className="flex flex-wrap items-center gap-2.5 pt-2">
-                <span className="px-3.5 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs font-bold flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2 pt-1">
+                <span className="px-3 py-1 rounded-[3px] bg-slate-900 border border-slate-700 text-white text-xs font-semibold flex items-center gap-1.5">
                   <Award className="w-3.5 h-3.5 text-amber-400" />
                   <span>25+ Years Experience</span>
                 </span>
 
-                <span className="px-3.5 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs font-bold flex items-center gap-2">
+                <span className="px-3 py-1 rounded-[3px] bg-slate-900 border border-slate-700 text-white text-xs font-semibold flex items-center gap-1.5">
                   <Factory className="w-3.5 h-3.5 text-red-400" />
                   <span>Direct Factory Margins</span>
                 </span>
 
-                <span className="px-3.5 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs font-bold flex items-center gap-2">
+                <span className="px-3 py-1 rounded-[3px] bg-slate-900 border border-slate-700 text-white text-xs font-semibold flex items-center gap-1.5">
                   <Zap className="w-3.5 h-3.5 text-sky-400" />
                   <span>48-Hour Quick Dispatch</span>
                 </span>
               </div>
             </div>
 
-            <div className="flex flex-col items-center sm:items-end gap-4 shrink-0 relative z-10 w-full lg:w-auto">
+            <div className="flex flex-col items-center sm:items-end gap-3 shrink-0 w-full lg:w-auto">
               <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
                 <Link
                   to="/contact"
-                  className="w-full sm:w-auto px-7 py-3.5 bg-white hover:bg-slate-100 text-slate-950 font-black rounded-2xl transition-all hover:scale-105 shadow-xl text-xs sm:text-sm flex items-center justify-center gap-2 cursor-pointer"
+                  className="w-full sm:w-auto px-6 py-3 bg-white hover:bg-slate-100 text-slate-950 font-bold rounded-[3px] transition-colors text-xs sm:text-sm flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <span>Apply for Dealership</span>
                   <ArrowRight className="w-4 h-4" />
@@ -1001,11 +897,11 @@ export const HomePage: React.FC = () => {
 
                 <WhatsAppButton 
                   text="Direct WhatsApp Desk" 
-                  className="w-full sm:w-auto py-3.5 px-6 text-xs sm:text-sm rounded-2xl shadow-lg" 
+                  className="w-full sm:w-auto !py-3 !px-5 text-xs sm:text-sm rounded-[3px]" 
                 />
               </div>
 
-              <div className="flex items-center gap-2 text-slate-400 text-xs font-semibold pt-1">
+              <div className="flex items-center gap-2 text-slate-400 text-xs font-medium pt-1">
                 <Phone className="w-3.5 h-3.5 text-emerald-400" />
                 <span>Plant Sales Desk: <strong className="text-white font-mono">{COMPANY_INFO.phone}</strong></span>
               </div>

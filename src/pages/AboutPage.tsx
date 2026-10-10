@@ -1,5 +1,5 @@
 import React from 'react';
-import { COMPANY_INFO, CERTIFICATIONS } from '../data/pumpsData';
+import { COMPANY_INFO } from '../data/pumpsData';
 import {
   Target, 
   ShieldCheck, 
@@ -22,9 +22,6 @@ export const AboutPage: React.FC = () => {
       title: 'CNC Precision Shaft Turning',
       tag: 'Micron Accuracy',
       icon: Cpu,
-      color: 'text-red-600',
-      bg: 'bg-red-50',
-      border: 'border-red-200',
       desc: 'All rotor shafts are turned from SS-410 / SS-304 bars on multi-axis CNC lathe centers, ensuring runout within 0.02mm for vibration-free 50,000+ hour operational lifespan.'
     },
     {
@@ -32,9 +29,6 @@ export const AboutPage: React.FC = () => {
       title: '99.9% Pure EC Copper Winding',
       tag: '160V Voltage Defense',
       icon: Zap,
-      color: 'text-amber-600',
-      bg: 'bg-amber-50',
-      border: 'border-amber-200',
       desc: 'Dual-coated electrolytic grade copper wire with Class F & H synthetic insulation ensures uninterrupted pumping through harsh agricultural voltage dips down to 160V.'
     },
     {
@@ -42,9 +36,6 @@ export const AboutPage: React.FC = () => {
       title: 'Dynamic Rotor Balancing Bench',
       tag: 'Zero Vibration',
       icon: Activity,
-      color: 'text-sky-600',
-      bg: 'bg-sky-50',
-      border: 'border-sky-200',
       desc: 'Every squirrel-cage rotor is computerized dynamic balanced under simulated loads to minimize radial play, protect water-lubricated bearings, and reduce noise below 45 dB.'
     },
     {
@@ -52,9 +43,6 @@ export const AboutPage: React.FC = () => {
       title: '100% Submerged Hydro Testing',
       tag: 'Zero-Defect Audit',
       icon: Droplet,
-      color: 'text-emerald-600',
-      bg: 'bg-emerald-50',
-      border: 'border-emerald-200',
       desc: 'Before dispatch, every single pump set is submerged in our calibrated flow tanks to verify actual LPM discharge, total head height, and dielectric insulation resistance.'
     }
   ];
@@ -63,7 +51,7 @@ export const AboutPage: React.FC = () => {
     <div className="space-y-16 sm:space-y-20 lg:space-y-24 pb-16 sm:pb-24">
       
       {/* 1. Cinematic Hero Header Section */}
-      <section className="relative bg-[#080d16] text-white border-b-2 border-red-600 overflow-hidden w-full">
+      <section className="relative bg-[#080d16] text-white border-b border-red-600 overflow-hidden w-full">
         <img
           src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=2000&q=80"
           alt="Royal Manufacture Submersible Pumps Factory"
@@ -78,11 +66,11 @@ export const AboutPage: React.FC = () => {
             <span className="text-white font-bold">About Us</span>
           </nav>
 
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white font-sans">
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white font-sans">
             Engineering Water Flow Excellence Since 2000
           </h1>
 
-          <p className="text-slate-300 text-sm sm:text-base leading-relaxed font-normal">
+          <p className="text-slate-300 text-sm sm:text-base leading-relaxed font-normal max-w-3xl">
             25+ Years of Precision Submersible Pump Manufacturing in Padvala, Rajkot (Gujarat). Delivering reliable water solutions across agricultural, domestic, and industrial sectors.
           </p>
         </div>
@@ -91,12 +79,12 @@ export const AboutPage: React.FC = () => {
       {/* 2. Company Story & Facility Profile */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <RevealOnScroll animation="fade-up">
-          <div className="bg-white rounded-3xl p-6 sm:p-10 border-2 border-slate-300 shadow-xl relative overflow-hidden">
+          <div className="bg-white rounded-[3px] p-6 sm:p-10 border border-slate-300 relative overflow-hidden">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
               
               {/* Left Narrative */}
               <div className="lg:col-span-7 space-y-5">
-                <h2 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight leading-tight">
+                <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight leading-tight">
                   Pioneering Water Solutions with World-Class Manufacturing Standards
                 </h2>
 
@@ -114,19 +102,19 @@ export const AboutPage: React.FC = () => {
 
                 {/* Capability Checklist */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2">
-                  <div className="flex items-center gap-2 text-xs font-bold text-slate-800">
+                  <div className="flex items-center gap-2 text-xs font-semibold text-slate-800">
                     <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                     <span>100% EC Pure Copper Windings</span>
                   </div>
-                  <div className="flex items-center gap-2 text-xs font-bold text-slate-800">
+                  <div className="flex items-center gap-2 text-xs font-semibold text-slate-800">
                     <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                     <span>Precision CNC Turned SS Shafts</span>
                   </div>
-                  <div className="flex items-center gap-2 text-xs font-bold text-slate-800">
+                  <div className="flex items-center gap-2 text-xs font-semibold text-slate-800">
                     <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                     <span>Sand-Resistant Hydraulic Impellers</span>
                   </div>
-                  <div className="flex items-center gap-2 text-xs font-bold text-slate-800">
+                  <div className="flex items-center gap-2 text-xs font-semibold text-slate-800">
                     <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                     <span>160V Wide Voltage Rural Tolerance</span>
                   </div>
@@ -134,29 +122,29 @@ export const AboutPage: React.FC = () => {
               </div>
 
               {/* Right Metric Stat Tiles */}
-              <div className="lg:col-span-5 grid grid-cols-2 gap-4">
-                <div className="p-6 rounded-2xl bg-slate-50 border-2 border-slate-200 space-y-1">
-                  <span className="text-2xl sm:text-4xl font-black text-red-600 font-mono tracking-tight block">2000</span>
+              <div className="lg:col-span-5 grid grid-cols-2 gap-3 sm:gap-4">
+                <div className="p-5 rounded-[3px] bg-slate-50 border border-slate-200 space-y-1">
+                  <span className="text-2xl sm:text-3xl font-bold text-red-600 font-mono tracking-tight block">2000</span>
                   <h4 className="text-xs font-bold text-slate-900">Inception Year</h4>
-                  <p className="text-[11px] text-slate-500 font-medium">25+ years continuous leadership in Rajkot.</p>
+                  <p className="text-[11px] text-slate-500">25+ years continuous leadership in Rajkot.</p>
                 </div>
 
-                <div className="p-6 rounded-2xl bg-slate-50 border-2 border-slate-200 space-y-1">
-                  <span className="text-2xl sm:text-4xl font-black text-sky-600 font-mono tracking-tight block">150+</span>
+                <div className="p-5 rounded-[3px] bg-slate-50 border border-slate-200 space-y-1">
+                  <span className="text-2xl sm:text-3xl font-bold text-sky-600 font-mono tracking-tight block">150+</span>
                   <h4 className="text-xs font-bold text-slate-900">Pump Models</h4>
-                  <p className="text-[11px] text-slate-500 font-medium">V-3 to V-9 & Openwell pump sets.</p>
+                  <p className="text-[11px] text-slate-500">V-3 to V-9 & Openwell pump sets.</p>
                 </div>
 
-                <div className="p-6 rounded-2xl bg-slate-50 border-2 border-slate-200 space-y-1">
-                  <span className="text-2xl sm:text-4xl font-black text-emerald-600 font-mono tracking-tight block">100%</span>
+                <div className="p-5 rounded-[3px] bg-slate-50 border border-slate-200 space-y-1">
+                  <span className="text-2xl sm:text-3xl font-bold text-emerald-600 font-mono tracking-tight block">100%</span>
                   <h4 className="text-xs font-bold text-slate-900">Hydro Tested</h4>
-                  <p className="text-[11px] text-slate-500 font-medium">Submerged load bench test before dispatch.</p>
+                  <p className="text-[11px] text-slate-500">Submerged load bench test before dispatch.</p>
                 </div>
 
-                <div className="p-6 rounded-2xl bg-slate-50 border-2 border-slate-200 space-y-1">
-                  <span className="text-2xl sm:text-4xl font-black text-amber-600 font-mono tracking-tight block">IS:8034</span>
+                <div className="p-5 rounded-[3px] bg-slate-50 border border-slate-200 space-y-1">
+                  <span className="text-2xl sm:text-3xl font-bold text-amber-600 font-mono tracking-tight block">IS:8034</span>
                   <h4 className="text-xs font-bold text-slate-900">BIS ISI Certified</h4>
-                  <p className="text-[11px] text-slate-500 font-medium">Bureau of Indian Standards certified.</p>
+                  <p className="text-[11px] text-slate-500">Bureau of Indian Standards certified.</p>
                 </div>
               </div>
 
@@ -169,10 +157,10 @@ export const AboutPage: React.FC = () => {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         <RevealOnScroll animation="fade-up">
           <div className="text-center max-w-2xl mx-auto space-y-2">
-            <span className="text-xs font-black uppercase tracking-widest text-red-600 block">
+            <span className="text-xs font-bold uppercase tracking-widest text-red-600 block">
               Our Core Principles
             </span>
-            <h3 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
+            <h3 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
               Operational Discipline & Engineering Ethics
             </h3>
             <p className="text-slate-600 text-xs sm:text-sm font-normal">
@@ -184,16 +172,16 @@ export const AboutPage: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Principle 1 */}
           <RevealOnScroll animation="fade-up" delay={0} className="h-full">
-            <div className="h-full bg-white rounded-3xl border-2 border-slate-300 hover:border-red-600 transition-all duration-300 shadow-sm hover:shadow-xl p-8 space-y-5 flex flex-col justify-between group">
-              <div className="space-y-4">
+            <div className="h-full bg-white rounded-[3px] border border-slate-300 hover:border-slate-400 transition-colors p-6 sm:p-7 space-y-4 flex flex-col justify-between group">
+              <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <div className="w-12 h-12 rounded-2xl bg-red-50 border-2 border-red-200 flex items-center justify-center text-red-600 group-hover:bg-red-600 group-hover:text-white transition-colors">
-                    <Target className="w-6 h-6" />
+                  <div className="w-10 h-10 rounded-[3px] bg-slate-100 flex items-center justify-center text-red-600 border border-slate-200">
+                    <Target className="w-5 h-5" />
                   </div>
-                  <span className="text-3xl font-black text-slate-200 font-mono">01</span>
+                  <span className="text-2xl font-bold text-slate-300 font-mono">01</span>
                 </div>
 
-                <h4 className="text-xl font-black text-slate-900 tracking-tight group-hover:text-red-600 transition-colors">
+                <h4 className="text-lg font-bold text-slate-900 tracking-tight">
                   Our Vision
                 </h4>
                 <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
@@ -201,7 +189,7 @@ export const AboutPage: React.FC = () => {
                 </p>
               </div>
 
-              <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-red-600">
+              <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-red-600">
                 <span>Pan-India Expansion</span>
                 <span>→</span>
               </div>
@@ -210,16 +198,16 @@ export const AboutPage: React.FC = () => {
 
           {/* Principle 2 */}
           <RevealOnScroll animation="fade-up" delay={100} className="h-full">
-            <div className="h-full bg-white rounded-3xl border-2 border-slate-300 hover:border-emerald-600 transition-all duration-300 shadow-sm hover:shadow-xl p-8 space-y-5 flex flex-col justify-between group">
-              <div className="space-y-4">
+            <div className="h-full bg-white rounded-[3px] border border-slate-300 hover:border-slate-400 transition-colors p-6 sm:p-7 space-y-4 flex flex-col justify-between group">
+              <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <div className="w-12 h-12 rounded-2xl bg-emerald-50 border-2 border-emerald-200 flex items-center justify-center text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
-                    <ShieldCheck className="w-6 h-6" />
+                  <div className="w-10 h-10 rounded-[3px] bg-slate-100 flex items-center justify-center text-emerald-600 border border-slate-200">
+                    <ShieldCheck className="w-5 h-5" />
                   </div>
-                  <span className="text-3xl font-black text-slate-200 font-mono">02</span>
+                  <span className="text-2xl font-bold text-slate-300 font-mono">02</span>
                 </div>
 
-                <h4 className="text-xl font-black text-slate-900 tracking-tight group-hover:text-emerald-600 transition-colors">
+                <h4 className="text-lg font-bold text-slate-900 tracking-tight">
                   Our Priority
                 </h4>
                 <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
@@ -227,7 +215,7 @@ export const AboutPage: React.FC = () => {
                 </p>
               </div>
 
-              <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-emerald-600">
+              <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-emerald-600">
                 <span>100% Quality First</span>
                 <span>→</span>
               </div>
@@ -236,16 +224,16 @@ export const AboutPage: React.FC = () => {
 
           {/* Principle 3 */}
           <RevealOnScroll animation="fade-up" delay={200} className="h-full">
-            <div className="h-full bg-white rounded-3xl border-2 border-slate-300 hover:border-sky-600 transition-all duration-300 shadow-sm hover:shadow-xl p-8 space-y-5 flex flex-col justify-between group">
-              <div className="space-y-4">
+            <div className="h-full bg-white rounded-[3px] border border-slate-300 hover:border-slate-400 transition-colors p-6 sm:p-7 space-y-4 flex flex-col justify-between group">
+              <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <div className="w-12 h-12 rounded-2xl bg-sky-50 border-2 border-sky-200 flex items-center justify-center text-sky-600 group-hover:bg-sky-600 group-hover:text-white transition-colors">
-                    <Factory className="w-6 h-6" />
+                  <div className="w-10 h-10 rounded-[3px] bg-slate-100 flex items-center justify-center text-sky-600 border border-slate-200">
+                    <Factory className="w-5 h-5" />
                   </div>
-                  <span className="text-3xl font-black text-slate-200 font-mono">03</span>
+                  <span className="text-2xl font-bold text-slate-300 font-mono">03</span>
                 </div>
 
-                <h4 className="text-xl font-black text-slate-900 tracking-tight group-hover:text-sky-600 transition-colors">
+                <h4 className="text-lg font-bold text-slate-900 tracking-tight">
                   In-House Precision
                 </h4>
                 <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
@@ -253,7 +241,7 @@ export const AboutPage: React.FC = () => {
                 </p>
               </div>
 
-              <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-sky-600">
+              <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-sky-600">
                 <span>Rajkot Manufacturing</span>
                 <span>→</span>
               </div>
@@ -262,15 +250,15 @@ export const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 4. In-House Manufacturing Prowess Tour */}
+      {/* 4. In-House Manufacturing Process */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         <RevealOnScroll animation="fade-up">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b-2 border-slate-200 pb-4">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-slate-200 pb-4">
             <div>
-              <span className="text-xs font-black uppercase tracking-widest text-red-600 block mb-1">
+              <span className="text-xs font-bold uppercase tracking-widest text-red-600 block mb-1">
                 Plant Tour
               </span>
-              <h2 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
+              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
                 Our 4-Stage In-House Manufacturing Process
               </h2>
             </div>
@@ -284,25 +272,25 @@ export const AboutPage: React.FC = () => {
           </div>
         </RevealOnScroll>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {manufacturingStages.map((stg, idx) => {
             const Icon = stg.icon;
             return (
               <RevealOnScroll key={stg.num} animation="fade-up" delay={idx * 80} className="h-full">
-                <div className="h-full bg-white rounded-3xl border-2 border-slate-300 hover:border-red-600 p-6 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col justify-between space-y-4 group">
+                <div className="h-full bg-white rounded-[3px] border border-slate-300 hover:border-slate-400 p-5 transition-colors flex flex-col justify-between space-y-4 group">
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <div className={`w-11 h-11 rounded-2xl ${stg.bg} border-2 ${stg.border} flex items-center justify-center ${stg.color}`}>
-                        <Icon className="w-5 h-5" />
+                      <div className="w-10 h-10 rounded-[3px] bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-800">
+                        <Icon className="w-5 h-5 text-red-600" />
                       </div>
-                      <span className="text-2xl font-black text-slate-300 font-mono">{stg.num}</span>
+                      <span className="text-2xl font-bold text-slate-300 font-mono">{stg.num}</span>
                     </div>
 
                     <div>
-                      <span className="text-[10px] font-black uppercase tracking-wider text-red-600 bg-red-50 px-2 py-0.5 rounded-md border border-red-200">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-red-600 bg-red-50 px-2 py-0.5 rounded-[3px] border border-red-200">
                         {stg.tag}
                       </span>
-                      <h4 className="text-base font-black text-slate-900 mt-2 tracking-tight group-hover:text-red-600 transition-colors">
+                      <h4 className="text-base font-bold text-slate-900 mt-2 tracking-tight">
                         {stg.title}
                       </h4>
                     </div>
@@ -320,13 +308,13 @@ export const AboutPage: React.FC = () => {
 
       {/* 5. Dealership & Factory Inquiry Strip */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <RevealOnScroll animation="scale-up">
-          <div className="bg-[#080d16] rounded-3xl p-8 sm:p-12 text-white border-2 border-red-600 shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-8">
+        <RevealOnScroll animation="fade-up">
+          <div className="bg-[#080d16] rounded-[3px] p-6 sm:p-10 text-white border border-slate-800 flex flex-col lg:flex-row items-center justify-between gap-8">
             <div className="space-y-3 max-w-2xl">
-              <span className="text-xs font-black uppercase tracking-widest text-red-400 block">
+              <span className="text-xs font-bold uppercase tracking-widest text-red-400 block">
                 Direct Plant Partnership
               </span>
-              <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+              <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
                 Looking for Authorized Dealership or Bulk Supply?
               </h3>
               <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
@@ -337,13 +325,13 @@ export const AboutPage: React.FC = () => {
             <div className="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto shrink-0">
               <Link
                 to="/contact"
-                className="w-full sm:w-auto px-6 py-3.5 bg-red-600 hover:bg-red-700 text-white font-black text-xs sm:text-sm rounded-xl transition-all text-center"
+                className="w-full sm:w-auto px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-bold text-xs sm:text-sm rounded-[3px] transition-colors text-center"
               >
                 Contact Sales Desk
               </Link>
               <WhatsAppButton
                 text="Chat on WhatsApp"
-                className="w-full sm:w-auto py-3.5 px-6 text-xs sm:text-sm rounded-xl"
+                className="w-full sm:w-auto !py-3 !px-6 text-xs sm:text-sm rounded-[3px]"
               />
             </div>
           </div>

@@ -72,18 +72,20 @@ const MainLayout: React.FC = () => {
     <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 selection:bg-cyan-500 selection:text-white overflow-x-hidden w-full max-w-full">
       <Navbar />
       <main className={`flex-1 overflow-x-hidden w-full max-w-full ${isHome ? '' : 'pt-[72px] sm:pt-[80px]'}`}>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/products" element={<ProductsPage />} />
-          <Route path="/product/:id" element={<PumpDetailPage />} />
-          <Route path="/products/:id" element={<PumpDetailPage />} />
-          <Route path="/applications" element={<ApplicationsPage />} />
-          <Route path="/quality" element={<QualityPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          {/* Fallback */}
-          <Route path="*" element={<HomePage />} />
-        </Routes>
+        <div key={pathname} className="animate-fade-in w-full max-w-full">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/products" element={<ProductsPage />} />
+            <Route path="/product/:id" element={<PumpDetailPage />} />
+            <Route path="/products/:id" element={<PumpDetailPage />} />
+            <Route path="/applications" element={<ApplicationsPage />} />
+            <Route path="/quality" element={<QualityPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            {/* Fallback */}
+            <Route path="*" element={<HomePage />} />
+          </Routes>
+        </div>
       </main>
       <Footer />
       <FloatingActions />
