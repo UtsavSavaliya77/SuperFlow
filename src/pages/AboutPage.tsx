@@ -1,24 +1,14 @@
 import React from 'react';
 import { COMPANY_INFO, CERTIFICATIONS } from '../data/pumpsData';
-import { 
-  Building2, 
-  Award, 
+import {
   Target, 
   ShieldCheck, 
-  Cpu, 
-  Wrench, 
+  Cpu,
   CheckCircle2,
-  Layers,
-  Leaf,
   Droplet,
   ChevronRight,
-  Phone,
   Factory,
-  Check,
-  Flame,
   Zap,
-  ArrowRight,
-  Gauge,
   Activity
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -146,25 +136,25 @@ export const AboutPage: React.FC = () => {
               {/* Right Metric Stat Tiles */}
               <div className="lg:col-span-5 grid grid-cols-2 gap-4">
                 <div className="p-6 rounded-2xl bg-slate-50 border-2 border-slate-200 space-y-1">
-                  <span className="text-3xl sm:text-4xl font-black text-red-600 font-mono tracking-tight block">2000</span>
+                  <span className="text-2xl sm:text-4xl font-black text-red-600 font-mono tracking-tight block">2000</span>
                   <h4 className="text-xs font-bold text-slate-900">Inception Year</h4>
                   <p className="text-[11px] text-slate-500 font-medium">25+ years continuous leadership in Rajkot.</p>
                 </div>
 
                 <div className="p-6 rounded-2xl bg-slate-50 border-2 border-slate-200 space-y-1">
-                  <span className="text-3xl sm:text-4xl font-black text-sky-600 font-mono tracking-tight block">150+</span>
+                  <span className="text-2xl sm:text-4xl font-black text-sky-600 font-mono tracking-tight block">150+</span>
                   <h4 className="text-xs font-bold text-slate-900">Pump Models</h4>
                   <p className="text-[11px] text-slate-500 font-medium">V-3 to V-9 & Openwell pump sets.</p>
                 </div>
 
                 <div className="p-6 rounded-2xl bg-slate-50 border-2 border-slate-200 space-y-1">
-                  <span className="text-3xl sm:text-4xl font-black text-emerald-600 font-mono tracking-tight block">100%</span>
+                  <span className="text-2xl sm:text-4xl font-black text-emerald-600 font-mono tracking-tight block">100%</span>
                   <h4 className="text-xs font-bold text-slate-900">Hydro Tested</h4>
                   <p className="text-[11px] text-slate-500 font-medium">Submerged load bench test before dispatch.</p>
                 </div>
 
                 <div className="p-6 rounded-2xl bg-slate-50 border-2 border-slate-200 space-y-1">
-                  <span className="text-3xl sm:text-4xl font-black text-amber-600 font-mono tracking-tight block">IS:8034</span>
+                  <span className="text-2xl sm:text-4xl font-black text-amber-600 font-mono tracking-tight block">IS:8034</span>
                   <h4 className="text-xs font-bold text-slate-900">BIS ISI Certified</h4>
                   <p className="text-[11px] text-slate-500 font-medium">Bureau of Indian Standards certified.</p>
                 </div>

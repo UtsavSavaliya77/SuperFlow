@@ -107,13 +107,7 @@ export const Navbar: React.FC = () => {
 
             {/* CTA Action Button */}
             <div className="hidden lg:flex items-center gap-3">
-              <Link
-                to="/products"
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold text-sky-700 bg-sky-50 hover:bg-sky-100 border border-sky-200/80 rounded-xl transition-colors"
-              >
-                <PackageCheck className="w-4 h-4 text-sky-600" />
-                Catalog
-              </Link>
+             
               <Link
                 to="/contact"
                 className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-black text-white bg-red-600 hover:bg-red-700 rounded-xl shadow-md shadow-red-600/20 transition-all hover:scale-105"

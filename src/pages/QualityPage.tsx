@@ -236,9 +236,6 @@ export const QualityPage: React.FC = () => {
                 Direct authorized Bureau of Indian Standards (BIS) and ISO 9001 quality certificates issued to SuperFlow.
               </p>
             </div>
-            <span className="text-xs font-bold text-slate-500">
-              Click any certificate to inspect official document
-            </span>
           </div>
         </RevealOnScroll>
 

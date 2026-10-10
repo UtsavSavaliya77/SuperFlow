@@ -69,7 +69,7 @@ export const FloatingActions: React.FC = () => {
         className="group relative w-13 h-13 sm:w-12 sm:h-12 rounded-full bg-[#25D366] hover:bg-[#20ba59] active:bg-[#1caa51] text-white shadow-xl shadow-emerald-900/25 flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 pointer-events-auto cursor-pointer focus:outline-none focus:ring-2 focus:ring-emerald-400"
       >
         {/* Animated Pulse Ring */}
-        <span className="absolute inset-0 rounded-2xl bg-[#25D366] opacity-60 animate-ping -z-10 group-hover:animate-none" />
+        <span className="absolute inset-0 rounded-full bg-[#25D366] opacity-60 animate-ping -z-10 group-hover:animate-none" />
 
         {/* WhatsApp Icon */}
         <WhatsAppIcon className="w-6 h-6 text-white" />

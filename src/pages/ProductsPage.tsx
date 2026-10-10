@@ -11,6 +11,9 @@ import {
   ListFilter,
   PackageCheck,
   ChevronRight,
+  ChevronDown,
+  Filter,
+  X,
   LayoutGrid,
   List,
   SlidersHorizontal,
@@ -36,6 +39,7 @@ export const ProductsPage: React.FC = () => {
   const [sortBy, setSortBy] = useState<string>('featured');
   const [viewMode, setViewMode] = useState<'grid' | 'table'>('grid');
   const [showFinder, setShowFinder] = useState(false);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   // Sync state whenever URL searchParams change
   useEffect(() => {
@@ -124,6 +128,15 @@ export const ProductsPage: React.FC = () => {
     setSearchParams({});
   };
 
+  const activeFilterCount = useMemo(() => {
+    let count = 0;
+    if (selectedCategory !== 'all') count++;
+    if (selectedSeries !== 'all') count++;
+    if (selectedPhase !== 'all') count++;
+    if (selectedHp !== 'all') count++;
+    return count;
+  }, [selectedCategory, selectedSeries, selectedPhase, selectedHp]);
+
   const categoryCards = [
     { id: 'all', label: 'All Spectrum', sub: '150+ Models', badge: 'Complete Range' },
     { id: 'V-4', label: '4" V-4 Borewell', sub: '120+ Models', badge: 'Flagship Agri & Solar' },
@@ -143,7 +156,7 @@ export const ProductsPage: React.FC = () => {
           className="absolute inset-0 w-full h-full object-cover object-center opacity-20 pointer-events-none"
         />
         <div className="absolute inset-0 bg-[#080d16]/85 pointer-events-none" />
-        <div className="absolute top-0 left-0 right-0 h-1 bg-red-600 shadow-[0_0_12px_rgba(220,38,38,0.8)]" />
+        {/* <div className="absolute top-0 left-0 right-0 h-1 bg-red-600 shadow-[0_0_12px_rgba(220,38,38,0.8)]" /> */}
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 relative z-10 space-y-4 max-w-4xl">
           <nav className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-400">
@@ -169,10 +182,10 @@ export const ProductsPage: React.FC = () => {
         <div className="flex items-center justify-between">
           <button
             onClick={() => setShowFinder(!showFinder)}
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-red-600 text-white text-xs font-bold transition-all shadow-md cursor-pointer"
+            className="inline-flex items-center gap-2 px-3 py-2.5 rounded-xl bg-slate-900 hover:bg-red-600 text-white text-xs font-bold transition-all shadow-md cursor-pointer"
           >
-            <SlidersHorizontal className="w-4 h-4 text-red-400" />
-            <span>{showFinder ? 'Hide Smart Pump Finder' : 'Open Smart Pump Selector Tool'}</span>
+            <SlidersHorizontal className="w-3 h-3 text-red-400" />
+            <span>{showFinder ? 'Hide Smart Pump Finder' : 'Open Smart Pump Selector'}</span>
           </button>
 
           {/* Grid vs Table View Mode Switcher */}
@@ -214,110 +227,63 @@ export const ProductsPage: React.FC = () => {
           </RevealOnScroll>
         )}
 
-        {/* Search and Secondary Multi-Filters Bar */}
+        {/* Compact Search & Toggleable Filter Bar */}
         <RevealOnScroll animation="fade-up">
-          <div className="bg-white p-5 sm:p-6 rounded-3xl border-2 border-slate-300 shadow-sm space-y-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5 sm:gap-4">
-              {/* Search Input */}
-              <div className="relative lg:col-span-2">
-                <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+          <div className="bg-white p-4 sm:p-5 rounded-3xl border-2 border-slate-300 shadow-sm space-y-4">
+            
+            {/* Top Minimalist Control Row */}
+            <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 sm:gap-4">
+              
+              {/* Search Bar */}
+              <div className="relative flex-1">
+                <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search model (e.g. RM3-20510, Turbo, V-6)..."
-                  className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl pl-10 pr-4 py-2.5 text-xs sm:text-sm text-slate-900 font-medium placeholder:text-slate-400 focus:outline-none focus:border-red-600"
+                  placeholder="Search 150+ models, series, or keywords (e.g. Turbo, RM3, V-6)..."
+                  className="w-full bg-slate-50 border-2 border-slate-200 rounded-2xl pl-10 pr-10 py-2.5 text-xs sm:text-sm text-slate-900 font-medium placeholder:text-slate-400 focus:outline-none focus:border-red-600 transition-colors"
                 />
+                {searchQuery && (
+                  <button
+                    onClick={() => setSearchQuery('')}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-slate-400 hover:text-slate-700 rounded-full"
+                    title="Clear search"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                )}
               </div>
 
-              {/* Category Filter */}
-              <div>
-                <select
-                  value={selectedCategory}
-                  onChange={(e) => {
-                    setSelectedCategory(e.target.value);
-                    setSelectedSeries('all');
-                  }}
-                  className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-3 py-2.5 text-xs sm:text-sm font-bold text-slate-800 focus:outline-none focus:border-red-600 shadow-xs"
-                >
-                  <option value="all">All Borewell Categories</option>
-                  <option value="V-3">3" V-3 Submersible</option>
-                  <option value="V-4">4" V-4 Submersible</option>
-                  <option value="V-5">5" V-5 Mix Flow</option>
-                  <option value="V-6">6" V-6 Heavy Duty</option>
-                  <option value="Openwell">Openwell Submersible</option>
-                </select>
-              </div>
-
-              {/* Phase Filter */}
-              <div>
-                <select
-                  value={selectedPhase}
-                  onChange={(e) => setSelectedPhase(e.target.value)}
-                  className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-3 py-2.5 text-xs sm:text-sm font-bold text-slate-800 focus:outline-none focus:border-red-600 shadow-xs"
-                >
-                  <option value="all">All Power Phases</option>
-                  <option value="Single Phase">Single Phase (220V)</option>
-                  <option value="Three Phase">Three Phase (415V)</option>
-                </select>
-              </div>
-
-              {/* HP Rating Filter */}
-              <div>
-                <select
-                  value={selectedHp}
-                  onChange={(e) => setSelectedHp(e.target.value)}
-                  className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-3 py-2.5 text-xs sm:text-sm font-bold text-slate-800 focus:outline-none focus:border-red-600 shadow-xs"
-                >
-                  <option value="all">All Power Ratings</option>
-                  <option value="0.5-1.5">0.5 HP – 1.5 HP</option>
-                  <option value="2-5">2.0 HP – 5.0 HP</option>
-                  <option value="6-25">6.0 HP – 25.0 HP</option>
-                </select>
-              </div>
-            </div>
-
-            {/* Sub-Series Filter & Sort Bar */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-slate-100">
-              
-              {/* Desktop Series Pills */}
-              <div className="flex flex-wrap items-center gap-1.5">
-                <span className="text-xs font-bold text-slate-500 mr-2 flex items-center gap-1">
-                  <ListFilter className="w-3.5 h-3.5 text-red-500" /> Series:
-                </span>
+              {/* Right Action Controls: Filter Button, Sort Dropdown, Reset */}
+              <div className="flex items-center gap-2.5 shrink-0 flex-wrap sm:flex-nowrap">
+                
+                {/* 🎯 Primary Filter Toggle Button */}
                 <button
-                  onClick={() => setSelectedSeries('all')}
-                  className={`px-3 py-1 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                    selectedSeries === 'all'
-                      ? 'bg-red-600 text-white shadow-xs'
-                      : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                  onClick={() => setIsFilterOpen(!isFilterOpen)}
+                  className={`flex-1 sm:flex-initial px-4 py-2.5 rounded-2xl border-2 font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all cursor-pointer shadow-xs ${
+                    isFilterOpen || activeFilterCount > 0
+                      ? 'bg-slate-900 text-white border-red-600 shadow-md'
+                      : 'bg-white hover:bg-slate-50 text-slate-800 border-slate-300 hover:border-slate-400'
                   }`}
                 >
-                  All Series ({ALL_PUMPS.length})
+                  <SlidersHorizontal className={`w-4 h-4 ${isFilterOpen || activeFilterCount > 0 ? 'text-red-400' : 'text-slate-600'}`} />
+                  <span>Filters</span>
+                  {activeFilterCount > 0 && (
+                    <span className="px-2 py-0.5 rounded-full bg-red-600 text-white text-[10px] font-black">
+                      {activeFilterCount}
+                    </span>
+                  )}
+                  <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isFilterOpen ? 'rotate-180 text-red-400' : 'text-slate-400'}`} />
                 </button>
-                {availableSeries.map((series) => (
-                  <button
-                    key={series}
-                    onClick={() => setSelectedSeries(series)}
-                    className={`px-3 py-1 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                      selectedSeries === series
-                        ? 'bg-red-600 text-white shadow-xs'
-                        : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                    }`}
-                  >
-                    {series}
-                  </button>
-                ))}
-              </div>
 
-              {/* Sort & Reset Actions */}
-              <div className="flex items-center justify-between sm:justify-end gap-3 w-full sm:w-auto">
-                <div className="flex items-center gap-1.5 text-xs flex-1 sm:flex-initial">
-                  <span className="text-slate-500 font-bold shrink-0">Sort by:</span>
+                {/* Sort By Dropdown */}
+                <div className="flex items-center gap-1.5 text-xs bg-slate-50 px-3 py-1.5 rounded-2xl border-2 border-slate-200 flex-1 sm:flex-initial">
+                  <span className="text-slate-500 font-bold shrink-0 hidden sm:inline">Sort:</span>
                   <select
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
-                    className="w-full sm:w-auto bg-slate-50 border-2 border-slate-200 rounded-xl px-3 py-1.5 text-xs font-bold text-slate-800 focus:outline-none focus:border-red-600"
+                    className="bg-transparent font-bold text-slate-800 focus:outline-none cursor-pointer text-xs w-full sm:w-auto"
                   >
                     <option value="featured">Featured Default</option>
                     <option value="price-asc">Price: Low to High</option>
@@ -327,15 +293,194 @@ export const ProductsPage: React.FC = () => {
                   </select>
                 </div>
 
+                {/* Reset Button */}
+                {(activeFilterCount > 0 || searchQuery !== '' || sortBy !== 'featured') && (
+                  <button
+                    onClick={handleReset}
+                    className="p-2.5 text-slate-600 hover:text-red-600 hover:bg-red-50 rounded-2xl transition-colors cursor-pointer border-2 border-slate-200 hover:border-red-200 shrink-0"
+                    title="Reset all filters"
+                  >
+                    <RotateCcw className="w-4 h-4" />
+                  </button>
+                )}
+              </div>
+
+            </div>
+
+            {/* Active Filter Badges Strip (Quick Dismiss) */}
+            {activeFilterCount > 0 && (
+              <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-100">
+                <span className="text-[11px] font-black uppercase tracking-wider text-slate-400 mr-1">
+                  Active Filters:
+                </span>
+
+                {selectedCategory !== 'all' && (
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-50 text-red-700 border border-red-200 text-xs font-bold">
+                    <span>Category: {selectedCategory}</span>
+                    <button onClick={() => { setSelectedCategory('all'); setSelectedSeries('all'); }} className="hover:text-red-900 cursor-pointer">
+                      <X className="w-3 h-3" />
+                    </button>
+                  </span>
+                )}
+
+                {selectedSeries !== 'all' && (
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-50 text-sky-700 border border-sky-200 text-xs font-bold">
+                    <span>Series: {selectedSeries}</span>
+                    <button onClick={() => setSelectedSeries('all')} className="hover:text-sky-900 cursor-pointer">
+                      <X className="w-3 h-3" />
+                    </button>
+                  </span>
+                )}
+
+                {selectedPhase !== 'all' && (
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-200 text-xs font-bold">
+                    <span>Phase: {selectedPhase}</span>
+                    <button onClick={() => setSelectedPhase('all')} className="hover:text-amber-900 cursor-pointer">
+                      <X className="w-3 h-3" />
+                    </button>
+                  </span>
+                )}
+
+                {selectedHp !== 'all' && (
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-bold">
+                    <span>Power: {selectedHp} HP</span>
+                    <button onClick={() => setSelectedHp('all')} className="hover:text-emerald-900 cursor-pointer">
+                      <X className="w-3 h-3" />
+                    </button>
+                  </span>
+                )}
+
                 <button
                   onClick={handleReset}
-                  className="p-2 text-slate-500 hover:text-red-600 hover:bg-red-50 rounded-xl transition-colors cursor-pointer border border-slate-200 shrink-0"
-                  title="Reset all filters"
+                  className="text-xs font-bold text-red-600 hover:text-red-700 underline ml-2 cursor-pointer"
                 >
-                  <RotateCcw className="w-4 h-4" />
+                  Clear All
                 </button>
               </div>
-            </div>
+            )}
+
+            {/* 🔽 Expandable Filter Drawer Panel */}
+            {isFilterOpen && (
+              <div className="pt-4 border-t-2 border-slate-200 space-y-5 animate-fade-in">
+                
+                {/* 3 Dropdowns Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-4">
+                  
+                  {/* Category Filter */}
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-black text-slate-700 uppercase tracking-wider block">
+                      Borewell Category
+                    </label>
+                    <select
+                      value={selectedCategory}
+                      onChange={(e) => {
+                        setSelectedCategory(e.target.value);
+                        setSelectedSeries('all');
+                      }}
+                      className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-bold text-slate-800 focus:outline-none focus:border-red-600 shadow-xs"
+                    >
+                      <option value="all">All Borewell Categories</option>
+                      <option value="V-3">3" V-3 Submersible</option>
+                      <option value="V-4">4" V-4 Submersible</option>
+                      <option value="V-5">5" V-5 Mix Flow</option>
+                      <option value="V-6">6" V-6 Heavy Duty</option>
+                      <option value="Openwell">Openwell Submersible</option>
+                    </select>
+                  </div>
+
+                  {/* Phase Filter */}
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-black text-slate-700 uppercase tracking-wider block">
+                      Power Supply Phase
+                    </label>
+                    <select
+                      value={selectedPhase}
+                      onChange={(e) => setSelectedPhase(e.target.value)}
+                      className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-bold text-slate-800 focus:outline-none focus:border-red-600 shadow-xs"
+                    >
+                      <option value="all">All Power Phases</option>
+                      <option value="Single Phase">Single Phase (220V)</option>
+                      <option value="Three Phase">Three Phase (415V)</option>
+                    </select>
+                  </div>
+
+                  {/* HP Rating Filter */}
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-black text-slate-700 uppercase tracking-wider block">
+                      Motor Rating (HP)
+                    </label>
+                    <select
+                      value={selectedHp}
+                      onChange={(e) => setSelectedHp(e.target.value)}
+                      className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-bold text-slate-800 focus:outline-none focus:border-red-600 shadow-xs"
+                    >
+                      <option value="all">All Power Ratings</option>
+                      <option value="0.5-1.5">0.5 HP – 1.5 HP (Small/Domestic)</option>
+                      <option value="2-5">2.0 HP – 5.0 HP (Farm Irrigation)</option>
+                      <option value="6-25">6.0 HP – 25.0 HP (Industrial & Deep)</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Sub-Series Filter Pills */}
+                <div className="space-y-2 pt-2 border-t border-slate-100">
+                  <span className="text-xs font-black text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+                    <ListFilter className="w-3.5 h-3.5 text-red-600" />
+                    <span>Filter By Series Lineup ({availableSeries.length} Available):</span>
+                  </span>
+
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    <button
+                      onClick={() => setSelectedSeries('all')}
+                      className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer border ${
+                        selectedSeries === 'all'
+                          ? 'bg-red-600 text-white border-red-600 shadow-xs'
+                          : 'bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200'
+                      }`}
+                    >
+                      All Series ({ALL_PUMPS.length})
+                    </button>
+                    {availableSeries.map((series) => (
+                      <button
+                        key={series}
+                        onClick={() => setSelectedSeries(series)}
+                        className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer border ${
+                          selectedSeries === series
+                            ? 'bg-red-600 text-white border-red-600 shadow-xs'
+                            : 'bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200'
+                        }`}
+                      >
+                        {series}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Bottom Filter Controls Action Bar */}
+                <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-4">
+                  <span className="text-xs font-bold text-slate-500">
+                    <strong className="text-slate-900">{filteredPumps.length}</strong> matching models configured
+                  </span>
+
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={handleReset}
+                      className="px-4 py-2 rounded-xl border border-slate-300 hover:bg-slate-100 text-slate-700 font-bold text-xs transition-colors cursor-pointer"
+                    >
+                      Reset Filters
+                    </button>
+                    <button
+                      onClick={() => setIsFilterOpen(false)}
+                      className="px-5 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white font-black text-xs transition-all shadow-md shadow-red-600/20 cursor-pointer"
+                    >
+                      Apply & Close
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            )}
+
           </div>
         </RevealOnScroll>
 
