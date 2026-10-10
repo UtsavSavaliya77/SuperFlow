@@ -6,15 +6,19 @@ interface WhatsAppButtonProps {
   modelName?: string;
   className?: string;
   text?: string;
+  label?: string;
+  variant?: string;
   message?: string;
 }
 
 export const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({ 
   modelName, 
   className = '', 
-  text = 'Inquire on WhatsApp',
+  text,
+  label,
   message: customMessage
 }) => {
+  const buttonText = text || label || 'Inquire on WhatsApp';
   const defaultMessage = modelName 
     ? `Hello SuperFlow (Royal Manufacture), I am interested in getting a quotation and availability for Model: ${modelName}.`
     : `Hello SuperFlow (Royal Manufacture), I would like to inquire about your submersible pump sets & dealership opportunities.`;
@@ -31,7 +35,7 @@ export const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
       className={`inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-bold rounded-xl shadow-md shadow-emerald-600/25 hover:shadow-lg hover:scale-105 transition-all ${className}`}
     >
       <WhatsAppIcon className="w-4 h-4 text-white" />
-      <span>{text}</span>
+      <span>{buttonText}</span>
     </a>
   );
 };

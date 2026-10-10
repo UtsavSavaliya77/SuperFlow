@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState, useCallback, ReactNode } from 'react';
 import { gsap } from 'gsap';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import './AccordionGallery.css';
 
 export interface AccordionGalleryItemData {

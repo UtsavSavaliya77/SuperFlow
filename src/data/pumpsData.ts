@@ -737,35 +737,35 @@ export const APPLICATIONS_DATA = [
   {
     title: 'Agriculture & Farm Irrigation',
     icon: 'Wheat',
-    image: 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=600&q=80',
+    image: '/images/Unleashing the Power of Water Pumps_ How They Work and Their Applications.jpg',
     desc: 'Uninterrupted water delivery for drip systems, sprinkler networks, flood irrigation, and canal pumping with low voltage tolerance.',
     recommendedPumps: ['V-4 Turbo Low Volt', 'V-5 Mix Flow', 'V-6 Q-Type', 'V-9 Openwell']
   },
   {
     title: 'Domestic & Multi-Story Buildings',
     icon: 'Building2',
-    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80',
+    image: '/images/Booster Pump Stations in High-Rise Buildings_ Why Proper Design Matters.jpg',
     desc: 'High head pressure delivery for apartments, residential colonies, overhead storage tanks, and municipal booster systems.',
     recommendedPumps: ['V-3 High Head', 'V-4 Primium', 'V-4 Nano', 'V-4 Magic']
   },
   {
     title: 'Solar Pumping Solutions',
     icon: 'SunMedium',
-    image: 'https://images.unsplash.com/photo-1509391365360-2e959784a276?auto=format&fit=crop&w=600&q=80',
+    image: '/images/SOLAR WATER PUMP.jpg',
     desc: 'High electrical efficiency motors matched with solar VFD drives for clean energy daytime water extraction.',
     recommendedPumps: ['V-3 Solar Series', 'V-4 Primium', 'V-4 Turbo']
   },
   {
     title: 'Industrial & Construction Sites',
     icon: 'Factory',
-    image: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=600&q=80',
+    image: '/images/Mining dewatering pumps _ Power Rental - Book Now.jpg',
     desc: 'Rugged Stainless Steel and Cast Iron pumps for heavy duty mine dewatering, factory cooling towers, and infrastructure projects.',
     recommendedPumps: ['V-6 Primium 50 Feet SS', 'V-6 Jacket', 'V-6 Q-Type Mix Flow']
   },
   {
     title: 'Gardens, Fountains & Public Facilities',
     icon: 'Trees',
-    image: 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=600&q=80',
+    image: '/images/Unleashing the Power of Water Pumps_ How They Work and Their Applications.jpg',
     desc: 'Continuous silent duty pumps engineered for city parks, public water fountains, community swimming sumps, and landscaping.',
     recommendedPumps: ['V-3 High Head', 'V-4 Nano', 'V-7 Horizontal SS']
   }

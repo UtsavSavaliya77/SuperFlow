@@ -46,7 +46,7 @@ export const FloatingActions: React.FC = () => {
         type="button"
         onClick={scrollToTop}
         aria-label="Back to Top"
-        className={`group relative w-12 h-12 rounded-2xl bg-[#080d16] text-white hover:bg-red-600 border border-slate-700/80 shadow-xl flex items-center justify-center transition-all duration-300 pointer-events-auto cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-500 active:scale-95 ${
+        className={`group relative w-12 h-12 rounded-full bg-[#080d16] text-white hover:bg-red-600 border border-slate-700/80 shadow-xl flex items-center justify-center transition-all duration-300 pointer-events-auto cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-500 active:scale-95 ${
           showBackToTop
             ? 'opacity-100 translate-y-0 scale-100 shadow-slate-900/30'
             : 'opacity-0 translate-y-4 scale-75 pointer-events-none'

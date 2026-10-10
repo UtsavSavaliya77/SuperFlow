@@ -2,13 +2,24 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { ALL_PUMPS, CATEGORIES } from '../data/pumpsData';
 import { PumpCard } from '../components/PumpCard';
+import { PumpSelector } from '../components/PumpSelector';
 import RevealOnScroll from '../components/RevealOnScroll';
+import { WhatsAppButton } from '../components/WhatsAppButton';
 import { 
   Search, 
   RotateCcw, 
   ListFilter,
   PackageCheck,
-  ChevronRight
+  ChevronRight,
+  LayoutGrid,
+  List,
+  SlidersHorizontal,
+  Layers,
+  Zap,
+  Droplet,
+  CheckCircle2,
+  FileText,
+  ArrowUpRight
 } from 'lucide-react';
 
 export const ProductsPage: React.FC = () => {
@@ -23,8 +34,10 @@ export const ProductsPage: React.FC = () => {
   const [selectedPhase, setSelectedPhase] = useState<string>('all');
   const [selectedHp, setSelectedHp] = useState<string>('all');
   const [sortBy, setSortBy] = useState<string>('featured');
+  const [viewMode, setViewMode] = useState<'grid' | 'table'>('grid');
+  const [showFinder, setShowFinder] = useState(false);
 
-  // Sync state whenever URL searchParams change (e.g. from Applications page clicks)
+  // Sync state whenever URL searchParams change
   useEffect(() => {
     const cat = searchParams.get('category') || 'all';
     const ser = searchParams.get('series') || 'all';
@@ -111,49 +124,99 @@ export const ProductsPage: React.FC = () => {
     setSearchParams({});
   };
 
+  const categoryCards = [
+    { id: 'all', label: 'All Spectrum', sub: '150+ Models', badge: 'Complete Range' },
+    { id: 'V-4', label: '4" V-4 Borewell', sub: '120+ Models', badge: 'Flagship Agri & Solar' },
+    { id: 'V-6', label: '6" V-6 Heavy', sub: '80+ Models', badge: 'High Head & Flow' },
+    { id: 'V-3', label: '3" V-3 Slim', sub: '16+ Models', badge: 'Deep Domestic' },
+    { id: 'Openwell', label: 'Openwell Series', sub: '30+ Models', badge: 'Sump & Canal' },
+  ];
+
   return (
-    <div className="space-y-16 sm:space-y-20 lg:space-y-24 pb-16 sm:pb-20 lg:pb-24">
+    <div className="space-y-12 sm:space-y-16 pb-16 sm:pb-24">
       
       {/* Full-Bleed Cinematic Hero Header Section */}
       <section className="relative bg-[#080d16] text-white border-b border-slate-800 overflow-hidden w-full">
-        {/* Background Image with Solid Dark Overlay */}
         <img
           src="https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?auto=format&fit=crop&w=2000&q=80"
           alt="SuperFlow Submersible Pumps Precision Engineering"
-          className="absolute inset-0 w-full h-full object-cover object-center opacity-25 pointer-events-none"
+          className="absolute inset-0 w-full h-full object-cover object-center opacity-20 pointer-events-none"
         />
         <div className="absolute inset-0 bg-[#080d16]/85 pointer-events-none" />
-
-        {/* Top Accent Line flush with fixed header */}
         <div className="absolute top-0 left-0 right-0 h-1 bg-red-600 shadow-[0_0_12px_rgba(220,38,38,0.8)]" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 relative z-10 space-y-4 max-w-3xl">
-          {/* Breadcrumb Navigation */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 relative z-10 space-y-4 max-w-4xl">
           <nav className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-400">
             <Link to="/" className="hover:text-red-400 transition-colors">Home</Link>
             <ChevronRight className="w-3.5 h-3.5 text-slate-600" />
-            <span className="text-white font-bold">Products</span>
+            <span className="text-white font-bold">Products Spectrum</span>
           </nav>
 
-          <span className="text-red-400 font-black text-xs uppercase tracking-widest block">
-            Royal Manufacture • SuperFlow Product Spectrum
-          </span>
-
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white">
-            Our Products
+          <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-white">
+            SuperFlow Submersible Pump Catalog
           </h1>
 
           <p className="text-slate-300 text-sm sm:text-base leading-relaxed font-normal">
-            Explore our complete range of precision-engineered V-3 to V-9 Borewell submersible pumps and Openwell pump sets with full technical specifications.
+            Precision-engineered V-3 to V-9 deep borewell submersible pumps and Openwell pump sets. Built with 100% EC grade copper, stainless steel shafts, and sand-resistant hydraulic components.
           </p>
         </div>
       </section>
 
-      {/* Main Content Area: Filters + Grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-8">
-        {/* Main Filter & Search Bar */}
+      {/* Main Content Area */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+
+        {/* Smart Finder Toggle Drawer Button */}
+        <div className="flex items-center justify-between">
+          <button
+            onClick={() => setShowFinder(!showFinder)}
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-red-600 text-white text-xs font-bold transition-all shadow-md cursor-pointer"
+          >
+            <SlidersHorizontal className="w-4 h-4 text-red-400" />
+            <span>{showFinder ? 'Hide Smart Pump Finder' : 'Open Smart Pump Selector Tool'}</span>
+          </button>
+
+          {/* Grid vs Table View Mode Switcher */}
+          <div className="flex items-center gap-1 bg-slate-200/80 p-1 rounded-xl border border-slate-300">
+            <button
+              onClick={() => setViewMode('grid')}
+              className={`p-2 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer ${
+                viewMode === 'grid'
+                  ? 'bg-white text-slate-950 shadow-xs'
+                  : 'text-slate-600 hover:text-slate-950'
+              }`}
+              title="Grid Card View"
+            >
+              <LayoutGrid className="w-4 h-4" />
+              <span className="hidden sm:inline">Cards</span>
+            </button>
+            <button
+              onClick={() => setViewMode('table')}
+              className={`p-2 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer ${
+                viewMode === 'table'
+                  ? 'bg-white text-slate-950 shadow-xs'
+                  : 'text-slate-600 hover:text-slate-950'
+              }`}
+              title="Industrial Table View"
+            >
+              <List className="w-4 h-4" />
+              <span className="hidden sm:inline">Spec Table</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Collapsible Pump Selector */}
+        {showFinder && (
+          <RevealOnScroll animation="fade-up">
+            <PumpSelector
+              title="Technical Pump Matching Tool"
+              subtitle="Filter through the entire SuperFlow range by head height and discharge volume."
+            />
+          </RevealOnScroll>
+        )}
+
+        {/* Search and Secondary Multi-Filters Bar */}
         <RevealOnScroll animation="fade-up">
-          <div className="bg-white p-4 sm:p-6 lg:p-7 rounded-2xl sm:rounded-3xl border border-slate-200 shadow-sm space-y-4">
+          <div className="bg-white p-5 sm:p-6 rounded-3xl border-2 border-slate-300 shadow-sm space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5 sm:gap-4">
               {/* Search Input */}
               <div className="relative lg:col-span-2">
@@ -162,8 +225,8 @@ export const ProductsPage: React.FC = () => {
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search by model name (e.g. RM-42020, Turbo, V-6)..."
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-2.5 text-xs sm:text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-red-500"
+                  placeholder="Search model (e.g. RM3-20510, Turbo, V-6)..."
+                  className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl pl-10 pr-4 py-2.5 text-xs sm:text-sm text-slate-900 font-medium placeholder:text-slate-400 focus:outline-none focus:border-red-600"
                 />
               </div>
 
@@ -175,14 +238,14 @@ export const ProductsPage: React.FC = () => {
                     setSelectedCategory(e.target.value);
                     setSelectedSeries('all');
                   }}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs sm:text-sm font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-red-500"
+                  className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-3 py-2.5 text-xs sm:text-sm font-bold text-slate-800 focus:outline-none focus:border-red-600 shadow-xs"
                 >
-                  <option value="all">All Categories</option>
-                  <option value="V-3">V-3 Submersible (3" Bore)</option>
-                  <option value="V-4">V-4 Submersible (4" Bore)</option>
-                  <option value="V-5">V-5 Mix Flow (5" Bore)</option>
-                  <option value="V-6">V-6 Heavy Duty (6" Bore)</option>
-                  <option value="Openwell">Horizontal / Openwell</option>
+                  <option value="all">All Borewell Categories</option>
+                  <option value="V-3">3" V-3 Submersible</option>
+                  <option value="V-4">4" V-4 Submersible</option>
+                  <option value="V-5">5" V-5 Mix Flow</option>
+                  <option value="V-6">6" V-6 Heavy Duty</option>
+                  <option value="Openwell">Openwell Submersible</option>
                 </select>
               </div>
 
@@ -191,11 +254,11 @@ export const ProductsPage: React.FC = () => {
                 <select
                   value={selectedPhase}
                   onChange={(e) => setSelectedPhase(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs sm:text-sm font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-red-500"
+                  className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-3 py-2.5 text-xs sm:text-sm font-bold text-slate-800 focus:outline-none focus:border-red-600 shadow-xs"
                 >
                   <option value="all">All Power Phases</option>
-                  <option value="Single Phase">Single Phase (160V-230V)</option>
-                  <option value="Three Phase">Three Phase (350V-415V)</option>
+                  <option value="Single Phase">Single Phase (220V)</option>
+                  <option value="Three Phase">Three Phase (415V)</option>
                 </select>
               </div>
 
@@ -204,40 +267,21 @@ export const ProductsPage: React.FC = () => {
                 <select
                   value={selectedHp}
                   onChange={(e) => setSelectedHp(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs sm:text-sm font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-red-500"
+                  className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-3 py-2.5 text-xs sm:text-sm font-bold text-slate-800 focus:outline-none focus:border-red-600 shadow-xs"
                 >
                   <option value="all">All Power Ratings</option>
-                  <option value="0.5-1.5">0.5 HP - 1.5 HP</option>
-                  <option value="2-5">2.0 HP - 5.0 HP</option>
-                  <option value="6-25">6.0 HP - 25.0 HP</option>
+                  <option value="0.5-1.5">0.5 HP – 1.5 HP</option>
+                  <option value="2-5">2.0 HP – 5.0 HP</option>
+                  <option value="6-25">6.0 HP – 25.0 HP</option>
                 </select>
               </div>
             </div>
 
-            {/* Secondary Sub-Series Filter & Sort Bar */}
+            {/* Sub-Series Filter & Sort Bar */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-slate-100">
               
-              {/* Mobile View: Select Dropdown for Series */}
-              <div className="flex sm:hidden items-center gap-2.5 w-full">
-                <span className="text-xs font-bold text-slate-500 shrink-0 flex items-center gap-1">
-                  <ListFilter className="w-3.5 h-3.5 text-red-500" /> Series:
-                </span>
-                <select
-                  value={selectedSeries}
-                  onChange={(e) => setSelectedSeries(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-red-500"
-                >
-                  <option value="all">All Series</option>
-                  {availableSeries.map((series) => (
-                    <option key={series} value={series}>
-                      {series}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Desktop & Tablet View: Interactive Pills */}
-              <div className="hidden sm:flex flex-wrap items-center gap-1.5">
+              {/* Desktop Series Pills */}
+              <div className="flex flex-wrap items-center gap-1.5">
                 <span className="text-xs font-bold text-slate-500 mr-2 flex items-center gap-1">
                   <ListFilter className="w-3.5 h-3.5 text-red-500" /> Series:
                 </span>
@@ -249,7 +293,7 @@ export const ProductsPage: React.FC = () => {
                       : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                   }`}
                 >
-                  All Series
+                  All Series ({ALL_PUMPS.length})
                 </button>
                 {availableSeries.map((series) => (
                   <button
@@ -273,7 +317,7 @@ export const ProductsPage: React.FC = () => {
                   <select
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
-                    className="w-full sm:w-auto bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 sm:py-1 text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-red-500"
+                    className="w-full sm:w-auto bg-slate-50 border-2 border-slate-200 rounded-xl px-3 py-1.5 text-xs font-bold text-slate-800 focus:outline-none focus:border-red-600"
                   >
                     <option value="featured">Featured Default</option>
                     <option value="price-asc">Price: Low to High</option>
@@ -285,7 +329,7 @@ export const ProductsPage: React.FC = () => {
 
                 <button
                   onClick={handleReset}
-                  className="p-2 sm:p-1.5 text-slate-500 hover:text-red-600 hover:bg-red-50 rounded-xl transition-colors cursor-pointer border border-slate-200 sm:border-transparent shrink-0"
+                  className="p-2 text-slate-500 hover:text-red-600 hover:bg-red-50 rounded-xl transition-colors cursor-pointer border border-slate-200 shrink-0"
                   title="Reset all filters"
                 >
                   <RotateCcw className="w-4 h-4" />
@@ -295,26 +339,106 @@ export const ProductsPage: React.FC = () => {
           </div>
         </RevealOnScroll>
 
-        {/* Results Count */}
-        <RevealOnScroll animation="fade-up">
-          <div className="flex justify-between items-center text-xs font-bold text-slate-500">
-            <span>Showing {filteredPumps.length} pump models</span>
-            <span>Click "Full Specs" for performance curve and MOC</span>
+        {/* Results Metadata Summary */}
+        <div className="flex items-center justify-between text-xs font-bold text-slate-600 px-1">
+          <div className="flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span>Showing <strong className="text-slate-900">{filteredPumps.length}</strong> configured pump models</span>
           </div>
-        </RevealOnScroll>
+          <span className="text-slate-500 hidden sm:inline">Padvala, Rajkot Factory Quality Standard IS:8034</span>
+        </div>
 
-        {/* Pumps Grid */}
+        {/* Product Rendering: Grid vs Table View */}
         {filteredPumps.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredPumps.map((pump, idx) => (
-              <RevealOnScroll key={pump.id} animation="fade-up" delay={(idx % 6) * 60} className="h-full">
-                <PumpCard pump={pump} />
-              </RevealOnScroll>
-            ))}
-          </div>
+          viewMode === 'grid' ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredPumps.map((pump, idx) => (
+                <RevealOnScroll key={pump.id} animation="fade-up" delay={(idx % 6) * 50} className="h-full">
+                  <PumpCard pump={pump} />
+                </RevealOnScroll>
+              ))}
+            </div>
+          ) : (
+            /* High-Performance Industrial Spec Table (Benchmarked after Texmo Aqua & Falcon) */
+            <div className="bg-white rounded-3xl border-2 border-slate-300 overflow-hidden shadow-md">
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs sm:text-sm">
+                  <thead className="bg-slate-900 text-white font-black uppercase text-[11px] tracking-wider border-b-2 border-red-600">
+                    <tr>
+                      <th className="p-4 pl-6">Model Number</th>
+                      <th className="p-4">Power (HP / kW)</th>
+                      <th className="p-4">Stages</th>
+                      <th className="p-4">Head Range (Meters)</th>
+                      <th className="p-4">Discharge (LPM)</th>
+                      <th className="p-4">Phase / Outlet</th>
+                      <th className="p-4">Ex-Factory Price</th>
+                      <th className="p-4 pr-6 text-right">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-200">
+                    {filteredPumps.map((pump, idx) => {
+                      const displayPrice = pump.price1Phase || pump.price3Phase || pump.price2Phase;
+                      return (
+                        <tr
+                          key={pump.id}
+                          className="hover:bg-red-50/40 transition-colors group"
+                        >
+                          <td className="p-4 pl-6 font-mono font-black text-slate-900">
+                            <Link to={`/product/${pump.id}`} className="hover:text-red-600 transition-colors flex items-center gap-1.5">
+                              <span>{pump.model}</span>
+                              <ArrowUpRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-red-600" />
+                            </Link>
+                            <span className="text-[10px] text-slate-500 font-bold block">{pump.series}</span>
+                          </td>
+                          <td className="p-4 font-mono font-bold text-slate-800">
+                            <span className="px-2 py-0.5 rounded-md bg-slate-100 font-mono font-black text-slate-900">
+                              {pump.hp} HP
+                            </span>
+                            <span className="text-slate-400 text-[11px] ml-1">({pump.kw} kW)</span>
+                          </td>
+                          <td className="p-4 font-mono font-bold text-slate-700">
+                            {pump.stages} STG
+                          </td>
+                          <td className="p-4 font-mono font-bold text-sky-700">
+                            {pump.headRange}
+                          </td>
+                          <td className="p-4 font-mono font-bold text-sky-700">
+                            {pump.dischargeRange}
+                          </td>
+                          <td className="p-4 text-xs font-semibold text-slate-600">
+                            <div>{pump.phase}</div>
+                            <div className="text-[10px] text-slate-400 font-bold">Outlet: {pump.outlet}</div>
+                          </td>
+                          <td className="p-4 font-mono font-black text-slate-900">
+                            {displayPrice ? `₹${displayPrice.toLocaleString('en-IN')}/-` : 'On Request'}
+                          </td>
+                          <td className="p-4 pr-6 text-right">
+                            <div className="flex items-center justify-end gap-2">
+                              <Link
+                                to={`/product/${pump.id}`}
+                                className="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-red-600 text-white font-bold text-xs transition-colors"
+                              >
+                                Specs
+                              </Link>
+                              <WhatsAppButton
+                                message={`Inquiry for SuperFlow model ${pump.model} (${pump.hp} HP).`}
+                                label="Inquire"
+                                variant="compact"
+                                className="py-1.5 px-3 rounded-lg text-xs"
+                              />
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )
         ) : (
-          <div className="text-center py-16 bg-white rounded-3xl border border-dashed border-slate-300 space-y-4">
-            <p className="text-slate-600 font-bold text-base">
+          <div className="text-center py-16 bg-white rounded-3xl border-2 border-dashed border-slate-300 space-y-4">
+            <p className="text-slate-700 font-bold text-base">
               No pump models match your current filter selections.
             </p>
             <button

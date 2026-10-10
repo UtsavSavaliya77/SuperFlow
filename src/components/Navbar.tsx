@@ -49,6 +49,32 @@ export const Navbar: React.FC = () => {
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs transition-all w-full">
+        {/* Top Industry Utility Bar (Inspired by Silver Pumps & Texmo) */}
+        <div className="hidden md:flex items-center justify-between py-1.5 px-4 sm:px-6 lg:px-8 bg-[#080d16] text-white text-[11px] font-bold border-b border-slate-800">
+          <div className="flex items-center gap-4">
+            <span className="flex items-center gap-1.5 text-slate-300">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+              <span>Plant: Padvala, Rajkot (Gujarat)</span>
+            </span>
+            <span className="text-slate-600">|</span>
+            <span className="flex items-center gap-1 text-emerald-400">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+              <span>BIS ISI & ISO 9001:2008 Certified Plant</span>
+            </span>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <a href={`tel:${COMPANY_INFO.phone}`} className="flex items-center gap-1 text-slate-300 hover:text-white transition-colors">
+              <Phone className="w-3 h-3 text-red-400" />
+              <span>Factory Sales: <strong className="text-white font-mono">{COMPANY_INFO.phone}</strong></span>
+            </a>
+            <span className="text-slate-600">|</span>
+            <Link to="/contact" className="text-red-400 hover:text-red-300 transition-colors uppercase tracking-wider text-[10px] font-black">
+              Become a Dealer →
+            </Link>
+          </div>
+        </div>
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-18 sm:h-20">
             {/* Logo */}

@@ -81,24 +81,24 @@ export const PumpCard: React.FC<PumpCardProps> = ({ pump }) => {
         </div>
 
         {/* 3-Capsule Micro-Metrics Matrix */}
-        <div className="grid grid-cols-3 gap-2 bg-slate-50 p-2.5 rounded-2xl border border-slate-200/80 text-center">
+        <div className="grid grid-cols-3 gap-1.5 sm:gap-2 bg-slate-50 p-2 sm:p-2.5 rounded-xl sm:rounded-2xl border border-slate-200 text-center">
           {/* Head */}
-          <div className="space-y-0.5 border-r border-slate-200 pr-1">
+          <div className="space-y-0.5 border-r border-slate-200/80 pr-1">
             <span className="text-[9px] uppercase font-black text-sky-600 tracking-wider block">
               Head Range
             </span>
-            <span className="font-black text-slate-900 text-xs block truncate font-mono">
-              {pump.headRange || 'Standard'}
+            <span className="font-black text-slate-900 text-[11px] sm:text-xs block font-mono">
+              {pump.headRange ? pump.headRange.replace(/Mtr|Meters/gi, 'm').replace(/\s*-\s*/g, '–') : 'Standard'}
             </span>
           </div>
 
           {/* Flow */}
-          <div className="space-y-0.5 border-r border-slate-200 px-1">
+          <div className="space-y-0.5 border-r border-slate-200/80 px-1">
             <span className="text-[9px] uppercase font-black text-sky-600 tracking-wider block">
               Max Flow
             </span>
-            <span className="font-black text-slate-900 text-xs block truncate font-mono">
-              {pump.dischargeRange || 'High LPM'}
+            <span className="font-black text-slate-900 text-[11px] sm:text-xs block font-mono">
+              {pump.dischargeRange ? pump.dischargeRange.replace(/LPM/gi, '').trim() + ' LPM' : 'High LPM'}
             </span>
           </div>
 
@@ -107,7 +107,7 @@ export const PumpCard: React.FC<PumpCardProps> = ({ pump }) => {
             <span className="text-[9px] uppercase font-black text-emerald-600 tracking-wider block">
               Stages
             </span>
-            <span className="font-black text-slate-900 text-xs block truncate font-mono">
+            <span className="font-black text-slate-900 text-[11px] sm:text-xs block font-mono">
               {pump.stages} STG
             </span>
           </div>

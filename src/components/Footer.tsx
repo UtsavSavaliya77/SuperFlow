@@ -190,7 +190,7 @@ export const Footer: React.FC = () => {
           </div>
 
           <div className=" text-slate-600 font-bold">
-            Designed & Developed by <a href='https://digi-trend.com/' target='_blank'>digi-trend.com</a>
+            Designed & Developed by <a href='https://digi-trend.com/' target='_blank' className='underline'>digi-trend.com</a>
           </div>
         </div>
 

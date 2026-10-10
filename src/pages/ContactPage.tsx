@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { COMPANY_INFO } from '../data/pumpsData';
+import { COMPANY_INFO, CATEGORIES } from '../data/pumpsData';
 import { 
   MapPin, 
   Phone, 
   Mail, 
-  Globe, 
   Send, 
   CheckCircle2, 
   Building2,
-  Leaf,
-  Droplet,
-  ChevronRight
+  ChevronRight,
+  ShieldCheck,
+  Award,
+  Factory,
+  Check,
+  Clock,
+  ExternalLink
 } from 'lucide-react';
 import { WhatsAppButton } from '../components/WhatsAppButton';
 import RevealOnScroll from '../components/RevealOnScroll';
@@ -24,7 +27,7 @@ export const ContactPage: React.FC = () => {
     city: '',
     state: '',
     inquiryType: 'dealership',
-    pumpModel: '',
+    category: 'V-4',
     message: ''
   });
 
@@ -33,262 +36,331 @@ export const ContactPage: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
+    
+    // Construct WhatsApp message with user-filled details
+    const text = `*New SuperFlow Factory Inquiry*\n` +
+      `--------------------------\n` +
+      `*Name:* ${formData.name}\n` +
+      `*Phone:* ${formData.phone}\n` +
+      `*Email:* ${formData.email || 'N/A'}\n` +
+      `*Location:* ${formData.city}, ${formData.state}\n` +
+      `*Inquiry Type:* ${formData.inquiryType}\n` +
+      `*Interested Category:* ${formData.category}\n` +
+      `*Message:* ${formData.message || 'Please share catalog & dealership terms.'}`;
+
+    const waUrl = `https://wa.me/${COMPANY_INFO.phoneClean}?text=${encodeURIComponent(text)}`;
+    window.open(waUrl, '_blank');
   };
 
   return (
-    <div className="space-y-16 sm:space-y-20 lg:space-y-24 pb-16 sm:pb-20 lg:pb-24">
+    <div className="space-y-16 sm:space-y-20 lg:space-y-24 pb-16 sm:pb-24">
       
-      {/* Full-Bleed Cinematic Hero Header Section */}
-      <section className="relative bg-[#080d16] text-white border-b border-slate-800 overflow-hidden w-full">
-        {/* Background Image with Solid Dark Overlay */}
+      {/* 1. Cinematic Hero Header Section */}
+      <section className="relative bg-[#080d16] text-white border-b-2 border-red-600 overflow-hidden w-full">
         <img
           src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2000&q=80"
-          alt="Royal Manufacture SuperFlow Corporate Headquarters & Plant"
-          className="absolute inset-0 w-full h-full object-cover object-center opacity-25 pointer-events-none"
+          alt="Royal Manufacture Corporate Headquarters"
+          className="absolute inset-0 w-full h-full object-cover object-center opacity-20 pointer-events-none"
         />
         <div className="absolute inset-0 bg-[#080d16]/85 pointer-events-none" />
 
-        {/* Top Accent Line flush with fixed header */}
-        <div className="absolute top-0 left-0 right-0 h-1 bg-red-600 shadow-[0_0_12px_rgba(220,38,38,0.8)]" />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 relative z-10 space-y-4 max-w-3xl">
-          {/* Breadcrumb Navigation */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 relative z-10 space-y-4 max-w-4xl">
           <nav className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-400">
             <Link to="/" className="hover:text-red-400 transition-colors">Home</Link>
             <ChevronRight className="w-3.5 h-3.5 text-slate-600" />
             <span className="text-white font-bold">Contact Us</span>
           </nav>
 
-          <span className="text-red-400 font-black text-xs uppercase tracking-widest block">
-            Royal Manufacture • Submersible Pumps Factory Rajkot
-          </span>
-
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white">
-            Contact & Inquiry
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white font-sans">
+            Connect with SuperFlow Factory
           </h1>
 
           <p className="text-slate-300 text-sm sm:text-base leading-relaxed font-normal">
-            Connect directly with the Royal Manufacture sales and technical engineering team for bulk orders, price quotations, and authorized dealership inquiries across India.
+            Connect directly with Royal Manufacture sales and technical engineering representatives for authorized dealerships, wholesale pricing, price quotations, and government tender inquiries.
           </p>
         </div>
       </section>
 
-      {/* Main Content Area */}
+      {/* 2. Main Dual-Column Contact & Inquiry Portal */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-stretch">
-          {/* Contact Info & Factory Location */}
-          <div className="lg:col-span-5 h-full">
-            <RevealOnScroll animation="fade-right" className="h-full">
-              <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-7 lg:p-9 border border-slate-200 shadow-sm space-y-6 h-full flex flex-col justify-between">
-                <div>
-                  <h3 className="text-xl font-black text-slate-900 mb-6">
-                    Factory & Headquarters
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          {/* Left Column: Factory Information & Direct Touchpoints */}
+          <div className="lg:col-span-5 space-y-6">
+            <RevealOnScroll animation="fade-right">
+              <div className="bg-white rounded-3xl p-6 sm:p-8 border-2 border-slate-300 shadow-lg space-y-6">
+                
+                <div className="border-b border-slate-200 pb-4">
+                  <span className="text-xs font-black uppercase tracking-widest text-red-600 block mb-1">
+                    Direct Contact
+                  </span>
+                  <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                    Plant & Corporate Office
                   </h3>
+                </div>
 
-                  <div className="space-y-5 text-sm">
-                    <div className="flex items-start gap-3.5">
-                      <div className="w-10 h-10 rounded-xl bg-red-50 text-red-600 flex items-center justify-center shrink-0 border border-red-100">
-                        <Building2 className="w-5 h-5" />
-                      </div>
-                      <div>
-                        <span className="text-xs font-bold uppercase text-slate-400 block">Manufacturer</span>
-                        <span className="font-extrabold text-slate-900">{COMPANY_INFO.parentCompany}</span>
-                        <p className="text-slate-600 text-xs mt-0.5 font-medium">Brand: {COMPANY_INFO.name}</p>
+                <div className="space-y-5 text-sm">
+                  {/* Manufacturer Info */}
+                  <div className="flex items-start gap-3.5">
+                    <div className="w-11 h-11 rounded-2xl bg-red-50 text-red-600 border-2 border-red-200 flex items-center justify-center shrink-0">
+                      <Building2 className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 block">Manufacturer</span>
+                      <span className="font-extrabold text-slate-900 text-base">{COMPANY_INFO.parentCompany}</span>
+                      <p className="text-slate-600 text-xs mt-0.5 font-medium">Brand: {COMPANY_INFO.name} Submersible Pumps</p>
+                    </div>
+                  </div>
+
+                  {/* Address */}
+                  <div className="flex items-start gap-3.5">
+                    <div className="w-11 h-11 rounded-2xl bg-red-50 text-red-600 border-2 border-red-200 flex items-center justify-center shrink-0">
+                      <MapPin className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 block">Plant Location</span>
+                      <p className="font-bold text-slate-800 text-xs sm:text-sm leading-relaxed">{COMPANY_INFO.address}</p>
+                    </div>
+                  </div>
+
+                  {/* Phone */}
+                  <div className="flex items-start gap-3.5">
+                    <div className="w-11 h-11 rounded-2xl bg-emerald-50 text-emerald-600 border-2 border-emerald-200 flex items-center justify-center shrink-0">
+                      <Phone className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 block">Sales Desk Hotline</span>
+                      <a
+                        href={`tel:${COMPANY_INFO.phoneClean}`}
+                        className="font-black text-slate-900 hover:text-red-600 transition-colors text-base font-mono block"
+                      >
+                        {COMPANY_INFO.phone}
+                      </a>
+                      <div className="flex items-center gap-1.5 text-slate-500 text-xs mt-0.5">
+                        <Clock className="w-3.5 h-3.5 text-slate-400" />
+                        <span>Mon – Sat: 9:00 AM – 7:00 PM</span>
                       </div>
                     </div>
+                  </div>
 
-                    <div className="flex items-start gap-3.5">
-                      <div className="w-10 h-10 rounded-xl bg-red-50 text-red-600 flex items-center justify-center shrink-0 border border-red-100">
-                        <MapPin className="w-5 h-5" />
-                      </div>
-                      <div>
-                        <span className="text-xs font-bold uppercase text-slate-400 block">Plant Location</span>
-                        <p className="font-bold text-slate-800 text-xs sm:text-sm">{COMPANY_INFO.address}</p>
-                      </div>
+                  {/* Email */}
+                  <div className="flex items-start gap-3.5">
+                    <div className="w-11 h-11 rounded-2xl bg-sky-50 text-sky-600 border-2 border-sky-200 flex items-center justify-center shrink-0">
+                      <Mail className="w-5 h-5" />
                     </div>
-
-                    <div className="flex items-start gap-3.5">
-                      <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 border border-emerald-100">
-                        <Phone className="w-5 h-5" />
-                      </div>
-                      <div>
-                        <span className="text-xs font-bold uppercase text-slate-400 block">Customer Care Desk</span>
-                        <a
-                          href={`tel:${COMPANY_INFO.phoneClean}`}
-                          className="font-black text-slate-900 hover:text-red-600 transition-colors text-base"
-                        >
-                          {COMPANY_INFO.phone}
-                        </a>
-                        <p className="text-[11px] text-slate-500 font-medium">Mon - Sat: 9:00 AM - 7:00 PM</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-3.5">
-                      <div className="w-10 h-10 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center shrink-0 border border-sky-100">
-                        <Mail className="w-5 h-5" />
-                      </div>
-                      <div>
-                        <span className="text-xs font-bold uppercase text-slate-400 block">Official Sales Email</span>
-                        <a
-                          href={`mailto:${COMPANY_INFO.email}`}
-                          className="font-bold text-slate-800 hover:text-red-600 text-xs sm:text-sm break-all"
-                        >
-                          {COMPANY_INFO.email}
-                        </a>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-3.5">
-                      <div className="w-10 h-10 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center shrink-0 border border-slate-200">
-                        <Globe className="w-5 h-5" />
-                      </div>
-                      <div>
-                        <span className="text-xs font-bold uppercase text-slate-400 block">Official Portal</span>
-                        <span className="font-bold text-slate-800 text-xs sm:text-sm">{COMPANY_INFO.website}</span>
-                      </div>
+                    <div>
+                      <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 block">Official Email</span>
+                      <a
+                        href={`mailto:${COMPANY_INFO.email}`}
+                        className="font-bold text-slate-800 hover:text-red-600 text-xs sm:text-sm break-all transition-colors block"
+                      >
+                        {COMPANY_INFO.email}
+                      </a>
                     </div>
                   </div>
                 </div>
 
-                <div className="pt-6 border-t border-slate-100">
-                  <WhatsAppButton text="Chat on WhatsApp Now" className="w-full py-3" />
+                {/* Instant WhatsApp Quick Button */}
+                <div className="pt-4 border-t border-slate-100">
+                  <WhatsAppButton
+                    text="Chat on WhatsApp"
+                    className="w-full py-3 rounded-2xl text-xs sm:text-sm shadow-md"
+                  />
                 </div>
+
               </div>
             </RevealOnScroll>
           </div>
 
-          {/* Inquiry Form */}
-          <div className="lg:col-span-7 h-full">
-            <RevealOnScroll animation="fade-left" className="h-full">
-              <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-7 lg:p-9 border border-slate-200 shadow-sm space-y-6 h-full">
-                <div>
-                  <span className="text-red-600 font-black text-xs uppercase tracking-widest block mb-1">
-                    Direct Submission
+          {/* Right Column: High-Converting Dealership & RFQ Form */}
+          <div className="lg:col-span-7">
+            <RevealOnScroll animation="fade-left">
+              <div className="bg-white rounded-3xl p-6 sm:p-8 lg:p-10 border-2 border-slate-300 shadow-xl space-y-6">
+                
+                <div className="border-b border-slate-200 pb-4">
+                  <span className="text-xs font-black uppercase tracking-widest text-red-600 block mb-1">
+                    Send Inquiry
                   </span>
-                  <h3 className="text-2xl font-black text-slate-900">
-                    Send Inquiry or Apply for Dealership
+                  <h3 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+                    Dealership & Quotation Request
                   </h3>
+                  <p className="text-xs text-slate-500 mt-1">
+                    Fill out the form below for immediate response from our Padvala sales engineering team.
+                  </p>
                 </div>
 
                 {submitted ? (
-                  <div className="p-8 text-center bg-emerald-50 rounded-2xl border border-emerald-200 space-y-3">
-                    <CheckCircle2 className="w-12 h-12 text-emerald-600 mx-auto" />
-                    <h4 className="text-xl font-bold text-slate-900">Inquiry Received Successfully!</h4>
-                    <p className="text-slate-600 text-xs sm:text-sm max-w-md mx-auto">
-                      Thank you for contacting Royal Manufacture (SuperFlow). Our Rajkot sales desk will reach out to you within 24 business hours.
+                  <div className="text-center py-12 bg-emerald-50 rounded-2xl border-2 border-emerald-200 p-8 space-y-4">
+                    <div className="w-14 h-14 rounded-full bg-emerald-600 text-white flex items-center justify-center mx-auto shadow-lg">
+                      <Check className="w-8 h-8" />
+                    </div>
+                    <h4 className="text-2xl font-black text-emerald-900">Inquiry Initiated!</h4>
+                    <p className="text-xs sm:text-sm text-emerald-700 max-w-md mx-auto">
+                      Your inquiry details have been formatted for our WhatsApp sales desk. If WhatsApp did not open automatically, click the button below:
                     </p>
-                    <button
-                      onClick={() => setSubmitted(false)}
-                      className="px-5 py-2 text-xs font-bold text-emerald-800 bg-emerald-100 hover:bg-emerald-200 rounded-lg transition-colors"
-                    >
-                      Submit Another Inquiry
-                    </button>
+                    <WhatsAppButton
+                      text="Open WhatsApp Desk"
+                      className="py-3 px-6 rounded-xl"
+                    />
                   </div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="space-y-4 text-xs sm:text-sm">
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    
+                    {/* Inquiry Type Radio / Pill Selector */}
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-black text-slate-900 uppercase tracking-wider block">
+                        Nature of Inquiry
+                      </label>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                        {[
+                          { id: 'dealership', label: 'Dealership Application' },
+                          { id: 'wholesale', label: 'Wholesale / Bulk Order' },
+                          { id: 'technical', label: 'Technical Spec / Sizing' },
+                        ].map((t) => (
+                          <button
+                            type="button"
+                            key={t.id}
+                            onClick={() => setFormData({ ...formData, inquiryType: t.id })}
+                            className={`p-2.5 rounded-xl text-xs font-bold border-2 transition-all cursor-pointer text-center ${
+                              formData.inquiryType === t.id
+                                ? 'bg-slate-900 text-white border-red-600 shadow-md'
+                                : 'bg-slate-50 text-slate-700 border-slate-200 hover:border-slate-300'
+                            }`}
+                          >
+                            {t.label}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Name & Phone Grid */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block font-bold text-slate-700 mb-1">Your Full Name *</label>
+                      <div className="space-y-1.5">
+                        <label className="text-xs font-black text-slate-900 uppercase tracking-wider block">
+                          Full Name *
+                        </label>
                         <input
                           type="text"
                           required
                           value={formData.name}
                           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          placeholder="e.g. Ramesh Patel"
-                          className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-slate-800 focus:outline-none focus:ring-2 focus:ring-red-500"
+                          placeholder="Your Name / Business Name"
+                          className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-4 py-2.5 text-xs sm:text-sm font-medium text-slate-900 focus:outline-none focus:border-red-600"
                         />
                       </div>
 
-                      <div>
-                        <label className="block font-bold text-slate-700 mb-1">Contact Phone Number *</label>
+                      <div className="space-y-1.5">
+                        <label className="text-xs font-black text-slate-900 uppercase tracking-wider block">
+                          Mobile Number *
+                        </label>
                         <input
                           type="tel"
                           required
                           value={formData.phone}
                           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                           placeholder="+91 98765 43210"
-                          className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-slate-800 focus:outline-none focus:ring-2 focus:ring-red-500"
+                          className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-4 py-2.5 text-xs sm:text-sm font-medium text-slate-900 focus:outline-none focus:border-red-600 font-mono"
                         />
                       </div>
                     </div>
 
+                    {/* Email & Interested Category */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block font-bold text-slate-700 mb-1">Email Address</label>
+                      <div className="space-y-1.5">
+                        <label className="text-xs font-black text-slate-900 uppercase tracking-wider block">
+                          Email Address
+                        </label>
                         <input
                           type="email"
                           value={formData.email}
                           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          placeholder="name@company.com"
-                          className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-slate-800 focus:outline-none focus:ring-2 focus:ring-red-500"
+                          placeholder="name@example.com"
+                          className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-4 py-2.5 text-xs sm:text-sm font-medium text-slate-900 focus:outline-none focus:border-red-600"
                         />
                       </div>
 
-                      <div>
-                        <label className="block font-bold text-slate-700 mb-1">City & State *</label>
+                      <div className="space-y-1.5">
+                        <label className="text-xs font-black text-slate-900 uppercase tracking-wider block">
+                          Interested Category
+                        </label>
+                        <select
+                          value={formData.category}
+                          onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                          className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-bold text-slate-900 focus:outline-none focus:border-red-600"
+                        >
+                          <option value="V-4">4" V-4 Submersible Pumps</option>
+                          <option value="V-6">6" V-6 Heavy Duty Pumps</option>
+                          <option value="V-3">3" V-3 Slim Borewell Series</option>
+                          <option value="Openwell">Openwell Submersible Series</option>
+                          <option value="All">All Categories / Complete Spectrum</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    {/* City & State Grid */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="space-y-1.5">
+                        <label className="text-xs font-black text-slate-900 uppercase tracking-wider block">
+                          City / District *
+                        </label>
                         <input
                           type="text"
                           required
                           value={formData.city}
                           onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                          placeholder="e.g. Rajkot, Gujarat"
-                          className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-slate-800 focus:outline-none focus:ring-2 focus:ring-red-500"
+                          placeholder="e.g. Rajkot, Jaipur, Pune"
+                          className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-4 py-2.5 text-xs sm:text-sm font-medium text-slate-900 focus:outline-none focus:border-red-600"
                         />
                       </div>
-                    </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block font-bold text-slate-700 mb-1">Inquiry Purpose *</label>
-                        <select
-                          value={formData.inquiryType}
-                          onChange={(e) => setFormData({ ...formData, inquiryType: e.target.value })}
-                          className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-slate-800 font-bold focus:outline-none focus:ring-2 focus:ring-red-500"
-                        >
-                          <option value="dealership">New Dealership / Distributorship</option>
-                          <option value="bulk-quotation">Bulk Commercial Quotation</option>
-                          <option value="retail-purchase">Individual Retail Purchase</option>
-                          <option value="technical-support">Technical & Spare Parts Support</option>
-                        </select>
-                      </div>
-
-                      <div>
-                        <label className="block font-bold text-slate-700 mb-1">Pump Series of Interest</label>
+                      <div className="space-y-1.5">
+                        <label className="text-xs font-black text-slate-900 uppercase tracking-wider block">
+                          State *
+                        </label>
                         <input
                           type="text"
-                          value={formData.pumpModel}
-                          onChange={(e) => setFormData({ ...formData, pumpModel: e.target.value })}
-                          placeholder="e.g. V-4 Turbo, V-6 Mix Flow, Openwell"
-                          className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-slate-800 focus:outline-none focus:ring-2 focus:ring-red-500"
+                          required
+                          value={formData.state}
+                          onChange={(e) => setFormData({ ...formData, state: e.target.value })}
+                          placeholder="e.g. Gujarat, Rajasthan, MP"
+                          className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-4 py-2.5 text-xs sm:text-sm font-medium text-slate-900 focus:outline-none focus:border-red-600"
                         />
                       </div>
                     </div>
 
-                    <div>
-                      <label className="block font-bold text-slate-700 mb-1">Message / Requirements</label>
+                    {/* Message Box */}
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-black text-slate-900 uppercase tracking-wider block">
+                        Inquiry Details / Borewell Depth
+                      </label>
                       <textarea
-                        rows={4}
+                        rows={3}
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        placeholder="Provide details about your borehole depth, required flow LPM, or current business dealership details..."
-                        className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-slate-800 focus:outline-none focus:ring-2 focus:ring-red-500"
+                        placeholder="Specify borewell depth, required HP, flow discharge, or dealership location..."
+                        className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl p-3 text-xs sm:text-sm font-medium text-slate-900 focus:outline-none focus:border-red-600"
                       />
                     </div>
 
+                    {/* Submit Button */}
                     <button
                       type="submit"
-                      className="w-full py-3.5 px-6 bg-red-600 hover:bg-red-700 text-white font-black rounded-xl shadow-lg shadow-red-600/25 transition-all flex items-center justify-center gap-2 hover:scale-[1.01] cursor-pointer"
+                      className="w-full py-3.5 rounded-2xl bg-red-600 hover:bg-red-700 text-white font-black text-sm shadow-xl shadow-red-600/30 transition-all hover:scale-[1.01] flex items-center justify-center gap-2 cursor-pointer"
                     >
                       <Send className="w-4 h-4" />
-                      <span>Submit Inquiry to Royal Manufacture</span>
+                      <span>Submit Inquiry</span>
                     </button>
+
                   </form>
                 )}
+
               </div>
             </RevealOnScroll>
           </div>
+
         </div>
       </div>
+
     </div>
   );
 };
