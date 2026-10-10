@@ -71,7 +71,7 @@ export const AboutPage: React.FC = () => {
         />
         <div className="absolute inset-0 bg-[#080d16]/85 pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 relative z-10 space-y-4 max-w-4xl">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 relative z-10 space-y-4">
           <nav className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-400">
             <Link to="/" className="hover:text-red-400 transition-colors">Home</Link>
             <ChevronRight className="w-3.5 h-3.5 text-slate-600" />

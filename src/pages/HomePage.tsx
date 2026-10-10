@@ -341,7 +341,7 @@ export const HomePage: React.FC = () => {
     <div className="space-y-16 sm:space-y-20 lg:space-y-24 pb-16 sm:pb-24 overflow-x-hidden w-full max-w-full">
       
       {/* 1. Cinematic Hero Command Center */}
-      <section className="relative overflow-hidden w-full min-h-[580px] sm:min-h-[640px] flex items-center justify-center text-white border-b-2 border-red-600 bg-[#080d16]">
+      <section className="relative overflow-hidden w-full min-h-145 sm:min-h-160 flex items-center justify-center text-white border-b-2 border-red-600 bg-[#080d16]">
         {/* Background Video Layer */}
         <video
           autoPlay
@@ -494,7 +494,7 @@ export const HomePage: React.FC = () => {
                       </span>
                     </div>
 
-                    <div className="my-4 relative flex items-center justify-center min-h-[190px] w-full">
+                    <div className="my-4 relative flex items-center justify-center min-h-47.5 w-full">
                       <img
                         src={div.image}
                         alt={div.title}
@@ -508,7 +508,7 @@ export const HomePage: React.FC = () => {
                         <span className="text-[9px] uppercase font-bold text-slate-400 block">Max Head</span>
                         <span className="text-xs font-black text-slate-900 font-mono block">{div.headMax.split(' ')[2]}m</span>
                       </div>
-                      <div className="h-5 w-[1px] bg-slate-200" />
+                      <div className="h-5 w-px bg-slate-200" />
                       <div>
                         <span className="text-[9px] uppercase font-bold text-slate-400 block">Peak Flow</span>
                         <span className="text-xs font-black text-emerald-600 font-mono block">{div.flowMax.split(' ')[2]} LPM</span>
@@ -769,7 +769,7 @@ export const HomePage: React.FC = () => {
               const IconComponent = sec.icon;
               return (
                 <RevealOnScroll key={sec.id} animation="fade-up" delay={idx * 80}>
-                  <div className="bg-[#080d16] rounded-3xl overflow-hidden border-2 border-slate-800 shadow-xl relative min-h-[460px] flex flex-col justify-between p-6 text-white group">
+                  <div className="bg-[#080d16] rounded-3xl overflow-hidden border-2 border-slate-800 shadow-xl relative min-h-115 flex flex-col justify-between p-6 text-white group">
                     <img
                       src={sec.image}
                       alt={sec.title}

@@ -75,7 +75,7 @@ export const FloatingActions: React.FC = () => {
         <WhatsAppIcon className="w-6 h-6 text-white" />
 
         {/* Floating Tooltip Pill on desktop */}
-        <span className="absolute right-full mr-3 px-3 py-1.5 bg-[#080d16] text-white text-xs font-bold rounded-xl shadow-xl opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap border border-slate-700 flex items-center gap-1.5 hidden sm:flex">
+        <span className="absolute right-full mr-3 px-3 py-1.5 bg-[#080d16] text-white text-xs font-bold rounded-xl shadow-xl opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap border border-slate-700 items-center gap-1.5 hidden sm:flex">
           <span className="w-2 h-2 rounded-full bg-[#25D366] animate-pulse" />
           Chat on WhatsApp
         </span>

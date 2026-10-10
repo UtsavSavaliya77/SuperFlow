@@ -204,7 +204,7 @@ export const QualityPage: React.FC = () => {
         />
         <div className="absolute inset-0 bg-[#080d16]/85 pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 relative z-10 space-y-4 max-w-4xl">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 relative z-10 space-y-4">
           <nav className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-400">
             <Link to="/" className="hover:text-red-400 transition-colors">Home</Link>
             <ChevronRight className="w-3.5 h-3.5 text-slate-600" />
@@ -267,11 +267,11 @@ export const QualityPage: React.FC = () => {
                   </div>
 
                   {/* Direct Certificate Image Showcase Frame */}
-                  <div className="my-4 relative bg-slate-100 rounded-2xl p-3 sm:p-4 border-2 border-slate-200 group-hover:border-emerald-300 transition-all flex items-center justify-center min-h-[320px] sm:min-h-[380px] overflow-hidden">
+                  <div className="my-4 relative bg-slate-100 rounded-2xl p-3 sm:p-4 border-2 border-slate-200 group-hover:border-emerald-300 transition-all flex items-center justify-center min-h-80 sm:min-h-95 overflow-hidden">
                     <img
                       src={cert.image}
                       alt={cert.fullName}
-                      className="max-h-[300px] sm:max-h-[360px] w-full object-contain rounded-lg shadow-md group-hover:scale-105 transition-transform duration-500"
+                      className="max-h-75 sm:max-h-90 w-full object-contain rounded-lg shadow-md group-hover:scale-105 transition-transform duration-500"
                     />
 
                     {/* Hover Overlay Pill */}

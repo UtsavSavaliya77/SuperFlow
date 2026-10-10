@@ -149,7 +149,7 @@ export const ProductsPage: React.FC = () => {
     <div className="space-y-12 sm:space-y-16 pb-16 sm:pb-24">
       
       {/* Full-Bleed Cinematic Hero Header Section */}
-      <section className="relative bg-[#080d16] text-white border-b border-slate-800 overflow-hidden w-full">
+      <section className="relative bg-[#080d16] text-white border-b-2 border-red-600 overflow-hidden w-full">
         <img
           src="https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?auto=format&fit=crop&w=2000&q=80"
           alt="SuperFlow Submersible Pumps Precision Engineering"
@@ -158,7 +158,7 @@ export const ProductsPage: React.FC = () => {
         <div className="absolute inset-0 bg-[#080d16]/85 pointer-events-none" />
         {/* <div className="absolute top-0 left-0 right-0 h-1 bg-red-600 shadow-[0_0_12px_rgba(220,38,38,0.8)]" /> */}
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 relative z-10 space-y-4 max-w-4xl">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 relative z-10 space-y-4">
           <nav className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-400">
             <Link to="/" className="hover:text-red-400 transition-colors">Home</Link>
             <ChevronRight className="w-3.5 h-3.5 text-slate-600" />
