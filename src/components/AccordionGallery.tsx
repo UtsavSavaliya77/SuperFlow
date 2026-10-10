@@ -36,6 +36,8 @@ export interface AccordionGalleryProps {
   trigger?: 'hover' | 'click';
   showLabels?: boolean;
   grayscale?: boolean;
+  autoplay?: boolean;
+  autoplayInterval?: number;
   className?: string;
 }
 
@@ -58,6 +60,8 @@ export const AccordionGallery: React.FC<AccordionGalleryProps> = ({
   trigger = 'hover',
   showLabels = true,
   grayscale = false,
+  autoplay = true,
+  autoplayInterval = 4000,
   className = ''
 }) => {
   const rootRef = useRef<HTMLDivElement | null>(null);
@@ -72,11 +76,23 @@ export const AccordionGallery: React.FC<AccordionGalleryProps> = ({
   const vertical = orientation === 'vertical';
   const count = items.length;
   const [active, setActive] = useState<number>(Math.min(Math.max(defaultIndex, 0), count - 1));
+  const [isPaused, setIsPaused] = useState<boolean>(false);
 
   const prefersReduced =
     typeof window !== 'undefined' && window.matchMedia
       ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
       : false;
+
+  // Auto Animation / Autoplay Loop
+  useEffect(() => {
+    if (!autoplay || isPaused || count <= 1 || prefersReduced) return;
+
+    const timer = setInterval(() => {
+      setActive((prev) => (prev + 1) % count);
+    }, autoplayInterval);
+
+    return () => clearInterval(timer);
+  }, [autoplay, isPaused, count, autoplayInterval, prefersReduced]);
 
   const applyLayout = useCallback(
     (animate: boolean) => {
@@ -245,6 +261,8 @@ export const AccordionGallery: React.FC<AccordionGalleryProps> = ({
         '--ag-radius': `${radius}px`,
         height: vertical ? `${Math.round(height * 1.6)}px` : `${height}px`
       } as React.CSSProperties}
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
       role="list"
       aria-label="Interactive sector gallery"
     >

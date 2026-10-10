@@ -756,6 +756,8 @@ export const HomePage: React.FC = () => {
               parallax={0.4}
               tilt={5}
               grayscale={false}
+              autoplay={true}
+              autoplayInterval={4000}
             />
           </RevealOnScroll>
         </div>
